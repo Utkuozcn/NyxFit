@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#143250">
-<title>CoachMe — Kanıta Dayalı Antrenman Motoru</title>
+<title> Nyxfit - Kişisel Koçunuz </title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -528,7 +528,7 @@ textarea.notes:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,12
     <div class="logo" id="homeBtn">
       <svg viewBox="0 0 24 24" fill="none"><path d="M6.5 6.5v11M17.5 6.5v11M6.5 12h11M3.5 9v6M20.5 9v6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
     </div>
-    <div class="brand"><b>CoachMe</b><span>Kanıta Dayalı Motor</span></div>
+    <div class="brand"><b>Nyxfit</b><span>Kişisel Koçunuz</span></div>
     <button class="iconbtn" id="themeBtn" title="Tema değiştir" aria-label="Koyu/açık tema">
       <svg id="themeIcon" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
     </button>
@@ -560,7 +560,7 @@ textarea.notes:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,12
 
 <script>
 /* ======================================================================
-   CoachMe — Kanıta Dayalı Antrenman & Beslenme Motoru
+   Nyxfit — Kişisel Koçunuz & Beslenme Uzmanınız
    Tüm karar kuralları bilimsel literatüre dayanır (bkz. CITATIONS).
    ====================================================================== */
 "use strict";
@@ -1609,7 +1609,7 @@ function buildReportHTML(){
   <div class="pg">
     <div class="r-head">
       <h1>Kişiye Özel Antrenman &amp; Beslenme Programı</h1>
-      <div class="prep"><b>Hazırlayan</b><span>CoachMe</span><span>Tarih: ${today}</span></div>
+      <div class="prep"><b>Hazırlayan</b><span>Nyxfit</span><span>Tarih: ${today}</span></div>
     </div>
 
     <div class="row3">
@@ -1701,7 +1701,7 @@ function buildReportHTML(){
       <div class="motto">Disiplin, doğru plan ve istikrarla vücut değişir. <span>Bugün verdiğin emek yarın senin gücün olur.</span></div>
       <div class="sig"><b>${d.name?escapeHtml(d.name):"Danışan"}</b>${R.goal.name} · ${d.days} gün / hafta</div>
     </div>
-    <div class="pageno">CoachMe · Sayfa 1/${totalPages} — Profil &amp; Beslenme</div>
+    <div class="pageno">Nyxfit · Sayfa 1/${totalPages} — Profil &amp; Beslenme</div>
   </div>`;
 
   const trackBlock=`
@@ -1725,8 +1725,8 @@ function buildReportHTML(){
       </div>
       <div class="days-grid">${ch.items.map((day,j)=>dayCard(day,ch.start+j)).join("")}</div>
       ${isLast?trackBlock:""}
-      <div class="pageno">CoachMe · Sayfa ${2+ci}/${totalPages} — Antrenman${isLast?" &amp; Takip":""}</div>
-    </div>`;
+      <div class="pageno">Nyxfit · Sayfa ${2+ci}/${totalPages} — Antrenman${isLast?" &amp; Takip":""}</div>
+    </div
   }).join("");
 
   return page1+trainingPages;
@@ -1760,7 +1760,7 @@ async function downloadPDF(){
       const x=(pw-w)/2, y=Math.max(0,(ph-h)/2);
       pdf.addImage(img,"JPEG",x,y,w,h);
     }
-    const fname="CoachMe_Program_"+(d0name())+".pdf";
+    const fname="Nyxfit_Program_"+(d0name())+".pdf";
     pdf.save(fname);
     loading.classList.remove("show");
     toast("PDF indirildi: "+fname);
@@ -1774,7 +1774,7 @@ async function downloadPDF(){
 function d0name(){const n=(S.data.name||"Danisan").replace(/[^a-zA-Z0-9ğüşöçıİĞÜŞÖÇ]/g,"_").replace(/_+/g,"_");return n.slice(0,24);}
 
 function printFallback(){
-  const html=`<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>CoachMe Program</title>
+  const html=`<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Nyxfit Program</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>${document.querySelector("style").textContent}
   body{background:#fff;display:block;padding:0}#report{margin:0 auto}@media print{@page{size:A4;margin:0}#report .pg{page-break-after:always}}</style></head>
