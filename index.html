@@ -362,7 +362,7 @@ textarea.notes:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,12
 
 /* helper */
 .hidden{display:none!important}
-.report-host{position:fixed;left:-99999px;top:0;width:1123px;background:#fff}
+.report-host{position:fixed;left:-99999px;top:0;width:794px;background:#fff}
 
 /* ---- strateji / ağırlık rehberi / kardiyo (app) ---- */
 .rhero .rstrategy{display:flex;align-items:flex-start;gap:7px;margin-top:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#e4eef7;padding:9px 12px;border-radius:12px;font-size:11.5px;font-weight:500;line-height:1.45;position:relative}
@@ -427,6 +427,48 @@ textarea.notes:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,12
 #report .roptbadge{font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#8f1a2b;background:#f2dee1;padding:0 4px;border-radius:4px;margin-left:4px;vertical-align:1px}
 #report .extbl .exname{display:flex;align-items:center;flex-wrap:wrap;gap:0}
 
+/* --- yatay takip sayfası + kompakt/dinamik antrenman --- */
+#report{overflow:visible}
+#report .pg-land{width:1123px;height:794px;padding:14px 26px;overflow:hidden}
+#report .pg-land .r-head-red{background:#8f1a2b}
+#report .pg-land .r-head-red .prep b,#report .pg-land .r-head-red .prep span{color:#ffe1e6}
+#report .pg-land .r-head h1{font-size:22px}
+#report .pg-land .r-head{margin-bottom:7px;padding:7px 22px}
+#report .cardio-box{margin-bottom:12px}
+/* takip tablosu: kırmızı başlık + kılavuz çizgileri (yatay) */
+#report table.track th{background:#8f1a2b}
+#report .pg-land table.track{margin-top:8px}
+#report .pg-land table.track th{background:#8f1a2b;color:#fff;font-size:13px;padding:12px 6px;letter-spacing:.6px}
+#report .pg-land table.track th.mh{text-align:left;padding-left:14px}
+#report .pg-land table.track td{padding:0 8px;height:72px;vertical-align:middle}
+#report .pg-land .track-wrap{width:100%}
+#report .pg-land table.track{width:100%;border-collapse:collapse}
+#report .pg-land .r-foot{margin-top:8px;padding-top:8px}
+#report .pg-land .r-evidence{margin-top:7px;font-size:8px;line-height:1.35}
+#report .pg-land table.track td.rl{font-size:14.5px;padding-left:16px}
+#report table.track td .gl{display:block;width:70%;margin:0 auto;border-bottom:1.7px solid #bcbcbc;height:26px}
+#report .track-foot{justify-content:flex-end;border-top:2px solid #8f1a2b;margin-top:6px;padding-top:6px}
+#report .pg-land .r-evidence{margin-top:12px;font-size:9px}
+/* dinamik gün kartı boyutları */
+#report .days-grid.sz-lg .daycol .dc-h{font-size:15px;padding:11px 14px}
+#report .days-grid.sz-lg table.extbl th{font-size:9.5px;padding:8px 12px 5px}
+#report .days-grid.sz-lg table.extbl td{font-size:12.5px;padding:8px 12px}
+#report .days-grid.sz-lg table.extbl td.c{font-size:13px}
+#report .days-grid.sz-lg .extbl .exd{font-size:9.5px}
+#report .days-grid.sz-lg .extbl .exa{font-size:9.5px}
+#report .days-grid.sz-lg .daycol .dc-f{font-size:11px;padding:9px 14px}
+#report .days-grid.sz-lg table.extbl td.c .ld{font-size:9px}
+#report .days-grid.sz-md .daycol .dc-h{font-size:13px;padding:9px 12px}
+#report .days-grid.sz-md table.extbl td{font-size:10.5px;padding:5.5px 9px}
+#report .days-grid.sz-md table.extbl td.c{font-size:11.5px}
+#report .days-grid.sz-md .extbl .exd{font-size:8.3px}
+#report .days-grid.sz-md .extbl .exa{font-size:8.3px}
+#report .days-grid.sz-sm table.extbl td{font-size:9.3px;padding:3.5px 7px}
+#report .days-grid.sz-sm .daycol .dc-h{font-size:11px;padding:6px 10px}
+#report .days-grid.sz-sm .extbl .exd{font-size:7px;margin-top:1px}
+#report .days-grid.sz-sm .extbl .exa{font-size:7px;margin-top:1px}
+#report .days-grid.sz-sm .daycol .dc-f{padding:5px 10px}
+
 /* ================= KOYU TEMA ================= */
 [data-theme="dark"]{
   --paper:#1e1a22; --card:#2a2430; --ink:#f2edf2; --sub:#b3a9b6; --faint:#897f8c;
@@ -457,17 +499,16 @@ textarea.notes:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,12
 /* ================= PDF REPORT (A4 794px) ================= */
 #report{--head:#2a2431;width:794px;background:#fff;font-family:'Inter',sans-serif;color:#1a2733;font-size:11px;line-height:1.4}
 #report .pg{width:794px;min-height:1123px;padding:26px 30px;background:#fff;position:relative}
-#report .pg.landscape{width:1123px;min-height:794px;padding:30px 34px}
-#report .r-head{background:var(--navy);color:#fff;border-radius:8px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+#report .r-head{background:#8f1a2b;color:#fff;border-radius:8px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 #report .r-head h1{font-family:'Oswald';font-weight:700;font-size:26px;letter-spacing:1.5px;text-transform:uppercase}
 #report .r-head .prep{text-align:right;font-size:10px}
-#report .r-head .prep b{font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#ffcf9a;display:block;margin-bottom:3px}
+#report .r-head .prep b{font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#ffe1e6;display:block;margin-bottom:3px}
 #report .r-head .prep span{color:#b9cee0;display:block}
 
 #report .row3{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:12px;margin-bottom:12px}
 #report .row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
 #report .box{border:1px solid #dce3ea;border-radius:8px;padding:13px 15px;background:#fff}
-#report .box-h{font-family:'Oswald';font-weight:600;font-size:13px;letter-spacing:.8px;text-transform:uppercase;color:var(--navy);margin-bottom:11px;padding-bottom:7px;border-bottom:2px solid var(--orange);display:inline-block}
+#report .box-h{font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:.7px;text-transform:uppercase;color:#fff;background:#8f1a2b;margin:0 0 11px;padding:6px 11px;border-radius:5px;display:block}
 
 #report .kv-line{display:flex;gap:8px;margin-bottom:8px;font-size:11px;align-items:baseline}
 #report .kv-line .k{color:#5a6b7b;flex:0 0 auto;min-width:82px}
@@ -515,7 +556,7 @@ textarea.notes:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,12
 
 #report .days-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:12px}
 #report .daycol{border:1px solid #dce3ea;border-radius:8px;overflow:hidden}
-#report .daycol .dc-h{background:#f0f3f6;padding:8px 12px;font-family:'Oswald';font-weight:600;font-size:12px;color:var(--navy);letter-spacing:.4px;border-bottom:2px solid var(--orange)}
+#report .daycol .dc-h{background:#8f1a2b;padding:8px 12px;font-family:'Oswald';font-weight:600;font-size:12px;color:#fff;letter-spacing:.4px}
 #report table.extbl{width:100%;border-collapse:collapse}
 #report table.extbl th{font-size:8px;text-transform:uppercase;letter-spacing:.3px;color:#8a99a8;text-align:left;padding:6px 8px 4px;font-weight:700}
 #report table.extbl th.c{text-align:center}
@@ -543,11 +584,6 @@ textarea.notes:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,12
 #report table.track th,#report table.track td{border:1px solid #dce3ea;padding:4px 4px;font-size:8.5px;text-align:center}
 #report table.track th{background:var(--navy);color:#fff;font-family:'Oswald';font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-size:8.5px}
 #report table.track td.rl{text-align:left;font-weight:600;color:#14212e;background:#f6f8fa;font-size:9.5px}
-#report table.track.big{margin-top:22px}
-#report table.track.big th,#report table.track.big td{padding:18px 10px 8px;font-size:13px;vertical-align:bottom}
-#report table.track.big th{font-size:12.5px;letter-spacing:.5px;padding:14px 8px}
-#report table.track.big td.rl{font-size:14px;padding-left:16px}
-#report table.track.big td .wline{display:block;width:82%;height:0;margin:0 auto;border-bottom:2.5px solid #7e8b99}
 
 #report .r-foot{margin-top:16px;padding-top:14px;border-top:2px solid var(--navy);display:flex;align-items:center;justify-content:space-between}
 #report .r-foot .motto{font-family:'Oswald';font-weight:600;font-size:12px;color:var(--navy);letter-spacing:.3px}
@@ -1628,11 +1664,8 @@ function buildReportHTML(){
   const lvlStrip=Array.from({length:bodyN},(_,k)=>k+1).map(lv=>`<div class="lb ${lv===bodyPos?'cur':''}"><div class="bar"></div>${lv}</div>`).join("");
   const sexTxt=d.sex==="male"?"Erkek":"Kadın";
 
-  // split program into pages — tüm günler tek antrenman sayfasında, 2 sütunlu grid; takip çizelgesi kendi (kısa) sayfasında
   const days=R.program;
-  const chunks=[{items:days,start:0}];
-  const totalPages=1+chunks.length+1; // profil + antrenman + takip
-  const grandTotal = totalPages;
+  const totalPages=3;
   const dayCard=(day,i)=>`
     <div class="daycol">
       <div class="dc-h">${i+1}. GÜN — ${(day.title.split("—")[1]||"").trim()}</div>
@@ -1713,17 +1746,6 @@ function buildReportHTML(){
       <div class="mn"><b>ADIM</b><span class="val" style="font-size:11px">${R.steps}</span><span>günlük hedef</span></div>
     </div>
 
-    <div class="box" style="margin-bottom:12px">
-      <div class="box-h">Kardiyo Planı</div>
-      <div class="cardio-meta">
-        <span><b>Maks. Nabız</b> ${R.cardio.hrmax} bpm</span>
-        <span><b>Günlük Adım</b> ${R.cardio.steps.replace("günde ","")}</span>
-        <span><b>Haftalık</b> ${R.cardio.weekly}</span>
-      </div>
-      ${R.cardio.sessions.map(s=>`<div class="rcardio-sess"><div class="rcs-t"><b>${s.type}</b> — ${s.freq} · ${s.dur}</div><div class="rcs-d">Hedef nabız: ${s.zone}. ${s.desc}</div></div>`).join("")}
-      <div class="rcardio-note">${R.cardio.note}</div>
-    </div>
-
     <div class="three-col">
       <div class="box">
         <div class="box-h">Beslenme Önerileri</div>
@@ -1744,41 +1766,51 @@ function buildReportHTML(){
       <div class="motto">NyxFit · Kişisel Koçunuz</div>
       <div class="sig"><b>${d.name?escapeHtml(d.name):"Danışan"}</b>${R.goal.name} · ${d.days} gün / hafta</div>
     </div>
-    <div class="pageno">NyxFit · Sayfa 1/${grandTotal} — Profil &amp; Beslenme</div>
+    <div class="pageno">NyxFit · Sayfa 1/${totalPages} — Profil &amp; Beslenme</div>
   </div>`;
 
-  const trackBlock=`
-    <table class="track big">
-      <tr><th style="text-align:left">Ölçüm</th>${weeks.map(w=>`<th>${w}. Hf</th>`).join("")}</tr>
-      ${trackRows.map(r=>`<tr><td class="rl">${r}</td>${weeks.map(()=>`<td><span class="wline"></span></td>`).join("")}</tr>`).join("")}
-    </table>
-    <div class="r-foot" style="margin-top:22px">
-      <div class="motto">Program 4-6 haftada bir güncellenmelidir.</div>
-      <div class="sig"><b>Hedef Tarih</b>____ / ____ / ________</div>
-    </div>
-    <div class="r-evidence"><b>Bilimsel dayanak:</b> Mifflin-St Jeor (1990) &amp; ACSM (2018); protein Morton ve ark. (2018), Helms (2014); rekomp Barakat ve ark. (2020); hacim/sıklık Schoenfeld (2016, 2017); yük-tekrar ACSM/Ratamess (2009); dinlenme Grgic (2018); HRmax Tanaka (2001); kardiyo ACSM/Garber (2011). Bu program düzenlenebilir bir başlangıç şablonudur; bireye göre uyarlanmalı, gerekiyorsa hekim onayı alınmalıdır.</div>`;
+  const cardioBlock=`
+    <div class="box cardio-box">
+      <div class="box-h">Kardiyo Planı</div>
+      <div class="cardio-meta">
+        <span><b>Maks. Nabız</b> ${R.cardio.hrmax} bpm</span>
+        <span><b>Günlük Adım</b> ${R.cardio.steps.replace("günde ","")}</span>
+        <span><b>Haftalık</b> ${R.cardio.weekly}</span>
+      </div>
+      ${R.cardio.sessions.map(s=>`<div class="rcardio-sess"><div class="rcs-t"><b>${s.type}</b> — ${s.freq} · ${s.dur}</div><div class="rcs-d">Hedef nabız: ${s.zone}. ${s.desc}</div></div>`).join("")}
+      <div class="rcardio-note">${R.cardio.note}</div>
+    </div>`;
 
-  const trainingPages=chunks.map((ch,ci)=>{
-    return `<div class="pg">
-      <div class="r-head" style="padding:10px 20px">
-        <h1 style="font-size:20px">Haftalık Antrenman Programı</h1>
+  const szClass = days.length<=2 ? "sz-lg" : (days.length<=4 ? "sz-md" : "sz-sm");
+  const trainingPage = `<div class="pg pg-train">
+      <div class="r-head" style="padding:9px 20px">
+        <h1 style="font-size:19px">Kardiyo &amp; Antrenman Programı</h1>
         <div class="prep"><b>${R.goal.name}</b><span>Haftada ${d.days} gün · ${EQUIP.find(e=>e.id===d.equipment).name}</span></div>
       </div>
-      <div class="days-grid">${ch.items.map((day,j)=>dayCard(day,ch.start+j)).join("")}</div>
-      <div class="pageno">NyxFit · Sayfa ${2+ci}/${grandTotal} — Antrenman</div>
+      ${cardioBlock}
+      <div class="days-grid ${szClass}">${days.map((day,i)=>dayCard(day,i)).join("")}</div>
+      <div class="pageno">NyxFit · Sayfa 2/${totalPages} — Kardiyo &amp; Antrenman</div>
     </div>`;
-  }).join("");
 
-  const trackPage = `<div class="pg landscape">
-      <div class="r-head" style="padding:10px 20px;background:var(--orange)">
-        <h1 style="font-size:20px">Takip &amp; İlerleme</h1>
-        <div class="prep"><b>${R.goal.name}</b><span>12 Haftalık İlerleme Takibi</span></div>
+  const trackTable = `
+    <table class="track">
+      <tr><th class="mh">ÖLÇÜM</th>${weeks.map(w=>`<th>${w}. HF</th>`).join("")}</tr>
+      ${trackRows.map(r=>`<tr><td class="rl">${r}</td>${weeks.map(()=>`<td><span class="gl"></span></td>`).join("")}</tr>`).join("")}
+    </table>`;
+  const trackPage = `<div class="pg pg-land">
+      <div class="r-head r-head-red">
+        <h1>TAKİP &amp; İLERLEME</h1>
+        <div class="prep"><span>12 Haftalık İlerleme Takibi</span></div>
       </div>
-      ${trackBlock}
-      <div class="pageno">NyxFit · Sayfa ${grandTotal}/${grandTotal} — Takip</div>
+      <div class="track-wrap">${trackTable}</div>
+      <div class="r-foot track-foot">
+        <div class="sig"><b>Hedef Tarih</b>____ / ____ / ________</div>
+      </div>
+      <div class="r-evidence"><b>Bilimsel dayanak:</b> Mifflin-St Jeor (1990) &amp; ACSM (2018); protein Morton ve ark. (2018), Helms (2014); rekomp Barakat ve ark. (2020); hacim/sıklık Schoenfeld (2016, 2017); yük-tekrar ACSM/Ratamess (2009); dinlenme Grgic (2018); HRmax Tanaka (2001); kardiyo ACSM/Garber (2011). Bu program düzenlenebilir bir başlangıç şablonudur; bireye göre uyarlanmalı, gerekiyorsa hekim onayı alınmalıdır.</div>
+      <div class="pageno">NyxFit · Sayfa ${totalPages}/${totalPages} — Takip</div>
     </div>`;
 
-  return page1+trainingPages+trackPage;
+  return page1+trainingPage+trackPage;
 }
 
 /* PDF üretimi: report'u doldur -> html2canvas -> jsPDF (A4, çok sayfa) */
@@ -1797,19 +1829,17 @@ async function downloadPDF(){
     sub.textContent="Sayfalar oluşturuluyor…";
     const pages=$$("#report .pg");
     const { jsPDF }=window.jspdf;
-    let pdf=null;
+    const pdf=new jsPDF("p","mm","a4");
     for(let i=0;i<pages.length;i++){
-      const isLandscape=pages[i].classList.contains("landscape");
-      const winW=isLandscape?1123:794;
-      const canvas=await html2canvas(pages[i],{scale:2,backgroundColor:"#ffffff",useCORS:true,logging:false,windowWidth:winW});
+      const land=pages[i].classList.contains("pg-land");
+      const canvas=await html2canvas(pages[i],{scale:2,backgroundColor:"#ffffff",useCORS:true,logging:false,windowWidth:land?1123:794});
       const img=canvas.toDataURL("image/jpeg",0.95);
-      const pw=isLandscape?297:210, ph=isLandscape?210:297;
-      if(i===0){ pdf=new jsPDF(isLandscape?"l":"p","mm","a4"); }
-      else{ pdf.addPage("a4", isLandscape?"l":"p"); }
+      if(i>0) pdf.addPage("a4", land?"l":"p");
+      const PW=land?297:210, PH=land?210:297;
       // her mantıksal sayfayı tek A4'e sığdır (contain) — içerik asla kesilmez
-      const scale=Math.min(pw/canvas.width, ph/canvas.height);
+      const scale=Math.min(PW/canvas.width, PH/canvas.height);
       const w=canvas.width*scale, h=canvas.height*scale;
-      const x=(pw-w)/2, y=Math.max(0,(ph-h)/2);
+      const x=(PW-w)/2, y=Math.max(0,(PH-h)/2);
       pdf.addImage(img,"JPEG",x,y,w,h);
     }
     const fname="NyxFit_Program_"+(d0name())+".pdf";
@@ -1829,7 +1859,7 @@ function printFallback(){
   const html=`<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>NyxFit Program</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>${document.querySelector("style").textContent}
-  body{background:#fff;display:block;padding:0}#report{margin:0 auto}@media print{@page{size:A4;margin:0}#report .pg{page-break-after:always}#report .pg.landscape{page:landscape-pg}}@page landscape-pg{size:A4 landscape}</style></head>
+  body{background:#fff;display:block;padding:0}#report{margin:0 auto}@media print{@page{size:A4;margin:0}#report .pg{page-break-after:always}}</style></head>
   <body><div id="report">${buildReportHTML()}</div>
   <script>window.onload=function(){setTimeout(function(){window.print();},600);}<\/script></body></html>`;
   const w=window.open("","_blank");
