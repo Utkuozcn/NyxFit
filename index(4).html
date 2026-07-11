@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2a2431">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="images/icon-192.png">
+<link rel="apple-touch-icon" href="images/icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NyxFit">
+<title>NyxFit — Kişisel Koçunuz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#2a2431; --navy-deep:#1c1822; --navy-mid:#3c3547;
+  --orange:#a81f33; --orange-soft:#f9e6e9; --orange-deep:#8f1a2b;
+  --green:#b0863a; --green-deep:#8f6c2c;
+  --purple:#7a4a58;
+  --ink:#14212e; --sub:#5a6b7b; --faint:#8a99a8;
+  --head:#241c2a; --border-strong:#cabfca;
+  --paper:#eef1f4; --card:#ffffff; --line:#e3e8ed; --line2:#eef2f5;
+  --body-bg1:#e6dfe6; --body-bg2:#cbc2cc;
+  --shadow:0 1px 2px rgba(20,50,80,.05), 0 8px 24px rgba(20,50,80,.06);
+  --shadow-lg:0 12px 40px rgba(13,36,57,.16);
+  --r:16px; --r-sm:11px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:#c3ccd6;
+  background-image:radial-gradient(1200px 600px at 50% -10%, var(--body-bg1) 0%, var(--body-bg2) 60%);
+  color:var(--ink); line-height:1.5; min-height:100vh;
+  display:flex; align-items:flex-start; justify-content:center;
+  padding:0; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Oswald',sans-serif;font-weight:600;margin:0;letter-spacing:.2px}
+.mono-num{font-variant-numeric:tabular-nums}
+
+/* ---------- PHONE FRAME ---------- */
+#phone{
+  position:relative; width:100%; max-width:440px; min-height:100vh;
+  background:var(--paper); overflow:hidden; display:flex; flex-direction:column;
+}
+@media(min-width:480px){
+  body{padding:26px 0 40px; align-items:center}
+  #phone{min-height:calc(100vh - 66px); height:900px; max-height:900px;
+    border-radius:44px; box-shadow:var(--shadow-lg),0 0 0 11px #10151b,0 0 0 13px #2a3440;
+    overflow:hidden}
+}
+
+/* ---------- APP HEADER ---------- */
+#topbar{
+  flex:0 0 auto; background:var(--navy); color:#fff; padding:16px 18px 14px;
+  display:flex; align-items:center; gap:12px; position:relative; z-index:5;
+}
+#topbar .logo{width:36px;height:36px;border-radius:10px;overflow:hidden;flex:0 0 auto;box-shadow:0 4px 12px rgba(0,0,0,.3);cursor:pointer}
+#topbar .logo svg{width:100%;height:100%;display:block}
+#topbar .logo img{width:100%;height:100%;display:block;object-fit:cover}
+#report .r-brand img{width:38px;height:38px;border-radius:9px;display:block;flex:0 0 auto}
+
+#topbar .brand{display:flex;flex-direction:column;line-height:1.05}
+#topbar .brand b{font-family:'Oswald';font-weight:700;font-size:19px;letter-spacing:.6px;color:var(--orange)}
+#topbar .brand span{font-size:10.5px;color:#a9c0d6;font-weight:500;letter-spacing:.3px;text-transform:uppercase}
+#topbar .iconbtn{margin-left:auto;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);color:#dceaf6;display:grid;place-items:center;cursor:pointer;flex:0 0 auto;transition:.15s}
+#topbar .iconbtn:active{transform:scale(.92);background:rgba(255,255,255,.22)}
+#topbar .iconbtn svg{width:18px;height:18px}
+#topbar .sci{margin-left:8px;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;
+  color:#cfe0ef;background:rgba(255,255,255,.09);padding:6px 9px;border-radius:20px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.12);transition:.15s}
+#topbar .sci:active{background:rgba(255,255,255,.2)}
+#topbar .sci svg{width:12px;height:12px}
+
+/* ---------- PROGRESS ---------- */
+#progress{flex:0 0 auto;background:var(--navy);padding:0 18px 14px;display:flex;flex-direction:column;gap:9px}
+#progress .plabel{display:flex;justify-content:space-between;align-items:center}
+#progress .plabel .pstep{font-family:'Oswald';font-weight:600;font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;color:#ffcf9a;display:flex;align-items:center;gap:6px}
+#progress .plabel .pstep b{background:var(--orange);color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;letter-spacing:.5px}
+#progress .plabel .pname{font-size:11.5px;color:#bcd0e4;font-weight:600}
+#progress .bars{display:flex;gap:6px}
+#progress .seg{height:5px;flex:1;background:rgba(255,255,255,.22);border-radius:3px;overflow:hidden}
+#progress .seg i{display:block;height:100%;width:0;background:var(--orange);border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+#progress .seg.done i{width:100%}
+#progress .seg.active i{width:100%}
+#progress .seg.active{box-shadow:0 0 0 2px rgba(239,125,0,.35)}
+
+/* ---------- SCROLL AREA ---------- */
+#app{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;position:relative}
+.screen{padding:22px 18px 26px;animation:slideIn .38s cubic-bezier(.16,1,.3,1)}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.screen{animation:none}*{transition:none!important}}
+
+.eyebrow{font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.eyebrow .step-n{background:var(--orange);color:#fff;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:11px}
+.q-title{font-size:27px;font-weight:600;line-height:1.12;color:var(--head);letter-spacing:.2px}
+.q-sub{color:var(--sub);font-size:13.5px;margin-top:8px;line-height:1.55}
+
+/* ---------- FOOTER NAV ---------- */
+#navbar{flex:0 0 auto;background:var(--card);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;position:relative;z-index:5}
+.btn{font-family:'Oswald';font-weight:600;letter-spacing:.5px;border:none;border-radius:13px;cursor:pointer;transition:transform .12s,box-shadow .12s,background .15s;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:active{transform:scale(.97)}
+.btn-primary{flex:1;background:var(--orange);color:#fff;padding:15px 18px;box-shadow:0 6px 16px rgba(239,125,0,.32)}
+.btn-primary:disabled{background:#cdd6de;color:#fff;box-shadow:none;cursor:not-allowed}
+.btn-primary.go{background:var(--green);box-shadow:0 6px 16px rgba(90,160,44,.34)}
+.btn-ghost{background:var(--card);color:var(--head);padding:15px 17px;border:1.5px solid var(--border-strong)}
+.btn-back{background:var(--card);color:var(--head);padding:15px 16px;font-size:14px;border:1.5px solid var(--border-strong);flex:0 0 auto}
+.btn-back svg{width:18px;height:18px}
+.btn svg{width:17px;height:17px}
+
+/* ---------- GENDER CARDS ---------- */
+.gender-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:24px}
+.gcard{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:14px 12px 16px;cursor:pointer;text-align:center;transition:.18s;position:relative;overflow:hidden}
+.gcard .imgwrap{height:260px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;margin-bottom:10px}
+.gcard img{height:100%;max-width:100%;width:auto;object-fit:contain;display:block;filter:drop-shadow(0 6px 10px rgba(20,50,80,.12))}
+.gcard .lbl{font-family:'Oswald';font-weight:600;font-size:17px;color:var(--head);letter-spacing:.5px;position:relative;z-index:2}
+.gcard:active{transform:scale(.98)}
+.gcard.sel{border-color:var(--orange);background:var(--orange-soft);box-shadow:0 8px 22px rgba(239,125,0,.18)}
+.gcard.sel .lbl{color:var(--orange-deep)}
+.gcard .check{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:var(--orange);display:none;place-items:center}
+.gcard.sel .check{display:grid}
+.gcard .check svg{width:14px;height:14px}
+
+/* ---------- BODY TYPE SLIDER ---------- */
+.bodyslider{margin-top:20px}
+.bodystage{background:var(--card);border-radius:var(--r);border:1px solid var(--line);padding:18px 10px 12px;box-shadow:var(--shadow)}
+.bodystage .figrow{height:270px;display:flex;align-items:flex-end;justify-content:center;position:relative;overflow:hidden}
+.bodystage .figrow img{height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(20,50,80,.16));transition:.15s}
+.bodyinfo{text-align:center;margin-top:6px}
+.bodyinfo .name{font-family:'Oswald';font-weight:600;font-size:19px;color:var(--head);letter-spacing:.4px}
+.bodyinfo .bf{display:inline-flex;align-items:center;gap:6px;margin-top:6px;background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;font-family:'Inter'}
+.bodyinfo .bf b{color:#ffd8a8}
+.leveltrack{display:flex;gap:5px;justify-content:center;margin-top:14px;padding:0 4px}
+.leveltrack .lv{flex:1;max-width:34px;height:7px;border-radius:4px;background:var(--line);transition:.2s}
+.leveltrack .lv.on{background:var(--orange)}
+.leveltrack .lv.cur{background:var(--navy);transform:scaleY(1.5)}
+.bodynav{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:10px}
+.arrowbtn{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--border-strong);background:var(--card);display:grid;place-items:center;cursor:pointer;transition:.15s;flex:0 0 auto;box-shadow:var(--shadow)}
+.arrowbtn:active{transform:scale(.92);background:var(--paper)}
+.arrowbtn:disabled{opacity:.35;cursor:not-allowed}
+.arrowbtn svg{width:20px;height:20px;color:var(--head)}
+.bodydots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;flex:1}
+.bodydots .d{width:8px;height:8px;border-radius:50%;background:var(--line);cursor:pointer;transition:.2s}
+.bodydots .d.on{background:var(--orange);width:22px;border-radius:5px}
+.muscle-toggle{margin-top:16px;display:flex;gap:8px;background:var(--paper);padding:5px;border-radius:12px}
+.muscle-toggle button{flex:1;border:none;background:transparent;padding:10px;border-radius:9px;font-family:'Oswald';font-weight:600;font-size:13px;color:var(--sub);cursor:pointer;letter-spacing:.3px;transition:.15s}
+.muscle-toggle button.on{background:var(--card);color:var(--head);box-shadow:var(--shadow)}
+
+/* ---------- GOAL GRID ---------- */
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.goalcard{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:18px 14px;cursor:pointer;transition:.16s;position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.goalcard .ico{width:56px;height:56px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.goalcard .ico img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.goalcard .g-name{font-family:'Oswald';font-weight:600;font-size:15px;color:var(--head);letter-spacing:.3px;line-height:1.1}
+.goalcard .g-desc{font-size:10.5px;color:var(--faint);line-height:1.35}
+.goalcard:active{transform:scale(.98)}
+.goalcard.sel{border-color:var(--orange);background:var(--orange-soft)}
+.goalcard.sel .g-name{color:var(--orange-deep)}
+.goalcard .check{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:var(--orange);display:none;place-items:center}
+.goalcard.sel .check{display:grid}
+.goalcard .check svg{width:12px;height:12px}
+
+/* ---------- FORM ---------- */
+.formgroup{margin-top:20px}
+.flabel{font-family:'Oswald';font-weight:600;font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:var(--head);margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.flabel .req{color:var(--orange);font-size:15px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{position:relative}
+.field input{width:100%;border:1.5px solid var(--border-strong);border-radius:12px;padding:14px 44px 14px 15px;font-size:16px;font-family:'Inter';font-weight:600;color:var(--ink);background:var(--card);transition:.15s;outline:none}
+.field input::placeholder{color:var(--faint);font-weight:400}
+.field input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,125,0,.12)}
+.field .unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--faint);font-weight:600;pointer-events:none}
+.field.full input{padding-right:15px}
+
+.segmented{display:flex;background:var(--paper);border-radius:12px;padding:4px;gap:3px;flex-wrap:wrap;border:1px solid var(--line)}
+.segmented button{flex:1 1 0;min-width:0;border:none;background:transparent;padding:11px 6px;border-radius:9px;font-family:'Inter';font-weight:600;font-size:12.5px;color:var(--sub);cursor:pointer;transition:.14s;white-space:nowrap}
+.segmented button.on{background:var(--card);color:var(--head);box-shadow:var(--shadow)}
+.segmented.stack{flex-direction:column}
+.segmented.stack button{flex:none;text-align:left;padding:13px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.segmented.stack button .sm{font-size:11px;color:var(--faint);font-weight:500}
+.segmented.stack button.on .sm{color:var(--sub)}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--border-strong);background:var(--card);border-radius:11px;padding:11px 15px;font-family:'Oswald';font-weight:600;font-size:14px;color:var(--sub);cursor:pointer;transition:.14s;letter-spacing:.3px}
+.chip.on{border-color:var(--orange);background:var(--orange);color:#fff}
+.chip:active{transform:scale(.96)}
+.daychips{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.daychip{border:1.5px solid var(--border-strong);background:var(--card);border-radius:12px;padding:14px 4px;text-align:center;cursor:pointer;transition:.14s}
+.daychip b{font-family:'Oswald';font-size:20px;color:var(--head);display:block;line-height:1}
+.daychip span{font-size:9px;color:var(--faint);text-transform:uppercase;letter-spacing:.4px}
+.daychip.on{border-color:var(--orange);background:var(--orange)}
+.daychip.on b,.daychip.on span{color:#fff}
+
+textarea.notes{width:100%;border:1.5px solid var(--border-strong);border-radius:12px;padding:13px 15px;font-family:'Inter';font-size:14px;color:var(--ink);resize:none;outline:none;min-height:64px}
+textarea.notes:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(239,125,0,.12)}
+
+/* ---------- WELCOME ---------- */
+.welcome{padding:0}
+.hero{background:var(--navy);color:#fff;padding:40px 24px 34px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(239,125,0,.35),transparent 70%)}
+.hero .kick{font-family:'Oswald';font-weight:600;letter-spacing:3px;font-size:12px;color:var(--orange);text-transform:uppercase;position:relative}
+.hero h1{font-size:38px;font-weight:700;line-height:1.02;margin-top:12px;letter-spacing:.5px;position:relative}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p{color:#b9cee0;font-size:14px;margin-top:14px;line-height:1.6;max-width:330px;position:relative}
+.hero .badges{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;position:relative}
+.hero .badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:7px 13px;font-size:11px;font-weight:600;color:#dceaf6;display:flex;align-items:center;gap:6px}
+.hero .badge svg{width:13px;height:13px;color:var(--orange)}
+.wsteps{padding:24px 22px 8px}
+.wstep{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line2)}
+.wstep:last-child{border-bottom:none}
+.wstep .n{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--orange-soft);color:var(--orange-deep);display:grid;place-items:center;font-family:'Oswald';font-weight:700;font-size:18px}
+.wstep .tx b{font-family:'Oswald';font-weight:600;font-size:15px;color:var(--head);display:block;letter-spacing:.3px}
+.wstep .tx span{font-size:12.5px;color:var(--sub);line-height:1.45}
+
+/* ---------- RESULT ---------- */
+.result{padding:0}
+.rhero{background:linear-gradient(160deg,var(--navy),var(--navy-deep));color:#fff;padding:26px 20px 24px;position:relative;overflow:hidden}
+.rhero:before{content:"";position:absolute;bottom:-70px;left:-30px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(90,160,44,.32),transparent 70%)}
+.rhero .greet{font-size:12.5px;color:#a9c0d6;position:relative}
+.rhero .rname{font-family:'Oswald';font-weight:700;font-size:28px;letter-spacing:.4px;margin-top:2px;position:relative}
+.rhero .rgoal{display:inline-flex;align-items:center;gap:7px;margin-top:12px;background:rgba(239,125,0,.16);border:1px solid rgba(239,125,0,.3);color:#ffcf9a;padding:7px 14px;border-radius:20px;font-size:12.5px;font-weight:600;position:relative}
+.rstats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1);margin-top:20px;border-radius:14px;overflow:hidden;position:relative}
+.rstats .rs{background:var(--navy);padding:13px 8px;text-align:center}
+.rstats .rs b{font-family:'Oswald';font-weight:700;font-size:22px;display:block;line-height:1}
+.rstats .rs b.g{color:#8fd85f}.rstats .rs b.o{color:#ffb266}
+.rstats .rs span{font-size:9.5px;color:#9fb6cb;text-transform:uppercase;letter-spacing:.4px;margin-top:4px;display:block}
+
+.rsection{padding:20px 18px 4px}
+.rsection>h3{font-family:'Oswald';font-weight:600;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:var(--head);display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.rsection>h3 .bar{width:4px;height:16px;background:var(--orange);border-radius:2px}
+.rsection>h3 .ref{margin-left:auto;font-family:'Inter';font-weight:600;font-size:10px;letter-spacing:0;text-transform:none;color:var(--orange-deep);background:var(--orange-soft);padding:3px 8px;border-radius:8px;cursor:pointer}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:12px}
+.macro-card{padding:16px}
+.macro-top{display:flex;align-items:center;gap:16px}
+.donut{width:132px;height:132px;flex:0 0 auto;position:relative}
+.donut .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.donut .ctr b{font-family:'Oswald';font-weight:700;font-size:22px;color:var(--head);line-height:1}
+.donut .ctr span{font-size:9px;color:var(--faint);text-transform:uppercase;letter-spacing:.5px}
+.macro-legend{flex:1;display:flex;flex-direction:column;gap:9px}
+.mleg{display:flex;align-items:center;gap:9px}
+.mleg .dot{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+.mleg .ml-n{font-size:12.5px;color:var(--sub);font-weight:600;flex:1}
+.mleg .ml-v{font-family:'Oswald';font-weight:600;font-size:16px;color:var(--head)}
+.mleg .ml-v small{font-size:10px;color:var(--faint);font-weight:400;margin-left:3px;font-family:'Inter'}
+.mleg .ml-pct{font-family:'Oswald';font-weight:700;font-size:12px;color:var(--head);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-right:9px;min-width:40px;text-align:center;letter-spacing:.2px;flex:0 0 auto}
+.micro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:15px;padding-top:15px;border-top:1px dashed var(--line)}
+.micro{text-align:center}
+.micro b{font-family:'Oswald';font-weight:600;font-size:15px;color:var(--head);display:block}
+.micro span{font-size:9.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.3px}
+
+.kcal-strip{background:var(--orange);color:#fff;border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;box-shadow:0 6px 16px rgba(168,31,51,.28)}
+.kcal-strip .kl{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:.92}
+.kcal-strip .kv{font-family:'Oswald';font-weight:700;font-size:30px;letter-spacing:.5px}
+.kcal-strip .kv small{font-size:14px;font-weight:500;margin-left:4px}
+.kcal-strip svg{width:30px;height:30px;opacity:.85}
+
+.energy-rows{padding:6px 4px}
+.injury-chips{display:flex;flex-wrap:wrap;gap:8px}
+.injchip{background:var(--card);border:1.5px solid var(--line);color:var(--sub);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;transition:.14s;font-family:inherit}
+.injchip:active{transform:scale(.97)}
+.injchip.on{background:var(--orange-soft);border-color:var(--orange);color:var(--orange-deep)}
+.vol-rows{padding:4px 2px;display:flex;flex-direction:column;gap:9px}
+.vrow{display:flex;align-items:center;gap:10px}
+.vrow .vn{flex:0 0 108px;font-size:12px;font-weight:600;color:var(--head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vrow .vn .vmin{color:var(--faint)}
+.vrow .vbar{flex:1 1 auto;height:8px;background:rgba(130,130,150,.16);border-radius:5px;overflow:hidden;min-width:0}
+.vrow .vbar i{display:block;height:100%;border-radius:5px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.vrow .vv{flex:0 0 auto;font-family:'Oswald';font-weight:600;font-size:14px;color:var(--head);white-space:nowrap;text-align:right;min-width:78px}
+.vrow .vv .vu{font-size:10px;color:var(--faint);font-weight:400}
+.vrow .vv .vst{font-family:'Inter';font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.3px;margin-left:3px}
+.vol-note{font-size:10.5px;color:var(--faint);line-height:1.45;margin-top:9px;padding:0 2px}
+.vol-h-sub{font-size:10.5px;color:var(--faint);font-weight:500;text-transform:none;letter-spacing:0;margin-left:auto}
+.tk-top{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.tk-week{flex:1 1 auto;background:var(--card);border:1.5px solid var(--line);color:var(--head);border-radius:10px;padding:9px 12px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer}
+.tk-save{flex:0 0 auto;background:var(--orange);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;transition:.15s}
+.tk-save:active{transform:scale(.97)}
+.tk-save.saved{background:#3b8f4e}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tk-field{display:flex;flex-direction:column;gap:3px}
+.tk-field label{font-size:11px;color:var(--sub);font-weight:600}
+.tk-field input{background:rgba(130,130,150,.09);border:1.5px solid var(--line);color:var(--head);border-radius:8px;padding:8px 10px;font-size:14px;font-family:inherit;width:100%}
+.tk-field input:focus{outline:none;border-color:var(--orange)}
+.tc-box{margin-top:14px;border-top:1px solid var(--line);padding-top:11px}
+.tc-title{font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--orange);margin-bottom:7px}
+.tc-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:2.5px 0}
+.tc-row .tc-n{color:var(--sub)}
+.tc-row .tc-d{color:var(--head);font-weight:500}
+.tc-empty{font-size:11.5px;color:var(--faint);line-height:1.45}
+.tk-note{font-size:10.5px;color:var(--faint);line-height:1.45;margin-top:9px;padding:0 2px}
+.erow{display:flex;align-items:center;padding:11px 12px;border-bottom:1px solid var(--line2)}
+.erow:last-child{border-bottom:none}
+.erow .ei{width:30px;height:30px;border-radius:9px;background:var(--navy);display:grid;place-items:center;flex:0 0 auto;margin-right:11px}
+.erow .ei svg{width:15px;height:15px;color:#fff}
+.erow .el{flex:1}
+.erow .el b{font-size:13px;color:var(--ink);font-weight:600;display:block}
+.erow .el span{font-size:10.5px;color:var(--faint)}
+.erow .ev{font-family:'Oswald';font-weight:600;font-size:17px;color:var(--head)}
+
+/* ---------- WORKOUT DAYS ---------- */
+.daytabs{display:flex;gap:7px;overflow-x:auto;padding:2px 0 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.daytabs::-webkit-scrollbar{display:none}
+.daytab{flex:0 0 auto;border:1.5px solid var(--border-strong);background:var(--card);border-radius:12px;padding:9px 15px;cursor:pointer;transition:.14s;text-align:center;min-width:76px}
+.daytab b{font-family:'Oswald';font-weight:600;font-size:13px;color:var(--head);display:block;line-height:1.1}
+.daytab span{font-size:9px;color:var(--faint);text-transform:uppercase;letter-spacing:.3px}
+.daytab.on{border-color:var(--head);background:var(--navy)}
+.daytab.on b,.daytab.on span{color:#fff}
+.daytab.on span{color:#a9c0d6}
+
+.dayfocus{display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;border-radius:13px 13px 0 0;padding:13px 16px;margin-bottom:0}
+.dayfocus .df-t{flex:1}
+.dayfocus .df-t b{font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:.4px;display:block}
+.dayfocus .df-t span{font-size:11px;color:#a9c0d6}
+.dayfocus .rpe{background:rgba(239,125,0,.2);border:1px solid rgba(239,125,0,.34);color:#ffcf9a;border-radius:9px;padding:5px 10px;font-size:10.5px;font-weight:600;text-align:center;line-height:1.3}
+.exlist{background:var(--card);border:1px solid var(--line);border-top:none;border-radius:0 0 14px 14px;overflow:hidden;margin-bottom:12px}
+.exrow{display:flex;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line2);gap:11px}
+.exrow:last-child{border-bottom:none}
+.exrow .exn{width:26px;height:26px;border-radius:8px;background:var(--orange-soft);color:var(--orange-deep);display:grid;place-items:center;font-family:'Oswald';font-weight:700;font-size:13px;flex:0 0 auto}
+.exrow .exinfo{flex:1;min-width:0}
+.exrow .exinfo b{font-size:13.5px;color:var(--ink);font-weight:600;display:block;line-height:1.2}
+.exrow .exinfo .exmeta{font-size:10.5px;color:var(--faint);display:block}
+.exrow .exinfo .exdesc{font-size:10.5px;color:var(--sub);display:block;line-height:1.35;margin-top:3px}
+.exrow .exinfo .exalt{font-size:10px;color:var(--orange-deep);display:block;line-height:1.3;margin-top:3px;font-weight:500;display:flex;align-items:flex-start;gap:0}
+.exrow .exinfo .exalt svg{color:var(--orange-deep)}
+.exrow .exsets{display:flex;gap:10px;flex:0 0 auto;text-align:center}
+.exrow .exsets .ss b{font-family:'Oswald';font-weight:600;font-size:15px;color:var(--head);display:block;line-height:1}
+.exrow .exsets .ss span{font-size:9px;color:var(--faint);text-transform:uppercase;letter-spacing:.3px}
+
+/* generic info cards / lists */
+.infocard{padding:15px 16px}
+.infocard.navy{background:var(--navy);color:#fff;border:none}
+.infocard.navy .ic-h{color:#fff}
+.ic-h{font-family:'Oswald';font-weight:600;font-size:14px;letter-spacing:.6px;color:var(--head);display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.ic-h svg{width:17px;height:17px;color:var(--orange)}
+.tips{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.tips li{display:flex;gap:10px;font-size:12.5px;line-height:1.45;color:var(--sub)}
+.tips li svg{width:15px;height:15px;flex:0 0 auto;color:var(--green);margin-top:1px}
+.infocard.navy .tips li{color:#cddced}
+.infocard.navy .tips li svg{color:var(--orange)}
+
+.cardio-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+.cardio-item{background:var(--paper);border-radius:11px;padding:12px}
+.cardio-item .ci-l{font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:3px}
+.cardio-item .ci-v{font-family:'Oswald';font-weight:600;font-size:15px;color:var(--head)}
+
+/* evidence chips */
+.evid{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:600;color:var(--orange-deep);background:var(--orange-soft);padding:2px 6px;border-radius:6px;vertical-align:middle;margin-left:5px;cursor:pointer}
+.evid svg{width:9px;height:9px}
+
+/* ---------- BOTTOM ACTIONS on result ---------- */
+.result-actions{padding:16px 18px 8px}
+.big-pdf{width:100%;background:var(--orange);color:#fff;border:none;border-radius:15px;padding:17px;font-family:'Oswald';font-weight:700;font-size:17px;letter-spacing:.6px;display:flex;align-items:center;justify-content:center;gap:11px;cursor:pointer;box-shadow:0 8px 22px rgba(239,125,0,.34);transition:transform .12s}
+.big-pdf:active{transform:scale(.98)}
+.big-pdf svg{width:21px;height:21px}
+.mini-actions{display:flex;gap:10px;margin-top:11px}
+.mini-actions button{flex:1;background:var(--card);border:1.5px solid var(--border-strong);border-radius:13px;padding:13px;font-family:'Oswald';font-weight:600;font-size:13px;color:var(--head);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;letter-spacing:.3px;transition:.14s}
+.mini-actions button:active{background:var(--paper)}
+.mini-actions button svg{width:15px;height:15px}
+.disclaimer{font-size:10.5px;color:var(--faint);line-height:1.5;text-align:center;padding:16px 24px 30px}
+/* --- ana ekran iki seçenek --- */
+.home-actions{display:flex;flex-direction:column;gap:12px;padding:22px 22px 4px}
+.homecard{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--border-strong);border-radius:16px;padding:15px 16px;cursor:pointer;transition:.14s;box-shadow:var(--shadow)}
+.homecard:active{transform:scale(.99)}
+.homecard .hc-ic{width:46px;height:46px;border-radius:13px;background:var(--orange-soft);color:var(--orange-deep);display:grid;place-items:center;flex:0 0 auto}
+.homecard .hc-ic svg{width:24px;height:24px}
+.homecard .hc-tx{flex:1;min-width:0}
+.homecard .hc-tx b{font-family:'Oswald';font-weight:600;font-size:17px;color:var(--head);display:block;letter-spacing:.3px;line-height:1.15}
+.homecard .hc-tx span{font-size:12px;color:var(--sub);display:block;margin-top:2px}
+.homecard .hc-arrow{flex:0 0 auto;color:var(--faint);display:flex;align-items:center}
+.homecard .hc-arrow svg{width:22px;height:22px}
+.hc-new{background:linear-gradient(135deg,var(--orange-deep),var(--orange));border-color:transparent;box-shadow:0 8px 22px rgba(168,31,51,.28)}
+.hc-new .hc-tx b,.hc-new .hc-tx span{color:#fff}
+.hc-new .hc-arrow{color:rgba(255,255,255,.9)}
+.hc-new .hc-ic{background:rgba(255,255,255,.18);color:#fff}
+.hc-saved .hc-ic{background:var(--paper);color:var(--head)}
+.hc-badge{background:var(--orange);color:#fff;font-family:'Oswald';font-weight:700;font-size:14px;min-width:26px;height:26px;border-radius:13px;display:grid;place-items:center;padding:0 7px}
+/* --- danışan listesi --- */
+.ccount{background:var(--orange-soft);color:var(--orange-deep);font-family:'Oswald';font-weight:700;font-size:16px;padding:1px 9px;border-radius:9px;margin-left:6px;vertical-align:2px}
+.clientlist{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.clientrow{display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--border-strong);border-radius:14px;padding:11px 12px;cursor:pointer;transition:.14s;box-shadow:var(--shadow)}
+.clientrow:active{transform:scale(.995)}
+.clientrow .cl-av{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--orange-deep),var(--orange));color:#fff;display:grid;place-items:center;font-family:'Oswald';font-weight:700;font-size:19px;flex:0 0 auto}
+.clientrow .cl-info{flex:1;min-width:0}
+.clientrow .cl-info b{font-size:15px;color:var(--ink);font-weight:600;display:block;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clientrow .cl-info span{font-size:11px;color:var(--faint);display:block;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clientrow .cl-del{flex:0 0 auto;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--faint);display:grid;place-items:center;cursor:pointer;transition:.14s}
+.clientrow .cl-del:hover{color:#fff;background:var(--orange-deep);border-color:var(--orange-deep)}
+.clientrow .cl-del svg{width:18px;height:18px}
+.empty-clients{display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:36px}
+.empty-clients .ec-ic{width:78px;height:78px;border-radius:22px;background:var(--paper);color:var(--faint);display:grid;place-items:center}
+.empty-clients .ec-ic svg{width:38px;height:38px}
+.empty-clients .big-new{width:100%;justify-content:center;flex:none}
+/* --- kaydet butonu (result) --- */
+.big-save{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--navy);color:#fff;border:none;border-radius:15px;padding:15px;font-family:'Oswald';font-weight:600;font-size:15.5px;letter-spacing:.5px;cursor:pointer;transition:.16s;margin-bottom:11px}
+.big-save:active{transform:scale(.99)}
+.big-save.saved{background:var(--green-deep)}
+.big-save svg{width:20px;height:20px}
+
+/* ---------- DRAWER (references) ---------- */
+.overlay{position:absolute;inset:0;background:rgba(13,24,36,.55);z-index:40;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(2px)}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:absolute;left:0;right:0;bottom:0;max-height:86%;background:var(--paper);z-index:41;border-radius:24px 24px 0 0;transform:translateY(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.2)}
+.drawer.show{transform:translateY(0)}
+.drawer .grip{width:40px;height:4px;background:#cdd6de;border-radius:3px;margin:10px auto 4px}
+.drawer .dh{padding:8px 20px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.drawer .dh h3{font-family:'Oswald';font-weight:700;font-size:19px;color:var(--head);flex:1;letter-spacing:.3px}
+.drawer .dh .x{width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer}
+.drawer .dh .x svg{width:16px;height:16px;color:var(--sub)}
+.drawer .dbody{overflow-y:auto;padding:16px 20px 30px;-webkit-overflow-scrolling:touch}
+.refnote{font-size:12px;color:var(--sub);line-height:1.55;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:10px;padding:12px 14px;margin-bottom:16px}
+.refitem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:10px}
+.refitem .rtag{font-family:'Oswald';font-weight:600;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--orange-deep);background:var(--orange-soft);display:inline-block;padding:3px 8px;border-radius:6px;margin-bottom:7px}
+.refitem .rcite{font-size:12px;color:var(--ink);line-height:1.5;font-weight:500}
+.refitem .rcite em{color:var(--sub);font-style:italic}
+.refitem .rfind{font-size:11.5px;color:var(--sub);margin-top:6px;line-height:1.5}
+.refitem .rfind b{color:var(--head)}
+
+/* ---------- PDF LOADING ---------- */
+.pdf-loading{position:absolute;inset:0;background:rgba(13,24,36,.82);z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;backdrop-filter:blur(3px)}
+.pdf-loading.show{display:flex}
+.pdf-loading .spin{width:52px;height:52px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--orange);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pdf-loading p{color:#fff;font-family:'Oswald';font-weight:500;font-size:15px;letter-spacing:.5px}
+.pdf-loading small{color:#a9c0d6;font-size:12px;margin-top:-10px}
+
+/* toast */
+.toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--navy-deep);color:#fff;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:70;opacity:0;transition:.3s;pointer-events:none;box-shadow:var(--shadow-lg);max-width:88%;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* helper */
+.hidden{display:none!important}
+.report-host{position:fixed;left:-99999px;top:0;width:794px;background:#fff}
+
+/* ---- strateji / ağırlık rehberi / kardiyo (app) ---- */
+.rhero .rstrategy{display:flex;align-items:flex-start;gap:7px;margin-top:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#e4eef7;padding:9px 12px;border-radius:12px;font-size:11.5px;font-weight:500;line-height:1.45;position:relative}
+.rhero .rstrategy svg{width:14px;height:14px;color:var(--orange);flex:0 0 auto;margin-top:1px}
+.loadtable{border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.loadtable .lt-head,.loadtable .lt-row{display:grid;grid-template-columns:1.15fr 1fr .75fr;gap:6px;padding:9px 12px;font-size:12px;align-items:center}
+.loadtable .lt-head{background:var(--paper);font-family:'Oswald';font-weight:600;font-size:10px;letter-spacing:.4px;text-transform:uppercase;color:var(--sub)}
+.loadtable .lt-row{border-top:1px solid var(--line2);color:var(--sub)}
+.loadtable .lt-row span:nth-child(2){color:var(--faint);font-size:11px}
+.loadtable .lt-row b{font-family:'Oswald';font-weight:600;color:var(--orange-deep);text-align:right;font-size:12.5px}
+.cardio-head{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}
+.cardio-head .ch-item{background:var(--paper);border-radius:11px;padding:11px 13px;text-align:center}
+.cardio-head .ch-item span{display:block;font-size:9.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.4px;font-weight:600;margin-bottom:3px}
+.cardio-head .ch-item b{font-family:'Oswald';font-weight:700;font-size:17px;color:var(--head)}
+.cardio-sess{border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:10px;padding:11px 13px;margin-bottom:9px;background:var(--card)}
+.cardio-sess .cs-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cardio-sess .cs-top b{font-family:'Oswald';font-weight:600;font-size:13.5px;color:var(--head);letter-spacing:.2px}
+.cardio-sess .cs-freq{font-size:11px;color:var(--orange-deep);font-weight:700;white-space:nowrap}
+.cardio-sess .cs-zone{font-size:11.5px;color:var(--sub);font-weight:600;margin-top:5px}
+.cardio-sess .cs-desc{font-size:11.5px;color:var(--faint);line-height:1.45;margin-top:4px}
+.cardio-note{display:flex;gap:8px;align-items:flex-start;background:var(--orange-soft);border-radius:10px;padding:10px 12px;margin-top:2px;font-size:11.5px;color:var(--sub);line-height:1.45}
+.cardio-note svg{width:14px;height:14px;color:var(--green);flex:0 0 auto;margin-top:1px}
+.exrow .exsets .ss .loadtag{font-size:8.6px;color:var(--orange-deep);text-transform:none;letter-spacing:0;font-weight:700;display:block;margin-top:2px}
+
+/* ---- report: strategy line, cardio, RPE/RIR mini ---- */
+#report .strat-line{font-size:9px;color:#5a6b7b;margin-top:6px;line-height:1.4}
+#report .strat-line b{color:var(--navy);font-family:'Oswald';font-weight:600}
+#report .cardio-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:9.5px;color:#5a6b7b;margin-bottom:9px;border-bottom:1px dashed #dce3ea;padding-bottom:8px}
+#report .cardio-meta b{color:var(--navy);font-family:'Oswald';font-weight:600;margin-right:3px}
+#report .rcardio-sess{border-left:2px solid var(--orange);padding:2px 0 3px 9px;margin-bottom:6px}
+#report .rcardio-sess .rcs-t{font-size:10px;color:#14212e}
+#report .rcardio-sess .rcs-t b{font-family:'Oswald';font-weight:600;color:var(--navy)}
+#report .rcardio-sess .rcs-d{font-size:8.5px;color:#5a6b7b;line-height:1.35}
+#report .rcardio-note{font-size:8.5px;color:#8a99a8;font-style:italic;margin-top:4px}
+#report .rpe-mini{font-size:8.6px;color:#3a4a5a;line-height:1.4;margin-bottom:6px}
+#report table.loadmini{width:100%;border-collapse:collapse}
+#report table.loadmini td{font-size:8.6px;padding:2px 3px;border-top:1px solid #eef2f5}
+#report table.loadmini td:first-child{color:#14212e;font-weight:600}
+#report table.loadmini td:nth-child(2){color:#8a99a8}
+#report table.loadmini td:last-child{color:#a81f33;font-family:'Oswald';font-weight:600;text-align:right}
+
+/* ---- vücut seviye etiketi ---- */
+.levelrow{display:flex;justify-content:center;margin-top:12px}
+.lvl-label{font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:.6px;color:var(--head);background:var(--paper);padding:4px 13px;border-radius:20px;border:1px solid var(--line)}
+/* ---- hareket ikonu + opsiyonel (app) ---- */
+.exicon{display:inline-flex;width:15px;height:15px;color:var(--orange);vertical-align:-2px;margin-right:6px}
+.exicon svg{width:15px;height:15px}
+.optbadge{display:inline-block;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--orange-deep);background:var(--orange-soft);padding:1px 6px;border-radius:6px;margin-left:6px;vertical-align:1px}
+.exrow.exopt{background:var(--orange-soft)}
+.exrow.exopt .exn{background:var(--orange);color:#fff}
+[data-theme="dark"] .exrow.exopt{background:rgba(194,54,75,.12)}
+/* --- gün yöntemi + teknik rozeti + alternatif hareket paneli --- */
+.daymethod{background:var(--paper);border:1px solid var(--line);border-top:none;font-size:11px;color:var(--sub);line-height:1.42;padding:9px 14px;display:flex;gap:7px;align-items:flex-start}
+.daymethod svg{width:13px;height:13px;color:var(--orange-deep);flex:0 0 auto;margin-top:1px}
+.daymethod b{color:var(--head);font-weight:600}
+.techbadge{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.2px;color:#fff;background:var(--orange);padding:1.5px 7px;border-radius:6px;margin-left:6px;vertical-align:1px}
+.exrow{cursor:pointer}
+.exchev{flex:0 0 auto;width:16px;color:var(--faint);display:flex;align-items:center}
+.exchev svg{width:16px;height:16px}
+.exitem{border-bottom:1px solid var(--line2)}
+.exitem:last-child{border-bottom:none}
+.exitem .exrow{border-bottom:none}
+.exitem.open{background:var(--paper)}
+.exitem.open .exrow{background:transparent}
+.exopts{padding:2px 14px 12px}
+.opt-swap{width:100%;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600;color:#fff;background:var(--orange-deep);border:none;border-radius:9px;padding:9px 12px;cursor:pointer;transition:.14s}
+.opt-swap:active{transform:scale(.99)}
+.opt-swap:disabled{color:var(--faint);background:var(--line2);cursor:default}
+.opt-swap svg{width:13px;height:13px}
+.swappanel{margin-top:9px;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.swappanel .sp-h{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--sub);padding:9px 11px;background:var(--paper);border-bottom:1px solid var(--line)}
+.swappanel .sp-h svg{width:12px;height:12px;color:var(--orange-deep)}
+.swappanel .sp-h .sp-x{margin-left:auto;cursor:pointer;color:var(--faint);font-size:14px;font-weight:700;padding:0 4px;line-height:1}
+.swappanel .sp-list{display:flex;flex-direction:column;max-height:270px;overflow:auto;-webkit-overflow-scrolling:touch}
+.swapopt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:9px 11px;border:none;border-bottom:1px solid var(--line2);background:transparent;cursor:pointer;transition:.12s;width:100%}
+.swapopt:last-child{border-bottom:none}
+.swapopt:hover{background:var(--orange-soft)}
+.swapopt.cur{background:var(--orange-soft);cursor:default}
+.swapopt .so-n{font-size:12.5px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:6px;width:100%}
+.swapopt .so-m{font-size:10px;color:var(--faint)}
+.swapopt .so-rec{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--green-deep);background:rgba(176,134,58,.16);padding:1px 5px;border-radius:5px}
+.swapopt .so-cur-badge{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--orange-deep);background:var(--card);border:1px solid var(--orange-deep);padding:0 5px;border-radius:5px;margin-left:auto}
+.swappanel .sp-note{font-size:9.5px;color:var(--faint);line-height:1.42;padding:8px 11px;background:var(--paper);border-top:1px solid var(--line)}
+.restnote{font-size:10px;color:var(--faint);line-height:1.42;padding:10px 4px 0;display:flex;gap:6px;align-items:flex-start}
+.restnote svg{width:12px;height:12px;flex:0 0 auto;margin-top:1px}
+.restnote b{color:var(--sub);font-weight:600}
+/* ---- rapor: marka, hareket ikonu, opsiyonel ---- */
+#report .r-head{display:flex;align-items:center;gap:14px}
+#report .r-head h1{flex:1;text-align:center;font-size:21px}
+#report .r-brand{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+#report .r-brand svg{width:36px;height:36px;border-radius:9px;flex:0 0 auto}
+#report .r-brand-tx b{font-family:'Oswald';font-weight:700;font-size:16px;color:#fff;display:block;letter-spacing:.5px;line-height:1}
+#report .r-brand-tx span{font-size:8.5px;color:#d8c3cc;display:block;margin-top:2px}
+#report .rexicon{display:inline-flex;width:11px;height:11px;color:var(--orange);vertical-align:-1px;margin-right:4px}
+#report .rexicon svg{width:11px;height:11px}
+#report table.extbl tr.exoptrow{background:#fbf3f4}
+#report .roptbadge{font-size:7px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#8f1a2b;background:#f2dee1;padding:0 4px;border-radius:4px;margin-left:4px;vertical-align:1px}
+#report .extbl .exname{display:flex;align-items:center;flex-wrap:wrap;gap:0}
+
+/* --- yatay takip sayfası + kompakt/dinamik antrenman --- */
+#report{overflow:visible}
+#report .pg-land{width:1123px;height:794px;padding:14px 26px;overflow:hidden}
+#report .pg.pg-land{width:1123px;height:794px;min-height:794px;padding:14px 26px}
+#report .pg-land .r-head-red{background:#8f1a2b}
+#report .pg-land .r-head-red .prep b,#report .pg-land .r-head-red .prep span{color:#ffe1e6}
+#report .pg-land .r-head h1{font-size:22px}
+#report .pg-land .r-head{margin-bottom:7px;padding:7px 22px}
+#report .cardio-box{margin-bottom:12px}
+/* takip tablosu: kırmızı başlık + kılavuz çizgileri (yatay) */
+#report table.track th{background:#8f1a2b}
+#report .pg-land table.track{margin-top:14px}
+#report .pg-land table.track th{background:#8f1a2b;color:#fff;font-size:13px;padding:12px 6px;letter-spacing:.6px;border:none}
+#report .pg-land table.track th.mh{text-align:left;padding-left:14px}
+#report .pg-land table.track td{padding:0 8px;height:72px;vertical-align:middle;border:none}
+#report .pg-land .track-wrap{width:100%}
+#report .pg-land table.track{width:100%;border-collapse:collapse}
+#report .pg-land .r-foot{margin-top:8px;padding-top:8px}
+#report .pg-land .r-evidence{margin-top:7px;font-size:8px;line-height:1.35}
+#report .pg-land table.track td.rl{font-size:14.5px;padding-left:16px;border:none}
+#report .pg-land table.track td .tv{font-family:'Oswald';font-weight:700;font-size:17px;color:#8f1a2b}
+#report .pg-land table.track th.ch{background:#5f5766;color:#fff}
+#report .pg-land table.track td.ch{background:#f4eef7;font-family:'Oswald';font-weight:700;font-size:17px}
+#report table.track th.ch{background:#5f5766}
+#report table.track td.ch{background:#f6f0f2;font-weight:700}
+#report table.track td .gl{display:block;width:78%;margin:0 auto;border-bottom:2px solid #8a8f96;height:28px}
+#report .track-foot{justify-content:flex-end;border-top:2px solid #8f1a2b;margin-top:6px;padding-top:6px}
+#report .pg-land .r-evidence{margin-top:12px;font-size:9px}
+/* dinamik gün kartı boyutları */
+#report .days-grid.sz-lg .daycol .dc-h{font-size:15px;padding:11px 14px}
+#report .days-grid.sz-lg table.extbl th{font-size:9.5px;padding:8px 12px 5px}
+#report .days-grid.sz-lg table.extbl td{font-size:12.5px;padding:8px 12px}
+#report .days-grid.sz-lg table.extbl td.c{font-size:13px}
+#report .days-grid.sz-lg .extbl .exd{font-size:9.5px}
+#report .days-grid.sz-lg .extbl .exa{font-size:9.5px}
+#report .days-grid.sz-lg .daycol .dc-f{font-size:11px;padding:9px 14px}
+#report .days-grid.sz-lg table.extbl td.c .ld{font-size:9px}
+#report .days-grid.sz-md .daycol .dc-h{font-size:13px;padding:9px 12px}
+#report .days-grid.sz-md table.extbl td{font-size:10.5px;padding:5.5px 9px}
+#report .days-grid.sz-md table.extbl td.c{font-size:11.5px}
+#report .days-grid.sz-md .extbl .exd{font-size:8.5px}
+#report .days-grid.sz-md .extbl .exa{font-size:8.5px}
+#report .days-grid.sz-sm table.extbl td{font-size:9.3px;padding:3.5px 7px}
+#report .days-grid.sz-sm .daycol .dc-h{font-size:11px;padding:6px 10px}
+#report .days-grid.sz-sm .extbl .exd{font-size:7.6px;margin-top:1px}
+#report .days-grid.sz-sm .extbl .exa{font-size:7.6px;margin-top:1px}
+#report .days-grid.sz-sm .daycol .dc-f{padding:5px 10px}
+
+/* ================= KOYU TEMA ================= */
+[data-theme="dark"]{
+  --paper:#1e1a22; --card:#2a2430; --ink:#f2edf2; --sub:#b3a9b6; --faint:#897f8c;
+  --head:#f4eef4; --line:#3a3342; --line2:#2c2733; --border-strong:#4e4557;
+  --orange:#c2364b; --orange-soft:#3a2028; --orange-deep:#eb8f9c;
+  --green:#c39a4a; --green-deep:#a07e34;
+  --body-bg1:#171319; --body-bg2:#0e0b10;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.45);
+  --shadow-lg:0 16px 44px rgba(0,0,0,.6);
+}
+[data-theme="dark"] #topbar,[data-theme="dark"] #progress{background:var(--navy-deep)}
+/* seçili & aktif durumlar koyuda turuncu ağırlıklı */
+[data-theme="dark"] .segmented button.on{background:var(--orange);color:#fff;box-shadow:none}
+[data-theme="dark"] .segmented.stack button.on .sm{color:#ffe6cf}
+[data-theme="dark"] .muscle-toggle button.on{background:var(--orange);color:#fff}
+[data-theme="dark"] .daytab.on{background:var(--orange);border-color:var(--orange)}
+[data-theme="dark"] .daytab.on b{color:#fff}
+[data-theme="dark"] .daytab.on span{color:#ffe6cf}
+[data-theme="dark"] .leveltrack .lv.cur{background:var(--orange)}
+[data-theme="dark"] .gcard.sel,[data-theme="dark"] .goalcard.sel{box-shadow:0 8px 22px rgba(239,125,0,.24)}
+[data-theme="dark"] .drawer .grip{background:#4a515c}
+[data-theme="dark"] .btn-primary:disabled{background:#3a4048;color:#8b939d}
+[data-theme="dark"] .field input:disabled{background:#20242b!important}
+[data-theme="dark"] .kcal-strip{box-shadow:0 6px 16px rgba(168,31,51,.22)}
+[data-theme="dark"] .hc-new{background:#a81f33}
+[data-theme="dark"] .macro-legend .ml-v,[data-theme="dark"] .micro b,[data-theme="dark"] .cardio-item .ci-v{color:var(--head)}
+[data-theme="dark"] .cardio-item{background:#20242b}
+
+/* ================= PDF REPORT (A4 794px) ================= */
+#report{--head:#2a2431;width:794px;background:#fff;font-family:'Inter',sans-serif;color:#1a2733;font-size:11px;line-height:1.4}
+#report .pg{width:794px;min-height:1123px;padding:26px 30px;background:#fff;position:relative}
+#report .r-head{background:#8f1a2b;color:#fff;border-radius:8px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+#report .r-head h1{font-family:'Oswald';font-weight:700;font-size:26px;letter-spacing:1.5px;text-transform:uppercase}
+#report .r-head .prep{text-align:right;font-size:10px}
+#report .r-head .prep b{font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#ffe1e6;display:block;margin-bottom:3px}
+#report .r-head .prep span{color:#b9cee0;display:block}
+
+#report .row3{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.18fr);gap:12px;margin-bottom:12px;align-items:start}
+#report .row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+#report .box{border:1px solid #dce3ea;border-radius:8px;padding:13px 15px;background:#fff}
+#report .box-h{font-family:'Oswald';font-weight:600;font-size:12px;letter-spacing:.7px;text-transform:uppercase;color:#fff;background:#8f1a2b;margin:0 0 11px;padding:6px 11px;border-radius:5px;display:block}
+
+#report .kv-line{display:flex;gap:8px;margin-bottom:8px;font-size:11px;align-items:baseline}
+#report .kv-line .k{color:#5a6b7b;flex:0 0 auto;min-width:82px}
+#report .kv-line .v{color:#14212e;font-weight:600}
+#report .kv-line .v small{font-weight:400;color:#8a99a8}
+
+#report .analysis .an-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid #eef2f5}
+#report .analysis .an-item:last-child{border-bottom:none}
+#report .analysis .an-item .al{font-size:11px;color:#3a4a5a;flex:1 1 auto;min-width:0}
+#report .analysis .an-item .al b{display:block;color:#14212e;font-weight:600;font-size:11.5px}
+#report .analysis .an-item .al span{font-size:9px;color:#8a99a8}
+#report .analysis .an-item .av{font-family:'Oswald';font-weight:700;font-size:16px;color:var(--navy);flex:0 0 auto;white-space:nowrap;text-align:right}
+
+#report .lvlstrip{display:flex;gap:3px;justify-content:center;margin-top:10px;padding-top:10px;border-top:1px dashed #dce3ea}
+#report .lvlstrip .lb{width:26px;text-align:center;font-size:8px;color:#8a99a8;font-family:'Oswald';font-weight:600}
+#report .lvlstrip .lb .bar{height:20px;border-radius:3px;background:#e3e8ed;margin-bottom:3px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:2px}
+#report .lvlstrip .lb.cur .bar{background:var(--navy)}
+#report .lvlstrip .lb.cur{color:var(--navy)}
+
+#report .energy .en-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid #eef2f5;font-size:11px}
+#report .energy .en-item:last-child{border-bottom:none}
+#report .energy .en-item .el{flex:1 1 auto;min-width:0}
+#report .energy .en-item .el b{font-weight:600;color:#14212e}
+#report .energy .en-item .el span{font-size:9px;color:#8a99a8;display:block}
+#report .energy .en-item .ev{font-family:'Oswald';font-weight:700;font-size:14px;color:var(--navy);flex:0 0 auto;white-space:nowrap;text-align:right}
+#report .kcal-final{background:var(--orange);color:#fff;border-radius:7px;padding:10px 14px;text-align:center;margin-top:10px}
+#report .kcal-final .kf-l{font-family:'Oswald';font-weight:600;font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.9}
+#report .kcal-final .kf-v{font-family:'Oswald';font-weight:700;font-size:21px;letter-spacing:.4px;white-space:nowrap}
+
+#report .macrobox{display:flex;align-items:center;gap:10px}
+#report .macrobox .mleg2{flex:1;min-width:0}
+#report .macrobox .ml2{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+#report .macrobox .ml2 .d{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+#report .macrobox .ml2 .nm{font-size:11px;color:#3a4a5a;font-weight:600;flex:1 1 auto;min-width:0}
+#report .macrobox .ml2 .vv{font-family:'Oswald';font-weight:700;font-size:15px;color:var(--navy);flex:0 0 auto;white-space:nowrap;text-align:right}
+#report .macrobox .ml2 .vv small{font-size:9px;color:#8a99a8;font-weight:400;display:block;line-height:1;font-family:'Inter'}
+#report .macrobox .ml2 .pct2{font-family:'Oswald';font-weight:700;font-size:11px;color:#8f1a2b;background:#f6eef0;border:1px solid #e6d3d7;border-radius:999px;padding:0 6px;margin-right:8px;min-width:34px;text-align:center;flex:0 0 auto}
+
+#report .macro-notes{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:12px 0;padding:11px 6px;border:1px solid #dce3ea;border-radius:8px}
+#report .macro-notes .mn{text-align:center;border-right:1px solid #eef2f5;padding:0 4px}
+#report .macro-notes .mn:last-child{border-right:none}
+#report .macro-notes .mn b{font-family:'Oswald';font-weight:600;font-size:11px;color:var(--navy);display:block;letter-spacing:.3px}
+#report .macro-notes .mn .val{font-family:'Oswald';font-weight:700;font-size:14px;color:#14212e;display:block;line-height:1.1}
+#report .macro-notes .mn span{font-size:8.5px;color:#8a99a8;line-height:1.2;display:block;margin-top:2px}
+
+#report .sec-band{background:#8f1a2b;color:#fff;font-family:'Oswald';font-weight:600;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;text-align:center;padding:8px;border-radius:6px;margin:14px 0 12px}
+
+#report .days-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:12px}
+#report .daycol{border:1px solid #dce3ea;border-radius:8px;overflow:hidden}
+#report .daycol .dc-h{background:#8f1a2b;padding:8px 12px;font-family:'Oswald';font-weight:600;font-size:12px;color:#fff;letter-spacing:.4px}
+#report table.extbl{width:100%;border-collapse:collapse}
+#report table.extbl th{font-size:8.7px;text-transform:uppercase;letter-spacing:.3px;color:#8a99a8;text-align:left;padding:6px 8px 4px;font-weight:700}
+#report table.extbl th.c{text-align:center}
+#report table.extbl td{font-size:10px;padding:5px 8px;border-top:1px solid #eef2f5;color:#14212e}
+#report table.extbl td.c{text-align:center;font-family:'Oswald';font-weight:600;font-size:11px}
+#report table.extbl td .exi{color:#8a99a8;font-weight:700;margin-right:5px}
+#report table.extbl td b{font-weight:600}
+#report table.extbl td.exc,#report table.extbl td.c{vertical-align:top}
+#report .extbl .exname{display:block}
+#report .extbl .exd{font-size:8.6px;color:#8a99a8;line-height:1.3;margin-top:2px;font-weight:400}
+#report .extbl .exa{font-size:8.6px;color:#a81f33;line-height:1.3;margin-top:2px;font-weight:600}
+#report .daycol .dc-f{padding:7px 12px;font-size:9px;color:#5a6b7b;background:#fafbfc;border-top:1px solid #eef2f5;display:flex;flex-direction:column;gap:3px}
+#report .daycol .dcf-row{display:flex;justify-content:space-between}
+#report .daycol .dcf-style{font-size:8.4px;color:#8a99a8}
+#report .daycol .dcf-method{font-size:8.6px;color:#5a6b7b;line-height:1.32;margin-top:2px;font-weight:600}
+#report .extbl .rtech{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.2px;color:#fff;background:#a81f33;padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:1px;white-space:nowrap}
+#report table.extbl td.c .ld{font-size:7.6px;color:#a81f33;font-weight:600;font-family:'Oswald';line-height:1.1;margin-top:1px}
+#report .daycol .dc-f b{color:var(--navy);font-family:'Oswald';font-weight:600}
+
+#report .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-bottom:12px}
+#report .three-col .box-h{font-size:12px}
+#report .rtips{list-style:none;margin:0;padding:0}
+#report .rtips li{font-size:9.5px;color:#3a4a5a;line-height:1.35;padding:3px 0 3px 12px;position:relative}
+#report .rtips li:before{content:"›";position:absolute;left:0;color:var(--orange);font-weight:700}
+
+#report table.track{width:100%;border-collapse:collapse;margin-top:4px}
+#report table.track th,#report table.track td{border:1px solid #dce3ea;padding:4px 4px;font-size:9.3px;text-align:center}
+#report table.track th{background:#8f1a2b;color:#fff;font-family:'Oswald';font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-size:9.3px}
+#report table.track td.rl{text-align:left;font-weight:600;color:#14212e;background:#f6f8fa;font-size:9.5px}
+
+#report .r-foot{margin-top:16px;padding-top:14px;border-top:2px solid var(--navy);display:flex;align-items:center;justify-content:space-between}
+#report .r-foot .motto{font-family:'Oswald';font-weight:600;font-size:12px;color:var(--navy);letter-spacing:.3px}
+#report .r-foot .motto span{color:var(--orange)}
+#report .r-foot .sig{font-size:10px;color:#8a99a8;text-align:right}
+#report .r-foot .sig b{color:#14212e;font-family:'Oswald';display:block}
+#report .r-evidence{margin-top:10px;font-size:8.5px;color:#8a99a8;line-height:1.4;border-top:1px solid #eef2f5;padding-top:8px}
+#report .r-evidence b{color:#5a6b7b}
+
+#report .pageno{position:absolute;bottom:12px;right:30px;font-size:8px;color:#b0bcc8}
+#report .r-donut-wrap{width:96px;height:96px;flex:0 0 auto}
+</style>
+</head>
+<body>
+<div id="phone">
+  <div id="topbar">
+    <div class="logo" id="homeBtn"><img class="logoimg" src="images/logo.png" alt="NyxFit"></div>
+    <div class="brand"><b>NyxFit</b><span>Kişisel Koçunuz</span></div>
+    <button class="iconbtn" id="themeBtn" title="Tema değiştir" aria-label="Koyu/açık tema">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="sci" id="sciBtn">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Bilimsel Dayanak
+    </div>
+  </div>
+  <div id="progress"></div>
+  <div id="app"></div>
+  <div id="navbar"></div>
+
+  <!-- references drawer -->
+  <div class="overlay" id="overlay"></div>
+  <div class="drawer" id="drawer">
+    <div class="grip"></div>
+    <div class="dh"><h3>Bilimsel Dayanak</h3><div class="x" id="drawerClose"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+    <div class="dbody" id="drawerBody"></div>
+  </div>
+
+  <div class="pdf-loading" id="pdfLoading">
+    <div class="spin"></div>
+    <p>PDF raporu hazırlanıyor…</p>
+    <small id="pdfLoadingSub">Program derleniyor</small>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+<div class="report-host"><div id="report"></div></div>
+
+<script>
+/* ======================================================================
+   NyxFit — Kanıta Dayalı Antrenman & Beslenme Motoru
+   Tüm karar kuralları bilimsel literatüre dayanır (bkz. CITATIONS).
+   ====================================================================== */
+"use strict";
+const IMG = {"male": "images/male.png", "female": "images/female.png", "b3": "images/b3.png", "b4": "images/b4.png", "b5": "images/b5.png", "b6": "images/b6.png", "b7": "images/b7.png", "b8": "images/b8.png", "m9": "images/m9.png", "m10": "images/m10.png", "f11": "images/f11.png", "f12": "images/f12.png", "f13": "images/f13.png", "f14": "images/f14.png", "f15": "images/f15.png", "f16": "images/f16.png", "f17": "images/f17.png", "goal_slim": "images/goal_slim.png", "goal_health": "images/goal_health.png", "goal_muscle": "images/goal_muscle.png", "goal_strength": "images/goal_strength.png", "goal_fit": "images/goal_fit.png", "goal_cardio": "images/goal_cardio.png"};
+
+/* -------------------- VÜCUT TİPLERİ -------------------- */
+/* level: infografikteki 1-8 body-level; bf: tahmini yağ % (orta değer) */
+const BODY = {
+  male: [
+    {img:"b3", name:"Çok Zayıf",  level:1, bf:9,  note:"Çok düşük yağ, düşük kas"},
+    {img:"b4", name:"Zayıf / Atletik", level:2, bf:12, note:"İnce yapı, hafif tanım"},
+    {img:"b5", name:"Fit",        level:3, bf:15, note:"Görünür tanım, dengeli"},
+    {img:"b6", name:"Ortalama",   level:4, bf:19, note:"Ortalama kompozisyon"},
+    {img:"b7", name:"Kilolu",     level:5, bf:26, note:"Yüksek yağ oranı"},
+    {img:"b8", name:"Obez",       level:6, bf:33, note:"Çok yüksek yağ oranı"},
+    {img:"m9",  name:"Kaslı (Orta)",  level:7, bf:14, musc:true, note:"Gelişmiş kas kütlesi, orta yağ"},
+    {img:"m10", name:"Kaslı (İleri)", level:8, bf:10, musc:true, note:"Yüksek kas kütlesi, düşük yağ"},
+  ],
+  female: [
+    {img:"f11", name:"Çok Zayıf",  level:1, bf:16, note:"Çok düşük yağ, düşük kas"},
+    {img:"f12", name:"Zayıf / Atletik", level:2, bf:20, note:"İnce yapı, hafif tanım"},
+    {img:"f13", name:"Fit",        level:3, bf:24, note:"Görünür tanım, dengeli"},
+    {img:"f14", name:"Ortalama",   level:4, bf:28, note:"Ortalama kompozisyon"},
+    {img:"f15", name:"Kilolu",     level:5, bf:33, note:"Yüksek yağ oranı"},
+    {img:"f16", name:"Kilolu +",   level:6, bf:38, note:"Çok yüksek yağ oranı"},
+    {img:"f17", name:"Obez",       level:7, bf:43, note:"En yüksek yağ oranı"},
+  ]
+};
+
+/* -------------------- AMAÇLAR (hedef parametreleri) --------------------
+   Her hedef; kalori ayarı, protein hedefi (g/kg VA), tekrar aralıkları,
+   dinlenme, RIR ve kardiyo yoğunluğunu belirler. Kaynaklar CITATIONS'ta. */
+const GOALS = {
+  slim:    {img:"goal_slim",    name:"İncelmek",     tag:"Yağ kaybı + kas koruma",
+            kcalAdj:-0.20, protein:2.2, repC:[10,15], repI:[12,20], restC:90, restI:60, rir:"1-2", rpe:"7-8", cardio:"high", split:"fatloss", note:"Kalori açığı + yüksek protein ile yağ kaybı, kas koruma"},
+  health:  {img:"goal_health",  name:"Sağlıklı Yaşam", tag:"Genel sağlık & hareketlilik",
+            kcalAdj:0.0,  protein:1.6, repC:[8,12],  repI:[10,15], restC:90, restI:75, rir:"2-3", rpe:"6-8", cardio:"moderate", split:"general", note:"Dengeli tam vücut, sürdürülebilir sağlık kazanımı"},
+  muscle:  {img:"goal_muscle",  name:"Kas Yapmak",   tag:"Hipertrofi (kas gelişimi)",
+            kcalAdj:0.12, protein:2.0, repC:[6,10],  repI:[10,15], restC:120,restI:90, rir:"1-2", rpe:"7-9", cardio:"low", split:"hypertrophy", note:"Kalori fazlası + 10-20 set/kas hacmiyle hipertrofi · düz setler, uzun dinlenme, mekanik gerilim odağı"},
+  strength:{img:"goal_strength",name:"Güçlenmek",    tag:"Maksimal kuvvet",
+            kcalAdj:0.08, protein:1.8, repC:[3,6],   repI:[6,10],  restC:210,restI:120,rir:"1-2", rpe:"7-9", cardio:"low", split:"strength", note:"Düşük tekrar / yüksek yük, uzun dinlenme ile kuvvet"},
+  fit:     {img:"goal_fit",     name:"Fit Gözükmek", tag:"Kas tonusu + düşük yağ (rekomp)",
+            kcalAdj:-0.08,protein:2.0, repC:[10,15], repI:[12,20], restC:75, restI:45, rir:"1-3", rpe:"7-8", cardio:"moderate", split:"recomp", note:"Hafif açık + yüksek protein ile rekompozisyon · süperset & kısa dinlenme, metabolik yoğunluk (kası koru, yağı yak)"},
+  cardio:  {img:"goal_cardio",  name:"Kondisyon",    tag:"Kardiyovasküler dayanıklılık",
+            kcalAdj:-0.10,protein:1.8, repC:[12,20], repI:[15,25], restC:60, restI:45, rir:"2-3", rpe:"6-8", cardio:"hiit", split:"conditioning", note:"Yüksek tekrar + interval kardiyo ile dayanıklılık"},
+};
+
+/* -------------------- AKTİVİTE KATSAYILARI (Harris-Benedict / Mifflin) -------------------- */
+const ACTIVITY = [
+  {id:"sed",  name:"Sedanter",   sm:"Masa başı, az hareket",        f:1.2},
+  {id:"light",name:"Hafif Aktif", sm:"Haftada 1-3 gün hafif aktivite", f:1.375},
+  {id:"mod",  name:"Orta Aktif",  sm:"Haftada 3-5 gün antrenman",    f:1.55},
+  {id:"high", name:"Çok Aktif",   sm:"Haftada 6-7 gün yoğun",        f:1.725},
+  {id:"ext",  name:"Ekstra Aktif",sm:"Fiziksel iş + antrenman",       f:1.9},
+];
+const EXPERIENCE = [
+  {id:"beg", name:"Başlangıç", sm:"0-1 yıl",  vol:0.8, setsC:3, setsI:2},
+  {id:"int", name:"Orta",      sm:"1-3 yıl",  vol:1.0, setsC:4, setsI:3},
+  {id:"adv", name:"İleri",     sm:"3+ yıl",   vol:1.15,setsC:4, setsI:3},
+];
+const EQUIP = [
+  {id:"gym",  name:"Spor Salonu", sub:"Makine + serbest ağırlık", allow:["barbell","dumbbell","machine","cable","bw","band"]},
+  {id:"home", name:"Ev",          sub:"Dumbbell + Band", allow:["dumbbell","bw","band"]},
+  {id:"min",  name:"Minimal",     sub:"Vücut ağırlığı + Band", allow:["bw","band"]},
+];
+
+/* -------------------- EGZERSİZ KÜTÜPHANESİ --------------------
+   p: hareket paterni | eq: gerekli ekipman | m: birincil kas | c: bileşik(compound) */
+const EXDB = [
+  {n:"Barbell Back Squat", p:"squat", eq:["barbell"], m:"Bacak (Quadriceps)", c:1, s:3, d:"barla çömelme; sırt dik, dizler ayak ucu hizasında.", a:"Goblet Squat / Leg Press"},
+  {n:"Smith Machine Squat", p:"squat", eq:["machine"], m:"Bacak (Quadriceps)", c:1, s:2, d:"smith makinesinde sabit yörüngeli çömelme."},
+  {n:"Leg Press", p:"squat", eq:["machine"], m:"Bacak (Quadriceps)", c:1, s:1, d:"makinede güvenle bacak itişi; dizi kilitleme."},
+  {n:"Hack Squat", p:"squat", eq:["machine"], m:"Bacak (Quadriceps)", c:1, s:1, d:"makinede quadriceps odaklı çömelme; bel destekli."},
+  {n:"Goblet Squat", p:"squat", eq:["dumbbell"], m:"Bacak (Quadriceps)", c:1, s:1, d:"önde dambılla çömelme; başlangıç için ideal."},
+  {n:"Bodyweight Squat", p:"squat", eq:["bw"], m:"Bacak (Quadriceps)", c:1, s:1, d:"vücut ağırlığıyla çömelme; tempo ve derinliğe odaklan."},
+  {n:"Deadlift", p:"hinge", eq:["barbell"], m:"Arka Zincir", c:1, s:3, d:"yerden bar kaldırış; bel nötr, bar vücuda yakın.", a:"Romanian Deadlift / Hip Thrust"},
+  {n:"Romanian Deadlift", p:"hinge", eq:["barbell"], m:"Hamstring / Kalça", c:1, s:2, d:"kalça menteşesi; bel düz, hamstringde gerilim.", a:"Cable Pull-Through / Leg Curl"},
+  {n:"Dumbbell RDL", p:"hinge", eq:["dumbbell"], m:"Hamstring / Kalça", c:1, s:1, d:"dambılla kalça menteşesi; kontrollü in."},
+  {n:"Barbell Hip Thrust", p:"hinge", eq:["barbell"], m:"Kalça (Glutes)", c:1, s:2, d:"barla kalça itişi; tepede kalçayı sık."},
+  {n:"Glute Drive Machine", p:"hinge", eq:["machine"], m:"Kalça (Glutes)", c:1, s:1, d:"makinede kalça itişi; güvenli ve stabil."},
+  {n:"Cable Pull-Through", p:"hinge", eq:["cable"], m:"Kalça / Hamstring", c:1, s:1, d:"kabloyla kalça menteşesi; bele yük bindirmez."},
+  {n:"45° Back Extension", p:"hinge", eq:["machine"], m:"Bel / Kalça", c:1, s:1, d:"hiperekstansiyon; bel-kalça, kontrollü kalk."},
+  {n:"Glute Bridge", p:"hinge", eq:["bw"], m:"Kalça (Glutes)", c:1, s:1, d:"yerde kalça köprüsü; düşük riskli."},
+  {n:"Band Good Morning", p:"hinge", eq:["band"], m:"Hamstring / Bel", c:1, s:3, d:"bantla kalça menteşesi; bele dikkat.", a:"Cable Pull-Through / Romanian Deadlift"},
+  {n:"Walking Lunge", p:"lunge", eq:["dumbbell"], m:"Bacak / Kalça", c:1, s:2, d:"yürüyerek hamle; denge ve tek bacak gücü.", a:"Leg Press"},
+  {n:"Bulgarian Split Squat", p:"lunge", eq:["dumbbell"], m:"Bacak / Kalça", c:1, s:2, d:"arka ayak yükseltilmiş tek bacak; denge ister.", a:"Reverse Lunge / Leg Press"},
+  {n:"Reverse Lunge", p:"lunge", eq:["dumbbell"], m:"Bacak / Kalça", c:1, s:1, d:"geriye adım hamlesi; dize daha nazik."},
+  {n:"Step-Up", p:"lunge", eq:["dumbbell"], m:"Bacak / Kalça", c:1, s:1, d:"kutuya çıkış; kontrollü in-çık."},
+  {n:"Bodyweight Reverse Lunge", p:"lunge", eq:["bw"], m:"Bacak / Kalça", c:1, s:1, d:"vücut ağırlığıyla geriye hamle."},
+  {n:"Barbell Bench Press", p:"push_h", eq:["barbell"], m:"Göğüs", c:1, s:2, d:"barla göğüs itişi; dirsekler ~45°.", a:"Machine Chest Press / DB Bench"},
+  {n:"Dumbbell Bench Press", p:"push_h", eq:["dumbbell"], m:"Göğüs", c:1, s:1, d:"dambılla göğüs; geniş hareket açıklığı."},
+  {n:"Machine Chest Press", p:"push_h", eq:["machine"], m:"Göğüs", c:1, s:1, d:"makinede göğüs itişi; sabit ve güvenli."},
+  {n:"Smith Machine Bench Press", p:"push_h", eq:["machine"], m:"Göğüs", c:1, s:2, d:"smith'te sabit yörüngeli göğüs itişi."},
+  {n:"Push-up", p:"push_h", eq:["bw"], m:"Göğüs", c:1, s:1, d:"şınav; gövdeyi düz bir hat tut."},
+  {n:"Incline Barbell Press", p:"incline", eq:["barbell"], m:"Üst Göğüs", c:1, s:2, d:"eğimli barla üst göğüs itişi.", a:"Incline Machine / DB Press"},
+  {n:"Incline Dumbbell Press", p:"incline", eq:["dumbbell"], m:"Üst Göğüs", c:1, s:1, d:"eğimli dambıl press; üst göğüs."},
+  {n:"Incline Machine Press", p:"incline", eq:["machine"], m:"Üst Göğüs", c:1, s:1, d:"makinede üst göğüs itişi; güvenli."},
+  {n:"Overhead Barbell Press", p:"push_v", eq:["barbell"], m:"Omuz (Deltoid)", c:1, s:3, d:"ayakta barla omuz press; core sık.", a:"DB / Machine Shoulder Press"},
+  {n:"Dumbbell Shoulder Press", p:"push_v", eq:["dumbbell"], m:"Omuz (Deltoid)", c:1, s:1, d:"dambılla omuz press; doğal bilek açısı."},
+  {n:"Machine Shoulder Press", p:"push_v", eq:["machine"], m:"Omuz (Deltoid)", c:1, s:1, d:"makinede omuz press; başlangıç dostu."},
+  {n:"Arnold Press", p:"push_v", eq:["dumbbell"], m:"Omuz (Deltoid)", c:1, s:2, d:"dönüşlü omuz press; tüm deltoid başları.", a:"Dumbbell Shoulder Press"},
+  {n:"Smith Machine Shoulder Press", p:"push_v", eq:["machine"], m:"Omuz (Deltoid)", c:1, s:2, d:"smith'te sabit omuz press."},
+  {n:"Pike Push-up", p:"push_v", eq:["bw"], m:"Omuz (Deltoid)", c:1, s:2, rr:[8,18], d:"V şınav; kalça yüksek, tepe noktada omuz baskısı.", a:"DB / Machine Shoulder Press"},
+  {n:"Lat Pulldown", p:"pull_v", eq:["cable"], m:"Sırt (Lat)", c:1, s:1, d:"kabloyla lat çekiş; göğse doğru çek."},
+  {n:"Close-Grip Pulldown", p:"pull_v", eq:["cable"], m:"Sırt (Lat)", c:1, s:1, d:"dar tutuş pulldown; lat ve alt sırt."},
+  {n:"Neutral-Grip Pulldown", p:"pull_v", eq:["cable"], m:"Sırt (Lat)", c:1, s:1, d:"nötr tutuş pulldown; sırt kalınlığı."},
+  {n:"Pull-up", p:"pull_v", eq:["bw"], m:"Sırt (Lat)", c:1, s:2, rr:[5,12], d:"barfikste lat; tam asıl, kontrollü çık. Kolaysa ağırlık ekle, zorsa negatif/destekli.", a:"Lat Pulldown / Assisted Pull-up"},
+  {n:"Assisted Pull-up Machine", p:"pull_v", eq:["machine"], m:"Sırt (Lat)", c:1, s:1, beg:1, d:"destekli barfiks; güç artana kadar ideal."},
+  {n:"Straight-Arm Pulldown", p:"pull_v", eq:["cable"], m:"Sırt (Lat)", c:0, s:1, d:"düz kol pulldown; lat izolasyonu."},
+  {n:"Band Lat Pulldown", p:"pull_v", eq:["band"], m:"Sırt (Lat)", c:1, s:1, d:"bantla lat çekiş; ev alternatifi."},
+  {n:"Barbell Row", p:"pull_h", eq:["barbell"], m:"Sırt (Orta)", c:1, s:2, d:"öne eğilerek barla kürek; bel nötr.", a:"Chest-Supported / Cable Row"},
+  {n:"Pendlay Row", p:"pull_h", eq:["barbell"], m:"Sırt (Orta)", c:1, s:3, d:"yerden patlayıcı kürek; güçlü bel gerektirir.", a:"Seated Cable Row"},
+  {n:"Seated Cable Row", p:"pull_h", eq:["cable"], m:"Sırt (Orta)", c:1, s:1, d:"oturarak kablo kürek; kürek kemiklerini sık."},
+  {n:"Chest-Supported Row", p:"pull_h", eq:["machine"], m:"Sırt (Orta)", c:1, s:1, d:"göğüs destekli kürek; beli tam korur."},
+  {n:"Hammer Strength Row", p:"pull_h", eq:["machine"], m:"Sırt (Orta)", c:1, s:1, d:"makinede kürek; sabit yörünge, güvenli."},
+  {n:"Dumbbell Row", p:"pull_h", eq:["dumbbell"], m:"Sırt (Orta)", c:1, s:1, d:"tek kol dambıl kürek; sırtta sıkışma."},
+  {n:"T-Bar Row", p:"pull_h", eq:["machine"], m:"Sırt (Orta)", c:1, s:2, d:"T-bar kürek; sırt kalınlığı."},
+  {n:"Inverted Row", p:"pull_h", eq:["bw"], m:"Sırt (Orta)", c:1, s:1, rr:[8,20], d:"bar altında ters kürek; ayak pozisyonuyla zorluk ayarla."},
+  {n:"Band Row", p:"pull_h", eq:["band"], m:"Sırt (Orta)", c:1, s:1, d:"bantla kürek; ev için pratik."},
+  {n:"Pec Deck", p:"chest_iso", eq:["machine"], m:"Göğüs", c:0, s:1, d:"makinede göğüs sıkıştırma; sabit ve güvenli."},
+  {n:"Cable Crossover", p:"chest_iso", eq:["cable"], m:"Göğüs", c:0, s:1, d:"kablo çapraz fly; göğüste sürekli gerilim."},
+  {n:"Low-to-High Cable Fly", p:"chest_iso", eq:["cable"], m:"Üst Göğüs", c:0, s:1, d:"alttan üste kablo fly; üst göğüs."},
+  {n:"Dumbbell Fly", p:"chest_iso", eq:["dumbbell"], m:"Göğüs", c:0, s:2, d:"dambıl fly; dirsek hafif bükülü, omuza dikkat.", a:"Pec Deck / Cable Crossover"},
+  {n:"Dumbbell Lateral Raise", p:"delt_side", eq:["dumbbell"], m:"Yan Omuz", c:0, s:1, d:"yana kaldırış; dirsekler hafif bükülü."},
+  {n:"Cable Lateral Raise", p:"delt_side", eq:["cable"], m:"Yan Omuz", c:0, s:1, d:"kabloyla yana kaldırış; sabit gerilim."},
+  {n:"Lateral Raise Machine", p:"delt_side", eq:["machine"], m:"Yan Omuz", c:0, s:1, d:"makinede yana kaldırış; stabil."},
+  {n:"Band Lateral Raise", p:"delt_side", eq:["band"], m:"Yan Omuz", c:0, s:1, d:"bantla yana kaldırış; ev için."},
+  {n:"Reverse Pec Deck", p:"delt_rear", eq:["machine"], m:"Arka Omuz", c:0, s:1, d:"ters pec deck; arka omuz izolasyonu."},
+  {n:"Face Pull", p:"delt_rear", eq:["cable"], m:"Arka Omuz", c:0, s:1, d:"yüze çekiş; arka omuz ve omuz sağlığı."},
+  {n:"Rear Delt Dumbbell Raise", p:"delt_rear", eq:["dumbbell"], m:"Arka Omuz", c:0, s:1, d:"eğilerek arka omuz kaldırış."},
+  {n:"Band Pull-Apart", p:"delt_rear", eq:["band"], m:"Arka Omuz", c:0, s:1, d:"bant açma; arka omuz ve duruş."},
+  {n:"Rope Pushdown", p:"triceps", eq:["cable"], m:"Triceps", c:0, s:1, d:"halatla triceps itiş; dirsekler sabit."},
+  {n:"Bar Pushdown", p:"triceps", eq:["cable"], m:"Triceps", c:0, s:1, d:"barla triceps itiş; kontrollü."},
+  {n:"Overhead Cable Extension", p:"triceps", eq:["cable"], m:"Triceps", c:0, s:1, d:"baş üstü kablo triceps; uzun başı hedefler."},
+  {n:"Overhead Dumbbell Extension", p:"triceps", eq:["dumbbell"], m:"Triceps", c:0, s:1, d:"baş üstü dambıl triceps esnetme."},
+  {n:"Triceps Dip Machine", p:"triceps", eq:["machine"], m:"Triceps", c:0, s:1, d:"makinede triceps dip; güvenli."},
+  {n:"Skullcrusher", p:"triceps", eq:["dumbbell"], m:"Triceps", c:0, s:2, d:"yatarak triceps; dirseğe yük biner.", a:"Rope Pushdown / Overhead Ext."},
+  {n:"Close-Grip Bench", p:"triceps", eq:["barbell"], m:"Triceps", c:1, s:2, d:"dar tutuş bench; triceps ağırlıklı bileşik."},
+  {n:"Diamond Push-up", p:"triceps", eq:["bw"], m:"Triceps", c:0, s:1, rr:[8,20], d:"elmas şınav; eller göğüs altında bitişik, triceps vurgusu."},
+  {n:"Band Pushdown", p:"triceps", eq:["band"], m:"Triceps", c:0, s:1, d:"bantla triceps itiş; ev alternatifi."},
+  {n:"Dumbbell Curl", p:"biceps", eq:["dumbbell"], m:"Biceps", c:0, s:1, d:"dambıl biceps curl; kontrollü."},
+  {n:"EZ-Bar Curl", p:"biceps", eq:["barbell"], m:"Biceps", c:0, s:1, d:"EZ barla biceps; bileğe nazik."},
+  {n:"Hammer Curl", p:"biceps", eq:["dumbbell"], m:"Biceps / Ön Kol", c:0, s:1, d:"çekiç curl; biceps ve ön kol."},
+  {n:"Cable Curl", p:"biceps", eq:["cable"], m:"Biceps", c:0, s:1, d:"kabloda biceps; sürekli gerilim."},
+  {n:"Preacher Curl", p:"biceps", eq:["machine"], m:"Biceps", c:0, s:1, d:"preacher curl; biceps tepe kasılması."},
+  {n:"Incline Dumbbell Curl", p:"biceps", eq:["dumbbell"], m:"Biceps", c:0, s:2, d:"eğimli dambıl curl; biceps uzun başı."},
+  {n:"Band Curl", p:"biceps", eq:["band"], m:"Biceps", c:0, s:1, d:"bantla biceps; ev için pratik."},
+  {n:"Leg Extension", p:"quad_iso", eq:["machine"], m:"Quadriceps", c:0, s:1, d:"makinede quadriceps izolasyonu."},
+  {n:"Sissy Squat", p:"quad_iso", eq:["bw"], m:"Quadriceps", c:0, s:3, rr:[8,18], d:"quad izolasyon; dize yük biner, dikkatli.", a:"Leg Extension"},
+  {n:"Seated Leg Curl", p:"ham_iso", eq:["machine"], m:"Hamstring", c:0, s:1, d:"oturarak hamstring bükme."},
+  {n:"Lying Leg Curl", p:"ham_iso", eq:["machine"], m:"Hamstring", c:0, s:1, d:"yatarak hamstring bükme."},
+  {n:"Nordic Curl", p:"ham_iso", eq:["bw"], m:"Hamstring", c:0, s:3, rr:[4,10], d:"diz üstü hamstring; çok zorlu, eksantriği yavaşlat.", a:"Seated Leg Curl"},
+  {n:"Cable Glute Kickback", p:"glute_iso", eq:["cable"], m:"Kalça (Glutes)", c:0, s:1, d:"kabloyla kalça tekmesi; sıkıştırma."},
+  {n:"Glute Kickback Machine", p:"glute_iso", eq:["machine"], m:"Kalça (Glutes)", c:0, s:1, d:"makinede kalça tekmesi."},
+  {n:"Hip Abduction Machine", p:"glute_iso", eq:["machine"], m:"Kalça (Abd/Glute)", c:0, s:1, d:"makinede kalça açma; glute medius."},
+  {n:"Band Glute Kickback", p:"glute_iso", eq:["band"], m:"Kalça (Glutes)", c:0, s:1, d:"bantla kalça tekmesi; ev için."},
+  {n:"Standing Calf Raise", p:"calf", eq:["machine"], m:"Baldır", c:0, s:1, d:"ayakta baldır kaldırış; tam açıklık."},
+  {n:"Seated Calf Raise", p:"calf", eq:["machine"], m:"Baldır", c:0, s:1, d:"oturarak baldır; soleus vurgusu."},
+  {n:"Leg Press Calf Raise", p:"calf", eq:["machine"], m:"Baldır", c:0, s:1, d:"leg press'te baldır kaldırış."},
+  {n:"Dumbbell Calf Raise", p:"calf", eq:["dumbbell"], m:"Baldır", c:0, s:1, d:"dambılla baldır kaldırış."},
+  {n:"Bodyweight Calf Raise", p:"calf", eq:["bw"], m:"Baldır", c:0, s:1, d:"vücut ağırlığıyla baldır."},
+  {n:"Cable Crunch", p:"core", eq:["cable"], m:"Karın", c:0, s:1, d:"kabloda karın kıvırma; kontrollü sık."},
+  {n:"Machine Crunch", p:"core", eq:["machine"], m:"Karın", c:0, s:1, d:"makinede karın kıvırma."},
+  {n:"Hanging Leg Raise", p:"core", eq:["bw"], m:"Alt Karın", c:0, s:2, rr:[8,20], d:"asılı bacak kaldırış; tutuş gücü ister.", a:"Dead Bug / Cable Crunch"},
+  {n:"Ab Wheel", p:"core", eq:["bw"], m:"Karın / Core", c:0, s:3, rr:[6,15], d:"karın tekerleği; ileri seviye, bele dikkat.", a:"Plank / Dead Bug"},
+  {n:"Russian Twist", p:"core", eq:["bw"], m:"Oblik", c:0, s:1, rr:[20,40], d:"rus twist; gövde rotasyonu, her iki taraf sayılır."},
+  {n:"Dead Bug", p:"core", eq:["bw"], m:"Karın / Core", c:0, s:1, d:"ölü böcek; güvenli core stabilite."},
+  {n:"Plank", p:"core", eq:["bw"], m:"Karın / Core", c:0, s:1, d:"gövdeyi düz tut; kalça düşmesin.", dur:1},
+
+  /* ---- EK HAREKETLER (alternatif havuzu + ev/minimal genişletme) ---- */
+  /* SQUAT */
+  {n:"Front Squat", p:"squat", eq:["barbell"], m:"Bacak (Quadriceps)", c:1, s:3, d:"önde bar çömelme; gövde daha dik, quad vurgusu.", a:"Goblet Squat / Leg Press"},
+  {n:"Dumbbell Squat", p:"squat", eq:["dumbbell"], m:"Bacak (Quadriceps)", c:1, s:1, d:"iki dambılla çömelme; ev için ideal bileşik."},
+  {n:"Landmine Squat", p:"squat", eq:["barbell"], m:"Bacak (Quadriceps)", c:1, s:2, d:"landmine barla çömelme; bele nazik yörünge."},
+  {n:"Band Squat", p:"squat", eq:["band"], m:"Bacak (Quadriceps)", c:1, s:1, d:"bant direnciyle çömelme; tepe noktada gerilim artar."},
+  {n:"Wall Sit", p:"quad_iso", eq:["bw"], m:"Bacak (Quadriceps)", c:0, s:1, dur:1, d:"duvara yaslı izometrik oturuş; quad dayanıklılığı."},
+  /* HINGE */
+  {n:"Sumo Deadlift", p:"hinge", eq:["barbell"], m:"Arka Zincir / Kalça", c:1, s:3, d:"geniş duruş deadlift; kalça ve iç bacak vurgusu.", a:"Romanian Deadlift / Hip Thrust"},
+  {n:"Single-Leg RDL", p:"hinge", eq:["dumbbell"], m:"Hamstring / Kalça", c:1, s:2, d:"tek bacak Romen deadlift; denge + hamstring."},
+  {n:"Dumbbell Hip Thrust", p:"hinge", eq:["dumbbell"], m:"Kalça (Glutes)", c:1, s:1, d:"dambılı kalçaya koyup köprü; ev glute bileşiği."},
+  {n:"Barbell Good Morning", p:"hinge", eq:["barbell"], m:"Hamstring / Bel", c:1, s:3, d:"barla kalça menteşesi; bele dikkat, hafif başla.", a:"Cable Pull-Through / Romanian Deadlift"},
+  {n:"Band Pull-Through", p:"hinge", eq:["band"], m:"Kalça / Hamstring", c:1, s:1, d:"bantla kalça menteşesi; bele yük bindirmez."},
+  {n:"Single-Leg Glute Bridge", p:"hinge", eq:["bw"], m:"Kalça (Glutes)", c:1, s:1, rr:[12,20], d:"tek bacak kalça köprüsü; glute izolasyonu artar."},
+  /* LUNGE */
+  {n:"Bodyweight Walking Lunge", p:"lunge", eq:["bw"], m:"Bacak / Kalça", c:1, s:1, rr:[10,20], d:"vücut ağırlığıyla yürüyen hamle; her bacak sayılır."},
+  {n:"Bodyweight Split Squat", p:"lunge", eq:["bw"], m:"Bacak / Kalça", c:1, s:1, rr:[10,20], d:"sabit ayak duruşunda tek bacak çömelme."},
+  {n:"Lateral Lunge", p:"lunge", eq:["dumbbell"], m:"Bacak / İç Bacak", c:1, s:2, d:"yana hamle; adductor ve quad."},
+  {n:"Curtsy Lunge", p:"lunge", eq:["bw"], m:"Kalça / Bacak", c:1, s:1, rr:[10,20], d:"çapraz geri hamle; glute medius vurgusu."},
+  /* PUSH_H */
+  {n:"Band Chest Press", p:"push_h", eq:["band"], m:"Göğüs", c:1, s:1, d:"bantla göğüs itişi; sırttan dolayıp öne it."},
+  {n:"Chest Dip", p:"push_h", eq:["bw"], m:"Göğüs", c:1, s:2, rr:[8,20], d:"paralel barda öne eğik dip; alt göğüs.", a:"Machine Chest Press / DB Bench"},
+  {n:"Decline Dumbbell Press", p:"push_h", eq:["dumbbell"], m:"Alt Göğüs", c:1, s:1, d:"eğimli aşağı dambıl press; alt göğüs."},
+  {n:"Floor Press", p:"push_h", eq:["dumbbell"], m:"Göğüs / Triceps", c:1, s:1, d:"yerde dambıl press; omuza nazik, triceps kilidi."},
+  {n:"Knee Push-up", p:"push_h", eq:["bw"], m:"Göğüs", c:1, s:1, beg:1, rr:[10,25], d:"diz üstü şınav; başlangıç için regresyon."},
+  /* INCLINE */
+  {n:"Incline Cable Press", p:"incline", eq:["cable"], m:"Üst Göğüs", c:1, s:1, d:"eğimli kablo press; üst göğüste sabit gerilim."},
+  {n:"Band Incline Press", p:"incline", eq:["band"], m:"Üst Göğüs", c:1, s:1, d:"bantla yukarı açılı itiş; üst göğüs, ev için."},
+  {n:"Decline Push-up", p:"incline", eq:["bw"], m:"Üst Göğüs", c:1, s:1, rr:[10,22], d:"ayaklar yüksekte şınav; üst göğüs & omuz vurgusu."},
+  /* PUSH_V */
+  {n:"Push Press", p:"push_v", eq:["barbell"], m:"Omuz (Deltoid)", c:1, s:2, d:"bacaktan destekli baş üstü itiş; daha ağır yük."},
+  {n:"Landmine Press", p:"push_v", eq:["barbell"], m:"Omuz (Deltoid)", c:1, s:2, d:"landmine tek/çift kol itiş; omuza güvenli açı."},
+  {n:"Band Overhead Press", p:"push_v", eq:["band"], m:"Omuz (Deltoid)", c:1, s:1, d:"bantla baş üstü press; ev omuz bileşiği."},
+  {n:"Seated Dumbbell Press", p:"push_v", eq:["dumbbell"], m:"Omuz (Deltoid)", c:1, s:1, d:"oturarak dambıl press; stabil, sırt destekli."},
+  /* PULL_V */
+  {n:"Chin-up", p:"pull_v", eq:["bw"], m:"Sırt (Lat) / Biceps", c:1, s:2, rr:[5,12], d:"ters tutuş barfiks; lat + biceps. Kolaysa ağırlık ekle.", a:"Lat Pulldown / Assisted Pull-up"},
+  {n:"Wide-Grip Pulldown", p:"pull_v", eq:["cable"], m:"Sırt (Lat)", c:1, s:1, d:"geniş tutuş pulldown; lat genişliği."},
+  {n:"Single-Arm Pulldown", p:"pull_v", eq:["cable"], m:"Sırt (Lat)", c:1, s:1, d:"tek kol pulldown; her tarafı ayrı çalış."},
+  {n:"Band-Assisted Pull-up", p:"pull_v", eq:["band"], m:"Sırt (Lat)", c:1, s:1, beg:1, d:"banta basarak destekli barfiks; güç gelişimi."},
+  /* PULL_H */
+  {n:"Single-Arm Cable Row", p:"pull_h", eq:["cable"], m:"Sırt (Orta)", c:1, s:1, d:"tek kol kablo kürek; geniş hareket açıklığı."},
+  {n:"Landmine Row", p:"pull_h", eq:["barbell"], m:"Sırt (Orta)", c:1, s:2, d:"landmine kürek; sırt kalınlığı, bele nazik."},
+  {n:"Chest-Supported DB Row", p:"pull_h", eq:["dumbbell"], m:"Sırt (Orta)", c:1, s:1, d:"eğimli sehpaya yaslı dambıl kürek; beli korur."},
+  /* CHEST_ISO */
+  {n:"Incline Dumbbell Fly", p:"chest_iso", eq:["dumbbell"], m:"Üst Göğüs", c:0, s:2, d:"eğimli dambıl fly; üst göğüs esnetme.", a:"Pec Deck / Cable Crossover"},
+  {n:"Band Chest Fly", p:"chest_iso", eq:["band"], m:"Göğüs", c:0, s:1, d:"bantla göğüs kucaklama; ev izolasyonu."},
+  {n:"High-to-Low Cable Fly", p:"chest_iso", eq:["cable"], m:"Alt Göğüs", c:0, s:1, d:"üstten alta kablo fly; alt göğüs."},
+  /* DELT_SIDE */
+  {n:"Cable Upright Row", p:"delt_side", eq:["cable"], m:"Yan Omuz / Trapez", c:0, s:1, d:"kabloyla dik çekiş; yan omuz ve trapez."},
+  {n:"Leaning Dumbbell Lateral", p:"delt_side", eq:["dumbbell"], m:"Yan Omuz", c:0, s:2, d:"desteğe yaslı yana kaldırış; sürekli gerilim."},
+  /* DELT_REAR */
+  {n:"Cable Rear Delt Fly", p:"delt_rear", eq:["cable"], m:"Arka Omuz", c:0, s:1, d:"kabloyla çapraz arka omuz açma."},
+  /* TRICEPS */
+  {n:"Bench Dip", p:"triceps", eq:["bw"], m:"Triceps", c:0, s:1, rr:[10,20], d:"sehpa/sandalye dip; triceps, ayakla zorluk ayarla."},
+  {n:"Dumbbell Kickback", p:"triceps", eq:["dumbbell"], m:"Triceps", c:0, s:1, d:"öne eğik dambıl geri itiş; triceps sıkıştırma."},
+  {n:"Cable Kickback", p:"triceps", eq:["cable"], m:"Triceps", c:0, s:1, d:"kabloyla triceps geri itiş; sabit gerilim."},
+  /* BICEPS */
+  {n:"Concentration Curl", p:"biceps", eq:["dumbbell"], m:"Biceps", c:0, s:1, d:"dirsek dize dayalı tek kol curl; tepe kasılması."},
+  {n:"Barbell Curl", p:"biceps", eq:["barbell"], m:"Biceps", c:0, s:1, d:"düz barla biceps curl; ağır yüklenebilir."},
+  {n:"Bayesian Cable Curl", p:"biceps", eq:["cable"], m:"Biceps", c:0, s:2, d:"arkadan kablo curl; uzun başta gerilim."},
+  /* QUAD_ISO */
+  {n:"Reverse Nordic", p:"quad_iso", eq:["bw"], m:"Quadriceps", c:0, s:2, rr:[8,18], d:"diz üstü geriye yaslanma; quad esnetmeli izolasyon."},
+  {n:"Spanish Squat", p:"quad_iso", eq:["band"], m:"Quadriceps", c:0, s:1, d:"bant dizde geride sabit çömelme; quad izole, dize nazik."},
+  /* HAM_ISO */
+  {n:"Band Leg Curl", p:"ham_iso", eq:["band"], m:"Hamstring", c:0, s:1, d:"bantla hamstring bükme; ev alternatifi."},
+  {n:"Standing Leg Curl", p:"ham_iso", eq:["machine"], m:"Hamstring", c:0, s:1, d:"ayakta tek bacak hamstring bükme."},
+  /* GLUTE_ISO */
+  {n:"Band Lateral Walk", p:"glute_iso", eq:["band"], m:"Kalça (Glute Medius)", c:0, s:1, d:"dizde/ayakta bantla yana adım; glute medius aktivasyonu."},
+  {n:"Clamshell", p:"glute_iso", eq:["bw"], m:"Kalça (Glute Medius)", c:0, s:1, rr:[15,30], d:"yan yatışta diz açma; glute medius."},
+  {n:"Bodyweight Glute Kickback", p:"glute_iso", eq:["bw"], m:"Kalça (Glutes)", c:0, s:1, rr:[15,25], d:"dört ayak duruşta bacak geri tekme; glute sıkıştırma."},
+  {n:"Frog Pump", p:"glute_iso", eq:["bw"], m:"Kalça (Glutes)", c:0, s:1, rr:[15,30], d:"tabanlar bitişik kalça köprüsü; glute vurgusu."},
+  /* CALF */
+  {n:"Single-Leg Calf Raise", p:"calf", eq:["bw"], m:"Baldır", c:0, s:1, rr:[12,25], d:"tek bacak baldır kaldırış; ekstra zorluk."},
+  {n:"Band Calf Raise", p:"calf", eq:["band"], m:"Baldır", c:0, s:1, d:"bant direnciyle baldır kaldırış; ev için."},
+  /* CORE — vücut ağırlığı (ev/minimal için geniş karın seçkisi) */
+  {n:"Crunch", p:"core", eq:["bw"], m:"Karın (Üst)", c:0, s:1, rr:[15,30], d:"klasik mekik; üst karın kıvırma, beli yerde tut."},
+  {n:"Bicycle Crunch", p:"core", eq:["bw"], m:"Karın / Oblik", c:0, s:1, rr:[20,40], d:"bisiklet mekiği; dirsek-diz çapraz, oblik vurgusu."},
+  {n:"Reverse Crunch", p:"core", eq:["bw"], m:"Alt Karın", c:0, s:1, rr:[15,30], d:"kalçayı kaldırarak dizleri göğse çek; alt karın."},
+  {n:"Lying Leg Raise", p:"core", eq:["bw"], m:"Alt Karın", c:0, s:1, rr:[12,25], d:"yatarak bacak kaldırış; beli yere yapıştır."},
+  {n:"Flutter Kicks", p:"core", eq:["bw"], m:"Alt Karın", c:0, s:1, rr:[20,40], d:"yüzücü tekmesi; ritmik alt karın çalışması."},
+  {n:"V-Up", p:"core", eq:["bw"], m:"Karın / Core", c:0, s:2, rr:[10,20], d:"aynı anda el-ayak V kapanışı; tüm karın."},
+  {n:"Sit-up", p:"core", eq:["bw"], m:"Karın", c:0, s:1, rr:[15,30], d:"tam gövde kalkışı; kontrollü in-çık."},
+  {n:"Toe Touch", p:"core", eq:["bw"], m:"Karın (Üst)", c:0, s:1, rr:[15,25], d:"bacaklar dik, ayak ucuna uzan; üst karın."},
+  {n:"Mountain Climbers", p:"core", eq:["bw"], m:"Karın / Core", c:0, s:1, rr:[20,40], d:"şınav pozisyonunda diz çekme; core + kardiyo."},
+  {n:"Plank Shoulder Tap", p:"core", eq:["bw"], m:"Karın / Core", c:0, s:1, rr:[16,30], d:"plankta karşı omuza dokun; anti-rotasyon."},
+  {n:"Side Plank", p:"core", eq:["bw"], m:"Oblik / Core", c:0, s:1, dur:1, d:"yan planktan gövdeyi düz tut; oblik dayanıklılığı."},
+  {n:"Hollow Body Hold", p:"core", eq:["bw"], m:"Karın / Core", c:0, s:2, dur:1, d:"sırtüstü çukur pozisyon; derin karın izometrik."},
+  {n:"Cable Woodchop", p:"core", eq:["cable"], m:"Oblik / Core", c:0, s:1, d:"kabloyla çapraz balta hareketi; rotasyonel güç."},
+  {n:"Pallof Press", p:"core", eq:["cable"], m:"Core (Anti-rotasyon)", c:0, s:1, d:"kabloyu önde it-çek; gövdeyi döndürmeden sabit tut."},
+  {n:"Band Pallof Press", p:"core", eq:["band"], m:"Core (Anti-rotasyon)", c:0, s:1, d:"bantla anti-rotasyon presi; ev core stabilite."},
+];
+
+/* -------------------- GÜN ŞABLONLARI (main = bileşik, aux = izolasyon) -------------------- */
+const DAYPLANS = {
+  UPPER_A:{name:"Üst Vücut A", focus:"Göğüs • Sırt • Omuz • Kol", main:["push_h","pull_v","push_v","pull_h"], aux:["chest_iso","delt_side","triceps","biceps","delt_rear"]},
+  UPPER_B:{name:"Üst Vücut B", focus:"Sırt • Göğüs • Omuz • Kol", main:["pull_v","incline","push_v","pull_h"], aux:["delt_side","chest_iso","biceps","triceps","delt_rear"]},
+  LOWER_A:{name:"Alt Vücut A", focus:"Quad • Kalça • Baldır", main:["squat","hinge","lunge"], aux:["quad_iso","ham_iso","glute_iso","calf"], core:true},
+  LOWER_B:{name:"Alt Vücut B", focus:"Arka Zincir • Quad • Baldır", main:["hinge","squat","lunge"], aux:["ham_iso","quad_iso","glute_iso","calf"], core:true},
+  PUSH:{name:"İtiş (Push)", focus:"Göğüs • Omuz • Triceps", main:["push_h","incline","push_v"], aux:["chest_iso","delt_side","triceps","triceps"]},
+  PULL:{name:"Çekiş (Pull)", focus:"Sırt • Arka Omuz • Biceps", main:["pull_v","pull_h","hinge"], aux:["pull_h","delt_rear","biceps","biceps"]},
+  LEGS:{name:"Bacak (Legs)", focus:"Quad • Hamstring • Kalça • Baldır", main:["squat","hinge","lunge"], aux:["quad_iso","ham_iso","glute_iso","calf"], core:true},
+  FULL_A:{name:"Tam Vücut A", focus:"İtiş ağırlıklı tam vücut", main:["squat","push_h","pull_v"], aux:["push_v","triceps","biceps"], core:true},
+  FULL_B:{name:"Tam Vücut B", focus:"Çekiş ağırlıklı tam vücut", main:["hinge","incline","pull_h"], aux:["delt_side","ham_iso","calf"], core:true},
+  FULL_C:{name:"Tam Vücut C", focus:"Bacak & omuz ağırlıklı", main:["lunge","push_v","pull_v"], aux:["chest_iso","delt_rear","biceps"], core:true},
+};
+const SPLIT_BY_DAYS = {
+  2:["FULL_A","FULL_B"],
+  3:["FULL_A","FULL_B","FULL_C"],
+  4:["UPPER_A","LOWER_A","UPPER_B","LOWER_B"],
+  5:["PUSH","PULL","LEGS","UPPER_A","LOWER_A"],
+  6:["PUSH","PULL","LEGS","PUSH","PULL","LEGS"],
+};
+
+/* -------------------- AKADEMİK KAYNAKLAR -------------------- */
+const CITATIONS = [
+  {tag:"BMR • Enerji", cite:"Mifflin MD, St Jeor ST, ve ark. (1990). A new predictive equation for resting energy expenditure. <em>Am J Clin Nutr, 51(2)</em>.",
+   use:"Bazal metabolik hız <b>Mifflin-St Jeor</b> ile hesaplanır — en düşük hata payına sahip tahmin denklemi (ACSM tercihi)."},
+  {tag:"TDEE • Aktivite", cite:"American College of Sports Medicine (2018). <em>ACSM's Guidelines for Exercise Testing and Prescription (10th ed.)</em>.",
+   use:"Günlük enerji harcaması = BMR × aktivite katsayısı (1.2–1.9)."},
+  {tag:"Rekomposizyon", cite:"Barakat C, Pearson J, Escalante G, ve ark. (2020). Body Recomposition: Can Trained Individuals Build Muscle and Lose Fat at the Same Time? <em>Strength & Conditioning Journal, 42(5)</em>.",
+   use:"<b>Kilolu/yağ oranı yüksek bireyler kalori açığında bile kas kazanabilir.</b> Bu yüzden kilolu birine kas/güç hedefinde dahi açık verilir — yağ yakarken kas korunur/geliştirilir."},
+  {tag:"Enerji Partisyonu", cite:"Hall KD (2008) & Forbes GB (2000). Energy partitioning ve P-ratio üzerine çalışmalar.",
+   use:"Yağ oranı yüksekken fazla kalori büyük oranda yağa gider; bu nedenle kilolu bireyde <b>bulk yerine açık</b> mantıklıdır. Yağ oranı düştükçe fazla kalori kasa daha iyi yönlenir."},
+  {tag:"Protein Alımı", cite:"Morton RW, ve ark. (2018). Protein supplementation & resistance training-induced gains. <em>Br J Sports Med, 52(6)</em>.",
+   use:"Kas için günlük <b>1.6–2.2 g/kg protein</b>; üzeri ek fayda sağlamaz."},
+  {tag:"Protein • Açık", cite:"Helms ER, Aragon AA, Fitschen PJ (2014). Evidence-based recommendations for natural bodybuilding contest prep. <em>J ISSN, 11:20</em>.",
+   use:"Kalori açığında kası korumak için protein <b>yağsız kütle (LBM) başına ~2.3–3.1 g/kg</b>; motor bu yüzden proteini LBM üzerinden hesaplar."},
+  {tag:"Kalori Fazlası", cite:"Iraki J, ve ark. (2019). Nutrition Recommendations for Bodybuilders in the Off-Season. <em>Sports, 7(7):154</em>.",
+   use:"Yalnızca yağ oranı uygun bireylerde küçük fazla (%10–20) ve haftalık %0.25–0.5 kilo artışı."},
+  {tag:"Antrenman Hacmi", cite:"Schoenfeld BJ, Ogborn D, Krieger JW (2017). Weekly resistance training volume & muscle mass. <em>J Sports Sci, 35(11)</em>.",
+   use:"Hipertrofi için kas başına <b>haftada 10+ set</b>; hacim arttıkça (10–20 set) kazanım artar. Egzersiz sayısı buna göre belirlenir."},
+  {tag:"Antrenman Sıklığı", cite:"Schoenfeld BJ, Ogborn D, Krieger JW (2016). Resistance training frequency & hypertrophy. <em>Sports Med, 46(11)</em>.",
+   use:"Bir kası <b>haftada ≥2 kez</b> çalışmak üstündür — split seçimi buna göre yapılır."},
+  {tag:"Yük & Tekrar", cite:"ACSM / Ratamess NA, ve ark. (2009). Progression Models in Resistance Training. <em>Med Sci Sports Exerc, 41(3)</em>.",
+   use:"Kuvvet: ağır/düşük tekrar (≈1–6, %80–90); hipertrofi: orta (≈6–12); dayanıklılık: hafif/yüksek tekrar (12+). Ağırlık seçimi tekrar aralığına göre reçetelenir."},
+  {tag:"Dinlenme", cite:"Grgic J, ve ark. (2018). Rest Interval Duration & Muscular Strength. <em>Sports Med, 48(1)</em>.",
+   use:"Bileşik/kuvvet: uzun dinlenme (2–3+ dk); izolasyon: kısa (60–90 sn)."},
+  {tag:"Yorgunluk (RIR)", cite:"Grgic J, ve ark. (2022). Training to Failure or Not. <em>J Strength Cond Res</em>.",
+   use:"Setleri <b>1–3 RIR</b> ile bitir (yedekte 1–3 tekrar); sürekli tam başarısızlık gereksiz yorgunluk yaratır."},
+  {tag:"Egzersiz Seçimi & Risk", cite:"NSCA (2016). <em>Essentials of Strength Training and Conditioning (4th ed.)</em>; Aerenhouts & D'Hondt (2020) teknik öğrenme.",
+   use:"Başlangıç ve yüksek vücut ağırlığında <b>düşük teknik/risk gerektiren makine-kablo hareketleri</b> önceliklendirilir; ağır serbest ağırlık (deadlift, barbell squat) ileri seviyeye bırakılır."},
+  {tag:"HRmax • Kardiyo", cite:"Tanaka H, Monahan KD, Seals DR (2001). Age-predicted maximal heart rate revisited. <em>J Am Coll Cardiol, 37(1)</em>.",
+   use:"Maksimum nabız <b>208 − 0.7 × yaş</b> ile tahmin edilir (klasik 220−yaş'tan daha doğru); hedef nabız bölgeleri buradan hesaplanır."},
+  {tag:"HIIT & EPOC", cite:"Gibala MJ, ve ark. (2012). Physiological adaptations to low-volume HIIT. <em>J Physiol, 590(5)</em>; LaForgia (2006) EPOC.",
+   use:"HIIT, düşük sürede VO2max ve antrenman sonrası kalori yakımını (EPOC) artırır; haftada 2 seansla sınırlanır."},
+  {tag:"Eşzamanlı Antrenman", cite:"Wilson JM, ve ark. (2012). Concurrent training interference. <em>J Strength Cond Res</em>; Schumann (2022).",
+   use:"Aşırı kardiyo, kuvvet/kas kazanımını azaltabilir (interference etkisi); bu yüzden kuvvet/kas hedefinde kardiyo düşük tutulur ve ağır bacak gününden ayrı yapılır."},
+  {tag:"Kardiyo & Sağlık", cite:"Garber CE, ve ark. / ACSM (2011). Quantity and Quality of Exercise. <em>Med Sci Sports Exerc, 43(7)</em>.",
+   use:"Sağlık için haftada 150–300 dk orta şiddet kardiyo; yağ kaybında üst sınıra çekilir."},
+];
+
+/* ============================================================
+   HESAPLAMA MOTORU (deterministik, kanıta dayalı)
+   ============================================================ */
+const round = (n,s=1)=>Math.round(n/s)*s;
+const clamp = (n,a,b)=>Math.max(a,Math.min(b,n));
+function bmrMifflin(sex,kg,cm,age){ const base=10*kg+6.25*cm-5*age; return sex==="male"?base+5:base-161; }
+function bmiCat(bmi){ if(bmi<18.5)return "Zayıf"; if(bmi<25)return "Normal"; if(bmi<30)return "Fazla Kilolu"; if(bmi<35)return "Obez (I)"; return "Obez (II+)"; }
+
+/* Yağlılık sınıfı: kalori & egzersiz kararlarını yönlendirir */
+function adiposity(sex, bf, bmi){
+  const hi = sex==="male"?20:30, lo = sex==="male"?12:22;
+  if(bf>=hi || bmi>=30) return "high";
+  if(bf<lo) return "low";
+  return "mid";
+}
+/* Hedef × yağlılık -> kalori ayarı (kilolu her zaman AÇIK) */
+function kcalAdjust(goalKey, adi){
+  const t={
+    slim:    {high:-0.22, mid:-0.20, low:-0.17},
+    fit:     {high:-0.18, mid:-0.10, low:-0.05},
+    muscle:  {high:-0.15, mid:+0.08, low:+0.12},
+    strength:{high:-0.12, mid:+0.03, low:+0.08},
+    health:  {high:-0.10, mid: 0.00, low: 0.00},
+    cardio:  {high:-0.15, mid:-0.10, low:-0.05},
+  };
+  return t[goalKey][adi];
+}
+function strategyLabel(goalKey, kcalAdj){
+  if(kcalAdj<0 && (goalKey==="muscle"||goalKey==="strength"||goalKey==="fit"))
+    return "Rekomposizyon — kalori açığı + yüksek protein (yağ yakarken kas koru/geliştir)";
+  if(kcalAdj<0) return "Yağ kaybı — kalori açığı + yüksek protein ile kas koruma";
+  if(kcalAdj>0) return "Kas kütlesi artışı — kontrollü kalori fazlası (temiz bulk)";
+  return "Koruma / rekomp — bakım kalorisi + yüksek protein";
+}
+/* Egzersiz zorluk tavanı: başlangıç & kilolu -> makine/güvenli */
+function skillCap(expId, adi, bodyLevel, musc){
+  let cap = expId==="beg"?1 : expId==="int"?2 : 3;
+  if(adi==="high") cap=Math.min(cap, expId==="adv"?2:1);
+  if(bodyLevel<=1 && !musc) cap=Math.min(cap,1);
+  if(musc) cap=Math.max(cap,2); // kaslı yapı: makineyle sınırlı kalma, serbest ağırlık ver
+  return cap;
+}
+/* Günlük egzersiz sayısı: hedef + tecrübe */
+function dayCounts(goalKey, expId){
+  let m,a;
+  if(goalKey==="strength"){m=3;a=2;}
+  else if(goalKey==="muscle"){m=3;a=4;}
+  else if(goalKey==="fit"){m=2;a=4;}
+  else if(goalKey==="slim"){m=2;a=4;}
+  else if(goalKey==="cardio"){m=2;a=3;}
+  else {m=2;a=3;}
+  if(expId==="beg") a=Math.max(2,a-1);
+  if(expId==="adv") a=a+1;
+  return {main:m, aux:a};
+}
+/* Ekipman tercihi (makine/kablo önceliği) */
+function eqPref(eq, role, goalKey, cap){
+  if(cap<=1) return ({machine:6,cable:5,bw:3,band:2,dumbbell:2,barbell:0})[eq]||0;
+  if(role==="aux") return ({machine:4,cable:5,dumbbell:3,bw:2,band:1,barbell:1})[eq]||0;
+  if(role==="main"){
+    if(goalKey==="strength") return ({barbell:6,machine:3,dumbbell:3,cable:2,bw:2,band:0})[eq]||0;
+    return ({barbell:3,machine:4,dumbbell:3,cable:3,bw:2,band:1})[eq]||0;
+  }
+  return 0;
+}
+/* Tekrar -> ağırlık hissi */
+function loadTag(lo){
+  if(lo<=5) return "ağır";
+  if(lo<=8) return "orta-ağır";
+  if(lo<=12) return "orta";
+  if(lo<=15) return "orta-hafif";
+  return "hafif-orta";
+}
+function fmtRest(rest){
+  if(rest>=90){ const a=(Math.round(rest/60*10)/10).toString().replace(".0",""); const b=(Math.round((rest+60)/60*10)/10).toString().replace(".0",""); return a+"-"+b+" dk"; }
+  return rest+"-"+(rest+30)+" sn";
+}
+function trainingStyle(goalKey){
+  if(goalKey==="strength") return {tag:"Kuvvet · ağır setler, uzun dinlenme", superset:false, method:"Düz setler · ağır yük, tekniğe öncelik · uzun dinlenme (2–3+ dk)", tech:"strength"};
+  if(goalKey==="muscle")   return {tag:"Hipertrofi · düz setler, kontrollü tempo", superset:false, method:"Düz setler · progresif aşırı yük · izolasyonların SON setinde başarısızlığa yakın (RIR 0–1) · kontrollü eksantrik (2–3 sn)", tech:"myo"};
+  if(goalKey==="slim"||goalKey==="cardio") return {tag:"Metabolik · süperset & kısa dinlenme", superset:true, method:"Süperset/devre · kısa dinlenme · yüksek yoğunluk, maksimum kalori yakımı", tech:"ss"};
+  if(goalKey==="fit")      return {tag:"Rekomp · süperset & kısa dinlenme, metabolik yoğunluk", superset:true, method:"İzolasyonlar SÜPERSET (sırayla, aralıksız) · kısa dinlenme · bileşiklerde yükü koru (kası koru, yağı yak)", tech:"ss"};
+  return {tag:"Genel · dengeli tempo", superset:false, method:"Düz setler · dengeli tempo", tech:""};
+}
+
+function computeEngine(D){
+  const sex=D.sex, kg=+D.weight, cm=+D.height, age=+D.age;
+  const goal=GOALS[D.goal];
+  const act=ACTIVITY.find(a=>a.id===D.activity);
+  const exp=EXPERIENCE.find(e=>e.id===D.experience);
+  const bf=D.body.bf;
+  const bmi=kg/Math.pow(cm/100,2);
+  const adi=adiposity(sex, bf, bmi);
+
+  // --- energy ---
+  const bmr=bmrMifflin(sex,kg,cm,age);
+  const tdee=bmr*act.f;
+  const kcalAdj=kcalAdjust(D.goal, adi);
+  const target=tdee*(1+kcalAdj);
+  const lbm=kg*(1-bf/100), fm=kg-lbm, ffmi=lbm/Math.pow(cm/100,2);
+  const deficit = kcalAdj<0;
+
+  // --- macros (protein LBM-tabanlı: Helms) ---
+  let protein_g=(deficit?2.6:2.2)*lbm;
+  protein_g=clamp(protein_g, 1.6*kg, 2.4*kg);
+  let fat_g=Math.max(0.8*kg, target*0.25/9);
+  const pKcal=protein_g*4, fKcal=fat_g*9;
+  let carb_g=Math.max(0,(target-pKcal-fKcal)/4);
+  if(carb_g<1.5*kg && deficit){ fat_g=Math.max(0.6*kg,(target-pKcal-1.5*kg*4)/9); carb_g=Math.max(0,(target-protein_g*4-fat_g*9)/4); }
+  const fiber_g=Math.round(14*target/1000);
+  const water_l=Math.round(kg*0.035*10)/10;
+  const steps=sex==="male"?"8.000–12.000":"8.000–11.000";
+  const pPct=Math.round(pKcal/target*100), cPct=Math.round(carb_g*4/target*100), fPct=Math.max(0,100-pPct-cPct);
+
+  // --- training ---
+  const style=trainingStyle(D.goal);
+  const program=buildProgram(D, goal, exp, adi, D.body.level, style);
+  const cardio=buildCardio(goal, adi, age);
+  // --- #1 haftalık volüm (kas grubu başına set + hedef bandı) ---
+  const wv=weeklyVolume(program);
+  const volume=MUSCLE_ORDER.filter(m=>(wv[m]||0)>0 || MAJOR_MUSCLE[m]).map(m=>{
+    const sets=Math.round((wv[m]||0)*2)/2;
+    const band=volBand(D.goal, exp, m), lo=band[0], hi=band[1];
+    let label,color;
+    if(sets<lo){ label="az"; color="#c9962f"; }
+    else if(sets<=hi){ label="ideal"; color="#3b8f4e"; }
+    else { label="yüksek"; color="#8a8290"; }
+    const pct=Math.max(6, Math.min(100, Math.round(sets/Math.max(hi,1)*100)));
+    return { name:MUSCLE_NAMES[m], sets, lo, hi, label, color, pct, major:!!MAJOR_MUSCLE[m] };
+  });
+
+  return {
+    bmr:round(bmr,10), tdee:round(tdee,10), target:round(target,10),
+    kcalAdjPct:Math.round(kcalAdj*100), actF:act.f, actName:act.name,
+    bmi:bmi.toFixed(1), bmiCat:bmiCat(bmi), bf, adi, strategy:strategyLabel(D.goal,kcalAdj),
+    lbm:lbm.toFixed(1), fm:fm.toFixed(1), ffmi:ffmi.toFixed(1),
+    protein_g:Math.round(protein_g), fat_g:Math.round(fat_g), carb_g:Math.round(carb_g),
+    pKcal:Math.round(pKcal), fKcal:Math.round(fat_g*9), cKcal:Math.round(carb_g*4),
+    pPct, cPct, fPct, fiber_g, water_l, steps,
+    protein_perkg:(protein_g/kg).toFixed(1), fat_perkg:(fat_g/kg).toFixed(1),
+    program, cardio, volume, goal, exp, days:D.days, style
+  };
+}
+
+/* -------- tek egzersiz nesnesi (swap için yeniden kullanılabilir) -------- */
+function isBodyweight(e){ return e.eq.length===1 && e.eq[0]==="bw"; }
+function isBandOnly(e){ return e.eq.length===1 && e.eq[0]==="band"; }
+/* Tekrar aralığı: yüklenebilir hareketler hedefe göre; vücut ağırlığı/band SABİT/değişken yük olduğundan
+   başarısızlığa ulaşmak için daha yüksek tekrar (Schoenfeld 2017 — yük değil, efor belirleyici).
+   Zorlu bw hareketler (barfiks, nordic vb.) hareket-özel 'rr' ile daha düşük aralık alır. */
+function repRangeFor(e, role, goal){
+  if(e.rr) return e.rr;
+  if(isBodyweight(e) || isBandOnly(e)) return role==="main" ? [12,25] : [15,30];
+  return role==="main" ? goal.repC : goal.repI;
+}
+function exFromDB(e, role, opt, goal, exp){
+  const isC=!!e.c;
+  const range = e.dur?null:repRangeFor(e, role, goal);
+  const loadTxt = e.dur ? "" : (isBodyweight(e) ? "vücut ağ." : (isBandOnly(e) ? "bant direnci" : loadTag(range[0])));
+  return {
+    n:e.n, m:e.m, c:isC, role, p:e.p, opt:!!opt,
+    sets: role==="main"?exp.setsC:exp.setsI,
+    rep: e.dur?"30-60 sn":(range[0]+"-"+range[1]),
+    load: loadTxt,
+    rest: fmtRest(role==="main"?goal.restC:goal.restI),
+    desc:e.d||"", alt:e.a||"", tech:""
+  };
+}
+/* -------- teknik etiketleri (süperset / son set RIR) -------- */
+function applyTechnique(out, style){
+  out.forEach(e=>{ if(e.tech===undefined) e.tech=""; else e.tech=""; });
+  if(!style) return;
+  if(style.tech==="ss"){
+    const iso = out.map((e,ix)=>({e,ix})).filter(o=>!o.e.c && !o.e.opt);
+    let g=0;
+    for(let k=0;k+1<iso.length;k+=2){
+      const lbl="Süperset "+String.fromCharCode(65+g);
+      out[iso[k].ix].tech=lbl; out[iso[k+1].ix].tech=lbl; g++;
+    }
+  } else if(style.tech==="myo"){
+    out.forEach(e=>{ if(!e.c && !e.opt) e.tech="Son set RIR 0–1"; });
+  }
+}
+
+/* -------- program üretici: hedef + vücut tipine göre seçim -------- */
+/* ===== #1/#3 HAFTALIK VOLÜM MODELİ (kas grubu başına set) =====
+   Patern -> kas grubu ağırlıkları: birincil 1.0, sinerjist 0.5 (Schoenfeld volüm sayımı) */
+const PATTERN_MUSCLE = {
+  squat:[["quad",1],["glute",0.5]], hinge:[["ham",0.6],["glute",0.6]], lunge:[["quad",1],["glute",0.5]],
+  push_h:[["chest",1],["triceps",0.5]], incline:[["chest",1],["triceps",0.5]], push_v:[["delt",1],["triceps",0.5]],
+  pull_v:[["back",1],["biceps",0.5]], pull_h:[["back",1],["biceps",0.5]],
+  chest_iso:[["chest",1]], delt_side:[["delt",1]], delt_rear:[["delt",1]],
+  triceps:[["triceps",1]], biceps:[["biceps",1]],
+  quad_iso:[["quad",1]], ham_iso:[["ham",1]], glute_iso:[["glute",1]],
+  calf:[["calf",1]], core:[["core",1]]
+};
+const MUSCLE_ORDER = ["chest","back","delt","quad","ham","glute","biceps","triceps","calf","core"];
+const MUSCLE_NAMES = { chest:"Göğüs", back:"Sırt", delt:"Omuz", quad:"Bacak (Ön/Quad)", ham:"Hamstring", glute:"Kalça", biceps:"Biceps", triceps:"Triceps", calf:"Baldır", core:"Karın" };
+const MAJOR_MUSCLE = { chest:1, back:1, delt:1, quad:1, ham:1, glute:1 };
+/* Hedef -> büyük kas haftalık set bandı [alt,üst]; exp.vol ile ölçeklenir (#3), küçük kaslar %60 */
+function volBand(goalKey, exp, muscle){
+  const base = { muscle:[10,20], strength:[6,12], fit:[8,16], slim:[8,16], health:[6,12], cardio:[6,12] }[goalKey] || [8,14];
+  const v = exp.vol || 1;
+  let lo = base[0]*v, hi = base[1]*v;
+  if(!MAJOR_MUSCLE[muscle]){ lo*=0.6; hi*=0.6; }
+  return [Math.round(lo), Math.round(hi)];
+}
+/* Programdan kas grubu başına haftalık set (sinerjist 0.5 dahil) */
+function weeklyVolume(program){
+  const v={};
+  program.forEach(day=>day.exercises.forEach(ex=>{
+    const mus=PATTERN_MUSCLE[ex.p]; if(!mus) return;
+    const sets=+ex.sets||0;
+    mus.forEach(([m,w])=> v[m]=(v[m]||0)+sets*w );
+  }));
+  return v;
+}
+
+/* ===== #5 SAKATLIK: seçenekler + riskli hareket blokları ===== */
+const INJURY_OPTS = [{id:"knee",name:"Diz"},{id:"back",name:"Bel"},{id:"shoulder",name:"Omuz"},{id:"elbow",name:"Dirsek / Bilek"}];
+const INJURY_BLOCK = {
+  knee:["Sissy Squat","Hack Squat","Bulgarian Split Squat","Walking Lunge","Reverse Lunge","Step-Up","Lateral Lunge","Curtsy Lunge","Bodyweight Walking Lunge","Bodyweight Split Squat","Bodyweight Reverse Lunge","Reverse Nordic","Spanish Squat","Wall Sit","Landmine Squat","Leg Extension"],
+  back:["Deadlift","Sumo Deadlift","Barbell Good Morning","Good Morning","Pendlay Row","Barbell Row","T-Bar Row","Landmine Row","45° Back Extension","Romanian Deadlift","Dumbbell RDL","Single-Leg RDL","Band Good Morning"],
+  shoulder:["Chest Dip","Bench Dip","Cable Upright Row","Pike Push-up","Push Press","Overhead Barbell Press","Arnold Press"],
+  elbow:["Skullcrusher","Diamond Push-up","Close-Grip Bench","Bench Dip","Barbell Curl","Preacher Curl"]
+};
+
+/* -------- program üretici: hedef + vücut tipine göre seçim -------- */
+function buildProgram(D, goal, exp, adi, bodyLevel, style){
+  const allow=EQUIP.find(e=>e.id===D.equipment).allow;
+  let lib=EXDB.filter(e=>e.eq.every(q=>allow.includes(q)));
+  // #5 sakatlık: riskli hareketleri havuzdan çıkar (havuz boşalırsa geri al)
+  const inj=(D.injuries||[]);
+  if(inj.length){
+    const blocked=new Set();
+    inj.forEach(k=>(INJURY_BLOCK[k]||[]).forEach(n=>blocked.add(n)));
+    const filtered=lib.filter(e=>!blocked.has(e.n));
+    if(filtered.length) lib=filtered;
+  }
+  const cap=skillCap(exp.id, adi, bodyLevel, D.body && D.body.musc);
+  const cnt=dayCounts(D.goal, exp.id);
+  const dayKeys=SPLIT_BY_DAYS[D.days]||SPLIT_BY_DAYS[3];
+  const weekUsed=new Set();
+  const weekVol={}; // #1 kas grubu başına biriken set
+  const MAIN_REPEAT=20; // #4: ana bileşik hafta içinde tekrar edip ilerlesin (frekans)
+  function addVol(ex){ const mus=PATTERN_MUSCLE[ex.p]; if(!mus) return; mus.forEach(([m,w])=> weekVol[m]=(weekVol[m]||0)+(+ex.sets||0)*w ); }
+
+  function mkEx(e, role, opt){ return exFromDB(e, role, opt, goal, exp); }
+  function choose(patterns, n, role, seen, out, opt){
+    let taken=0, qi=0, guard=0;
+    while(taken<n && guard<200){
+      guard++;
+      const pat=patterns[qi % patterns.length]; qi++;
+      const cands=lib.filter(e=>e.p===pat);
+      if(!cands.length){ if(qi>=patterns.length*3) break; continue; }
+      let capped=cands.filter(e=>e.s<=cap); if(!capped.length) capped=cands.slice();
+      if(role==="main"){ const c=capped.filter(e=>e.c); if(c.length) capped=c; }
+      if(role==="aux"){ const iso=capped.filter(e=>!e.c); if(iso.length) capped=iso; }
+      let pool=capped.filter(e=>!seen.has(e.n));
+      if(!pool.length){ if(qi>=patterns.length*3) break; continue; }
+      function sc(e){
+        const base=eqPref(e.eq[0],role,D.goal,cap)-((e.beg&&cap>1)?60:0);
+        // #4 ana harekette hafta içi tekrar ÖDÜLLÜ (ilerleme); yardımcıda tekrar CEZALI (çeşitlilik)
+        const wk = role==="main" ? (weekUsed.has(e.n)?MAIN_REPEAT:0) : (weekUsed.has(e.n)?0:100);
+        // #1 volüm dengesi: birincil kas haftalık üst hedefin 1.3 katını geçtiyse geri plana at (yumuşak)
+        const pm=(PATTERN_MUSCLE[e.p]||[[null,0]])[0][0];
+        const over = pm && (weekVol[pm]||0) >= volBand(D.goal,exp,pm)[1]*1.3 ? -80 : 0;
+        return base+wk+over;
+      }
+      pool.sort((x,y)=>sc(x)-sc(y)); // artan; en iyi sonda
+      const best=pool[pool.length-1];
+      seen.add(best.n); weekUsed.add(best.n);
+      const exObj=mkEx(best, role, opt);
+      out.push(exObj); addVol(exObj);
+      taken++;
+    }
+  }
+  // #1b bonus slotu: SADECE o günün çalıştırdığı kaslar arasından en eksik olanı hedefle
+  function deficitBonus(plan){
+    const pats=[].concat(plan.main, plan.aux, plan.core?["core"]:[]);
+    const dayMus=new Set();
+    pats.forEach(p=>(PATTERN_MUSCLE[p]||[]).forEach(mw=>{ if(mw[1]>=0.5) dayMus.add(mw[0]); }));
+    const M2P={ chest:["chest_iso"], back:["pull_h"], delt:["delt_side","delt_rear"], quad:["quad_iso"], ham:["ham_iso"], glute:["glute_iso","hinge"], calf:["calf"], biceps:["biceps"], triceps:["triceps"], core:["core"] };
+    const scored=[...dayMus].map(m=>({m, def: volBand(D.goal,exp,m)[0]-(weekVol[m]||0)})).sort((a,b)=>b.def-a.def);
+    const out=[]; scored.forEach(s=>(M2P[s.m]||[]).forEach(p=>out.push(p)));
+    return out.length?out:["core"];
+  }
+  return dayKeys.map((key, di)=>{
+    const plan=DAYPLANS[key];
+    const seen=new Set(), out=[];
+    choose(plan.main, cnt.main, "main", seen, out);
+    choose(plan.aux, cnt.aux, "aux", seen, out);
+    if(plan.core && D.goal!=="strength" && out.length<8) choose(["core"], 1, "aux", seen, out);
+    if(D.goal!=="strength") choose(deficitBonus(plan), 1, "aux", seen, out, true); // #1b günün eksik kasına bonus
+    out.forEach(e=>{ e._origName=e.n; }); // önerilen (ilk plan) hareket adı — swap geri dönüş için
+    applyTechnique(out, style);
+    return { title:(di+1)+". Gün — "+plan.name, key, focus:plan.focus, rir:goal.rir, rpe:goal.rpe, style:style.tag, method:style.method, superset:style.superset, tech:style.tech, exercises:out };
+  });
+}
+
+/* -------- kardiyo v2: yaşa göre nabız bölgeleri + seanslar -------- */
+function buildCardio(goal, adi, age){
+  const hrmax=Math.round(208-0.7*age);
+  const z=(lo,hi)=>Math.round(hrmax*lo)+"–"+Math.round(hrmax*hi)+" bpm";
+  const L={type:"LISS — Düşük Tempo Sabit", zone:z(0.60,0.70)+" (%60–70)", desc:"Yürüyüş, eğimli koşu bandı, bisiklet veya eliptik. Konuşabileceğin tempo. Yağ oksidasyonu yüksek; kas ve toparlanmaya en az yük bindirir."};
+  const M={type:"MISS — Orta Tempo", zone:z(0.70,0.80)+" (%70–80)", desc:"Tempolu yürüyüş, hafif koşu, kürek veya bisiklet. Hafif nefes nefese ama yine de cümle kurabilirsin."};
+  const H={type:"HIIT — Yüksek Yoğunluklu İnterval", zone:"iş "+z(0.85,0.95)+" · dinlenme "+z(0.60,0.65), desc:"Örn. 30 sn yüksek efor (bisiklet/kürek/koşu) + 90 sn hafif, 8–10 tur. VO2max'ı ve antrenman sonrası kalori yakımını (EPOC) artırır. Haftada 2'yi geçme; ağır bacak gününden ayrı yap."};
+  const lowImpact = adi==="high";
+  let sessions=[], steps, weekly, note;
+  switch(goal.cardio){
+    case "high":
+      sessions=[Object.assign({freq:"Haftada 3–4 gün", dur:"30–45 dk"},L), lowImpact?Object.assign({freq:"Haftada 1 gün (opsiyonel)", dur:"25 dk"},M):Object.assign({freq:"Haftada 1–2 gün", dur:"15–20 dk"},H)];
+      steps="günde 8.000–12.000 adım"; weekly="Toplam hedef: haftada ~200–300 dk";
+      note=lowImpact?"Eklem yükünü azaltmak için bisiklet/eliptik/yüzme tercih et; koşu ve zıplamadan kaçın.":"HIIT'i haftada 2 ile sınırla; kalan seanslar LISS olsun.";
+      break;
+    case "hiit":
+      sessions=[Object.assign({freq:"Haftada 2–3 gün", dur:"20 dk"},H), Object.assign({freq:"Haftada 1–2 gün", dur:"25–30 dk"},M)];
+      steps="günde 8.000–10.000 adım"; weekly="Dayanıklılık odaklı program";
+      note="Interval günleri arasına en az 1 gün toparlanma koy; ısınmayı ihmal etme.";
+      break;
+    case "moderate":
+      sessions=[Object.assign({freq:"Haftada 2–3 gün", dur:"25–30 dk"},M), Object.assign({freq:"Haftada 1–2 gün", dur:"30 dk"},L)];
+      steps="günde 8.000–10.000 adım"; weekly="ACSM: haftada 150–300 dk orta şiddet";
+      note="Düzenli, sürdürülebilir tempo; sağlık ve kalori dengesini destekler.";
+      break;
+    default: // low (muscle/strength)
+      if(lowImpact){
+        sessions=[Object.assign({freq:"Haftada 2–3 gün", dur:"25–35 dk"},L)];
+        note="Kalori açığını desteklemek için düşük tempo kardiyo; kuvvet antrenmanından ayrı günde yap.";
+        weekly="Açığı destekleyecek kadar; toparlanmayı koru";
+      } else {
+        sessions=[Object.assign({freq:"Haftada 1–2 gün", dur:"20–30 dk"},L)];
+        note=goal.split==="strength"?"Kardiyoyu düşük tut ve kuvvetten ayrı günde yap — aşırı kardiyo kuvvet kazanımını azaltabilir (interference).":"Sağlık için hafif kardiyo yeterli; fazlası kas kazanımını yavaşlatabilir.";
+        weekly="Minimum — kas kazanımını koru";
+      }
+      steps="günde 7.000–9.000 adım";
+  }
+  return {hrmax, sessions, steps, weekly, note};
+}
+
+/* -------- beslenme & antrenör notları -------- */
+function nutritionTips(R,D){
+  const perMeal=Math.round(R.protein_g/4);
+  const t=[
+    "Öğün başına ~"+perMeal+" g protein hedefle (3 ana + 1-2 ara öğün); her öğünde bir protein kaynağı bulunsun.",
+    "Karbonhidratı antrenman öncesi/sonrasına yoğunlaştır; kalan kaloriyi kompleks karbonhidrattan al.",
+    "Günde en az "+R.fiber_g+" g lif için sebze, meyve ve tam tahıl; su ≈"+R.water_l+" L.",
+  ];
+  if(R.kcalAdjPct<0){
+    t.push("Kalori açığındasın: tokluk için hacimli/düşük kalorili besinler seç, şekerli içecek ve işlenmiş gıdayı sınırla.");
+    t.push("Protein yüksek tutuldu (LBM üzerinden) — açıkta kas kaybını en aza indirir.");
+  } else if(R.kcalAdjPct>0){
+    t.push("Kalori fazlasındasın: öğün atlama; iştah düşükse kalori yoğun sağlıklı besinler (kuruyemiş, zeytinyağı, süt) ekle.");
+    t.push("Haftalık ~%0.25–0.5 kilo artışını hedefle; hızlı artış çoğunlukla yağdır.");
+  } else {
+    t.push("Bakım kalorisindesin: yüksek protein + kaliteli antrenman ile rekomposizyon (yağ↓ kas↑) mümkün.");
+  }
+  return t;
+}
+function coachNotes(R,D){
+  const n=[
+    "Dinlenme süreleri SETLER ARASIDIR — bir hareketin bir sonraki setine geçmeden önce bu kadar bekle (hareket bittikten sonra değil). Bileşik/ağır hareketlerde uzun (2–3 dk) dinlenme kuvvet ve toplam hacmi korur (Grgic 2018).",
+    "Ağırlık seçimi: verilen tekrarı, "+R.goal.rir+" RIR kalacak şekilde yapabildiğin yükü seç (aşağıdaki rehbere bak).",
+    "Progresif aşırı yükleme: tekrar aralığının üst sınırına ulaşınca yükü %2-5 artır (çift ilerleme).",
+    "Setleri "+R.goal.rir+" RIR ile bitir (yedekte "+R.goal.rir+" tekrar); hedef RPE "+R.goal.rpe+".",
+    "Aynı kası haftada en az 2 kez uyar; ısınma: 5-8 dk hafif kardiyo + dinamik hareket + ilk sette kademeli yük.",
+    "Uyku 7-9 saat; ilerlemeyi 4-6 haftada bir değerlendir, takılma olursa hacmi/deloadu ayarla.",
+  ];
+  if(D.goal==="muscle") n.splice(1,0,"Bu program HİPERTROFİ (kas) odaklı: düz setler, uzun dinlenme, mekanik gerilim. İzolasyonların SON setini başarısızlığa yakın (RIR 0–1) götür; bileşiklerde 1–2 RIR bırak. Hacmi kademeli artır (kas başına haftada 10–20 set).");
+  else if(D.goal==="fit") n.splice(1,0,"Bu program REKOMPOZİSYON (fit) odaklı: aynı harf etiketli izolasyonları SÜPERSET yap (örn. Süperset A: iki hareketi aralıksız, sonra dinlen). Kısa dinlenme + kardiyo ile yağ yakarken, bileşiklerde yükü koruyarak kası korursun.");
+  if(R.style && R.style.superset && D.goal!=="fit") n.splice(2,0,"Zaman kısıtlıysa izolasyonları süperset/devre olarak birleştir (metabolik yoğunluk artar).");
+  if(D.experience==="beg"||R.adi==="high") n.splice(1,0,"Başlangıç/yüksek kilo: makine ve kablo hareketleriyle tekniği oturt; ağır serbest ağırlığa kademeli geç.");
+  if(D.equipment==="home"||D.equipment==="min") n.splice(1,0,"Vücut ağırlığı hareketlerinde yük SABİTTİR — kas gelişimi için tekrarları yüksek tut ve setleri başarısızlığa yakın (1–2 RIR) bitir; yük değil, EFOR belirleyicidir (Schoenfeld 2017, geniş yük–tekrar aralığı meta-analizi). Üst tekrara kolayca ulaşıyorsan sırayla: tempoyu yavaşlat (3–4 sn eksantrik) → tepede duraklama ekle → daha zor varyasyona geç (örn. diz üstü → normal → ayak yüksek şınav; çömelme → tek bacak).");
+  if(D.goal==="strength") n.splice(2,0,"Ana bileşik hareketlerde tekniğe öncelik ver; ağırlıktan önce form.");
+  return n;
+}
+/* ============================================================
+   UYGULAMA DURUMU & YÖNLENDİRME
+   ============================================================ */
+const S = {
+  step:"welcome",
+  data:{ sex:null, muscular:false, bodyIdx:2, goal:null,
+         name:"", age:"", height:"", weight:"",
+         activity:"mod", experience:"beg", days:3, equipment:"gym", health:"" },
+  result:null,
+  currentClientId:null,   // yüklü/kaydedilmiş danışanın kimliği
+  _dirty:false            // kayıttan sonra değişiklik yapıldı mı
+};
+const STEPS = ["welcome","gender","body","goal","metrics","result"];
+const app = document.getElementById("app");
+const nav = document.getElementById("navbar");
+const prog = document.getElementById("progress");
+const el = (h)=>{const d=document.createElement("div");d.innerHTML=h;return d.firstElementChild;};
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+
+/* small icon set */
+const I = {
+  check:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  arrowR:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  arrowL:'<svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  bolt:'<svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+  book:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 5a2 2 0 0 1 2-2h11v16H6a2 2 0 0 0-2 2V5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M17 3v16" stroke="currentColor" stroke-width="1.8"/></svg>',
+  target:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/></svg>',
+  flame:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3c1 3 4 4 4 8a4 4 0 1 1-8 0c0-2 1-3 2-4 .5 1 1.5 1.5 2 2 0-3-.5-4 0-6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
+  pdf:'<svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13H7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 14h6M9 17h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 20h4L18 10l-4-4L4 16v4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+  refresh:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 4v5h-5M4 20v-5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  scale:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+  dumbbell:'<svg viewBox="0 0 24 24" fill="none"><path d="M6.5 6.5v11M17.5 6.5v11M6.5 12h11M3.5 9v6M20.5 9v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.5-9-9a4.5 4.5 0 0 1 9-2 4.5 4.5 0 0 1 9 2c-2 4.5-9 9-9 9z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
+  food:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 3v8M8 3v8M6.5 11v10M18 3c-2 1-3 3-3 6v3h3V3z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  clip:'<svg viewBox="0 0 24 24" fill="none"><rect x="6" y="4" width="12" height="17" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M9 4V3h6v1" stroke="currentColor" stroke-width="1.7"/><path d="M9 10h6M9 14h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+  run:'<svg viewBox="0 0 24 24" fill="none"><circle cx="15" cy="5" r="2" stroke="currentColor" stroke-width="1.7"/><path d="M6 20l3-4 3 1 1-4-3-2-3 2M13 13l3 2 2-1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M10 11v6M14 11v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  save:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 3h11l3 3v15H5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 3v6h7V3M8 21v-7h8v7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M3 20a6 6 0 0 1 12 0M16 6a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+};
+
+const STEP_NAMES={gender:"Cinsiyet",body:"Vücut Tipi",goal:"Hedef",metrics:"Ölçüler",result:"Program Hazır"};
+function setProgress(){
+  const idx = STEPS.indexOf(S.step);
+  const bars = STEPS.slice(1); // gender..result
+  if(S.step==="welcome"||S.step==="clients"){ prog.style.display="none"; return; }
+  prog.style.display="flex";
+  const segs = bars.map((b,i)=>{
+    const bi=i+1; let cls="seg";
+    if(idx>bi) cls+=" done"; else if(idx===bi) cls+=" active";
+    return `<div class="${cls}"><i></i></div>`;
+  }).join("");
+  prog.innerHTML = `<div class="plabel"><span class="pstep"><b>Adım ${idx}/${bars.length}</b></span><span class="pname">${STEP_NAMES[S.step]||""}</span></div><div class="bars">${segs}</div>`;
+}
+function setNav(html){ nav.innerHTML = html; nav.style.display = html? "flex":"none"; }
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2200); }
+
+function go(step){ S.step=step; render(); app.scrollTop=0; }
+function render(){
+  setProgress();
+  const fn = { welcome:scrWelcome, gender:scrGender, body:scrBody, goal:scrGoal, metrics:scrMetrics, result:scrResult, clients:scrClients }[S.step];
+  fn();
+}
+
+/* ---------------- DANIŞAN KAYIT SİSTEMİ (localStorage) ---------------- */
+const CLIENTS_KEY="nyxfit_clients_v1";
+function loadClients(){ try{ const r=localStorage.getItem(CLIENTS_KEY); const a=r?JSON.parse(r):[]; return Array.isArray(a)?a:[]; }catch(e){ return []; } }
+function persistClients(list){ try{ localStorage.setItem(CLIENTS_KEY, JSON.stringify(list)); return true; }catch(e){ return false; } }
+function fmtDate(ts){ try{ return new Date(ts).toLocaleDateString("tr-TR",{day:"2-digit",month:"short",year:"numeric"}); }catch(e){ return ""; } }
+function saveCurrentClient(){
+  if(!S.result) return false;
+  const list=loadClients();
+  const nm=(S.data.name&&S.data.name.trim())?S.data.name.trim():"İsimsiz Danışan";
+  const rec={
+    id:S.currentClientId||("c"+Date.now()+Math.floor(Math.random()*1000)),
+    name:nm, goal:(S.result.goal&&S.result.goal.name)||"", days:S.data.days, savedAt:Date.now(),
+    data:JSON.parse(JSON.stringify(S.data)),
+    result:JSON.parse(JSON.stringify(S.result))
+  };
+  const idx=list.findIndex(c=>c.id===rec.id);
+  if(idx>=0) list[idx]=rec; else list.unshift(rec);
+  const ok=persistClients(list);
+  if(ok){ S.currentClientId=rec.id; S._dirty=false; }
+  return ok;
+}
+function deleteClient(id){ return persistClients(loadClients().filter(c=>c.id!==id)); }
+function openClient(id){
+  const rec=loadClients().find(c=>c.id===id); if(!rec) return;
+  try{
+    S.data=JSON.parse(JSON.stringify(rec.data));
+    S.result=JSON.parse(JSON.stringify(rec.result));
+    S.currentClientId=rec.id; S._dirty=false;
+    go("result");
+  }catch(e){ toast("Danışan yüklenemedi"); }
+}
+function startNewClient(){
+  S.data={sex:null,muscular:false,bodyIdx:2,goal:null,name:"",age:"",height:"",weight:"",activity:"mod",experience:"beg",days:3,equipment:"gym",health:"",injuries:[],tracking:{}};
+  S.result=null; S.currentClientId=null; S._dirty=false;
+  go("gender");
+}
+function handleSaveClient(){
+  const wasUpdate=!!S.currentClientId;
+  const ok=saveCurrentClient();
+  const btn=$("#saveClientBtn");
+  if(ok){
+    if(btn){ btn.classList.add("saved"); btn.innerHTML=`${I.check} Kaydedildi`;
+      setTimeout(()=>{ const b=$("#saveClientBtn"); if(b){ b.classList.remove("saved"); b.innerHTML=`${I.save} Danışanı Güncelle`; } },1800); }
+    toast(wasUpdate?"Danışan güncellendi":"Danışan kaydedildi");
+  } else {
+    toast("Kayıt yapılamadı — tarayıcı depolaması engelli olabilir.");
+  }
+}
+
+/* ---------------- WELCOME ---------------- */
+function scrWelcome(){
+  const cCount=loadClients().length;
+  setNav("");
+  app.innerHTML = `
+  <div class="screen welcome">
+    <div class="hero">
+      <div class="kick">NyxFit · Antrenör Aracı</div>
+      <h1><em>Kişisel</em><br>koçunuz</h1>
+      <p>Danışanının verilerini gir; egzersiz bilimine dayalı, kişiye özel antrenman ve beslenme programını dakikalar içinde oluştur, PDF indir ve danışanı kaydet.</p>
+    </div>
+    <div class="home-actions">
+      <button class="homecard hc-new" id="hcNew">
+        <div class="hc-ic">${I.bolt}</div>
+        <div class="hc-tx"><b>Yeni Danışan</b><span>Sıfırdan yeni program oluştur</span></div>
+        <div class="hc-arrow">${I.arrowR}</div>
+      </button>
+      <button class="homecard hc-saved" id="hcSaved">
+        <div class="hc-ic">${I.users}</div>
+        <div class="hc-tx"><b>Kaydedilen Danışanlar</b><span>${cCount>0?(cCount+" kayıtlı danışan · dokun ve aç"):"Henüz kayıt yok"}</span></div>
+        <div class="hc-arrow">${cCount>0?`<span class="hc-badge">${cCount}</span>`:I.arrowR}</div>
+      </button>
+    </div>
+    <div class="wsteps">
+      <div class="wstep"><div class="n">1</div><div class="tx"><b>Danışanı Tanımla</b><span>Cinsiyet, vücut tipi ve hedef seçimi</span></div></div>
+      <div class="wstep"><div class="n">2</div><div class="tx"><b>Ölçüleri Gir</b><span>Yaş, boy, kilo, tecrübe, sıklık ve ekipman</span></div></div>
+      <div class="wstep"><div class="n">3</div><div class="tx"><b>Motoru Çalıştır</b><span>Enerji, makro ve haftalık program otomatik hesaplanır</span></div></div>
+      <div class="wstep"><div class="n">4</div><div class="tx"><b>Kaydet & İndir</b><span>Danışanı kaydet, bilimsel gerekçeli PDF çıktısını al</span></div></div>
+    </div>
+    <p class="disclaimer">Her öneri bilimsel literatüre dayandırılır. Antrenör kararı esastır; tüm çıktılar düzenlenebilir bir başlangıç noktasıdır. Kayıtlar yalnızca bu tarayıcıda saklanır.</p>
+  </div>`;
+  $("#hcNew").onclick=()=>startNewClient();
+  $("#hcSaved").onclick=()=>go("clients");
+}
+
+/* ---------------- KAYDEDİLEN DANIŞANLAR ---------------- */
+function scrClients(){
+  const clients=loadClients();
+  setNav(`<button class="btn btn-back" onclick="go('welcome')">${I.arrowL}</button>
+    <button class="btn btn-primary" onclick="startNewClient()">${I.bolt} Yeni Danışan</button>`);
+  if(!clients.length){
+    app.innerHTML=`
+    <div class="screen">
+      <div class="eyebrow"><span class="step-n">${I.users}</span> Danışanlar</div>
+      <div class="q-title">Henüz kayıtlı danışan yok</div>
+      <div class="q-sub">Bir program oluşturup rapor ekranındaki “Danışanı Kaydet” butonuna bastığında danışanların burada listelenir.</div>
+      <div class="empty-clients">
+        <div class="ec-ic">${I.users}</div>
+        <button class="btn btn-primary big-new" onclick="startNewClient()">${I.bolt} Yeni Danışan Oluştur</button>
+      </div>
+    </div>`;
+    return;
+  }
+  app.innerHTML=`
+  <div class="screen">
+    <div class="eyebrow"><span class="step-n">${I.users}</span> Danışanlar</div>
+    <div class="q-title">Kayıtlı Danışanlar <span class="ccount">${clients.length}</span></div>
+    <div class="q-sub">Görüntülemek/düzenlemek için danışana dokun; sağdaki simgeyle sil.</div>
+    <div class="clientlist">
+      ${clients.map(c=>`
+      <div class="clientrow" data-open="${c.id}">
+        <div class="cl-av">${escapeHtml((c.name||'?').trim().charAt(0).toUpperCase()||'?')}</div>
+        <div class="cl-info">
+          <b>${escapeHtml(c.name||'İsimsiz Danışan')}</b>
+          <span>${escapeHtml(c.goal||'')} · ${c.days} gün/hafta · ${fmtDate(c.savedAt)}</span>
+        </div>
+        <button class="cl-del" data-del="${c.id}" aria-label="Danışanı sil">${I.trash}</button>
+      </div>`).join("")}
+    </div>
+  </div>`;
+  $$("#app .clientrow[data-open]").forEach(r=>r.onclick=()=>openClient(r.dataset.open));
+  $$("#app .cl-del[data-del]").forEach(b=>b.onclick=(ev)=>{
+    ev.stopPropagation();
+    const id=b.dataset.del, rec=loadClients().find(c=>c.id===id);
+    if(confirm(`"${rec?rec.name:'Danışan'}" kaydını silmek istediğine emin misin? Bu işlem geri alınamaz.`)){
+      deleteClient(id);
+      if(S.currentClientId===id){ S.currentClientId=null; }
+      toast("Danışan silindi");
+      scrClients();
+    }
+  });
+}
+
+/* ---------------- GENDER ---------------- */
+function scrGender(){
+  const d=S.data;
+  setNav(`<button class="btn btn-back" onclick="go('welcome')">${I.arrowL}</button>
+    <button class="btn btn-primary" id="gNext" ${d.sex?"":"disabled"} onclick="go('body')">Devam ${I.arrowR}</button>`);
+  app.innerHTML = `
+  <div class="screen">
+    <div class="eyebrow"><span class="step-n">1</span> Danışan Profili</div>
+    <div class="q-title">Danışanın cinsiyeti?</div>
+    <div class="q-sub">Vücut analizi ve enerji hesaplamaları cinsiyete göre farklılaşır (Mifflin-St Jeor).</div>
+    <div class="gender-grid">
+      <div class="gcard ${d.sex==='male'?'sel':''}" data-sex="male">
+        <div class="check">${I.check}</div>
+        <div class="imgwrap"><img src="${IMG.male}" alt="Erkek"></div>
+        <div class="lbl">Erkek</div>
+      </div>
+      <div class="gcard ${d.sex==='female'?'sel':''}" data-sex="female">
+        <div class="check">${I.check}</div>
+        <div class="imgwrap"><img src="${IMG.female}" alt="Kadın"></div>
+        <div class="lbl">Kadın</div>
+      </div>
+    </div>
+  </div>`;
+  $$(".gcard").forEach(c=>c.onclick=()=>{
+    d.sex=c.dataset.sex; d.muscular=false; d.bodyIdx = d.sex==="male"?2:2;
+    $$(".gcard").forEach(x=>x.classList.remove("sel")); c.classList.add("sel");
+    $("#gNext").disabled=false;
+  });
+}
+
+/* ---------------- BODY TYPE ---------------- */
+function bodyList(){
+  return S.data.sex==="male" ? BODY.male : BODY.female;
+}
+function scrBody(){
+  const d=S.data;
+  const list=bodyList();
+  if(d.bodyIdx>=list.length) d.bodyIdx=list.length-1;
+  setNav(`<button class="btn btn-back" onclick="go('gender')">${I.arrowL}</button>
+    <button class="btn btn-primary" onclick="go('goal')">Devam ${I.arrowR}</button>`);
+  app.innerHTML = `
+  <div class="screen">
+    <div class="eyebrow"><span class="step-n">2</span> Vücut Tipi</div>
+    <div class="q-title">Mevcut vücut tipi</div>
+    <div class="q-sub">En yakın figürü seç (zayıftan kiloluya). Bu, tahmini yağ oranını ve vücut seviyesini belirler; ölçülerle birlikte analiz netleşir.</div>
+    <div class="bodyslider">
+      <div class="bodystage">
+        <div class="figrow"><img id="bodyImg" src="${IMG[list[d.bodyIdx].img]}"></div>
+        <div class="bodyinfo">
+          <div class="name" id="bodyName">${list[d.bodyIdx].name}</div>
+          <div class="bf">Tahmini Yağ Oranı: <b id="bodyBf">%${list[d.bodyIdx].bf}</b></div>
+        </div>
+        <div class="levelrow"><span class="lvl-label" id="lvlLabel"></span></div>
+        <div class="leveltrack" id="lvlTrack"></div>
+      </div>
+      <div class="bodynav">
+        <button class="arrowbtn" id="bPrev">${I.arrowL}</button>
+        <div class="bodydots" id="bDots"></div>
+        <button class="arrowbtn" id="bNext">${I.arrowR}</button>
+      </div>
+    </div>
+  </div>`;
+  function refresh(){
+    const l=bodyList(); const it=l[d.bodyIdx]; const N=l.length; const pos=d.bodyIdx+1;
+    $("#bodyImg").src=IMG[it.img];
+    $("#bodyName").textContent=it.name;
+    $("#bodyBf").textContent="%"+it.bf;
+    $("#lvlLabel").textContent="Seviye "+pos+" / "+N;
+    $("#bDots").innerHTML=l.map((_,i)=>`<div class="d ${i===d.bodyIdx?'on':''}" data-i="${i}"></div>`).join("");
+    let lt="";for(let lv=1;lv<=N;lv++){let c="lv";if(lv<pos)c+=" on";if(lv===pos)c+=" cur";lt+=`<div class="${c}"></div>`;}
+    $("#lvlTrack").innerHTML=lt;
+    $("#bPrev").disabled=d.bodyIdx<=0; $("#bNext").disabled=d.bodyIdx>=N-1;
+    $$("#bDots .d").forEach(dot=>dot.onclick=()=>{d.bodyIdx=+dot.dataset.i;refresh();});
+  }
+  $("#bPrev").onclick=()=>{if(d.bodyIdx>0){d.bodyIdx--;refresh();}};
+  $("#bNext").onclick=()=>{const l=bodyList();if(d.bodyIdx<l.length-1){d.bodyIdx++;refresh();}};
+  refresh();
+}
+
+/* ---------------- GOAL ---------------- */
+function scrGoal(){
+  const d=S.data;
+  const order=["slim","health","muscle","strength","fit","cardio"];
+  setNav(`<button class="btn btn-back" onclick="go('body')">${I.arrowL}</button>
+    <button class="btn btn-primary" id="goalNext" ${d.goal?"":"disabled"} onclick="go('metrics')">Devam ${I.arrowR}</button>`);
+  app.innerHTML = `
+  <div class="screen">
+    <div class="eyebrow"><span class="step-n">3</span> Hedef</div>
+    <div class="q-title">Danışanın hedefi ne?</div>
+    <div class="q-sub">Hedef; kalori ayarını, tekrar aralıklarını, dinlenmeyi ve kardiyoyu belirler.</div>
+    <div class="goal-grid">
+      ${order.map(k=>{const g=GOALS[k];return `
+      <div class="goalcard ${d.goal===k?'sel':''}" data-goal="${k}">
+        <div class="check">${I.check}</div>
+        <div class="ico"><img src="${IMG[g.img]}"></div>
+        <div class="g-name">${g.name}</div>
+        <div class="g-desc">${g.tag}</div>
+      </div>`;}).join("")}
+    </div>
+  </div>`;
+  $$(".goalcard").forEach(c=>c.onclick=()=>{
+    d.goal=c.dataset.goal;
+    $$(".goalcard").forEach(x=>x.classList.remove("sel"));c.classList.add("sel");
+    $("#goalNext").disabled=false;
+  });
+}
+
+/* ---------------- METRICS ---------------- */
+function scrMetrics(){
+  const d=S.data;
+  setNav(`<button class="btn btn-back" onclick="go('goal')">${I.arrowL}</button>
+    <button class="btn btn-primary go" id="genBtn" onclick="runGenerate()">${I.bolt} Programı Oluştur</button>`);
+  app.innerHTML = `
+  <div class="screen">
+    <div class="eyebrow"><span class="step-n">4</span> Ölçüler & Detaylar</div>
+    <div class="q-title">Danışan bilgileri</div>
+    <div class="q-sub">Enerji ve hacim hesapları bu verilere göre yapılır. Yıldızlı (*) alanlar zorunludur.</div>
+
+    <div class="formgroup">
+      <div class="flabel">Ad Soyad</div>
+      <div class="field full"><input id="fName" type="text" placeholder="Örn. Ahmet Yılmaz" value="${d.name}"></div>
+    </div>
+
+    <div class="formgroup">
+      <div class="flabel">Ölçüler <span class="req">*</span></div>
+      <div class="frow">
+        <div class="field"><input id="fAge" type="number" inputmode="numeric" placeholder="Yaş" value="${d.age}"><span class="unit">yıl</span></div>
+        <div class="field"><input id="fHeight" type="number" inputmode="numeric" placeholder="Boy" value="${d.height}"><span class="unit">cm</span></div>
+      </div>
+      <div class="frow" style="margin-top:12px">
+        <div class="field"><input id="fWeight" type="number" inputmode="decimal" placeholder="Kilo" value="${d.weight}"><span class="unit">kg</span></div>
+        <div class="field"><input id="fBmiPrev" type="text" placeholder="BMI" disabled style="background:var(--paper)"><span class="unit">bmi</span></div>
+      </div>
+    </div>
+
+    <div class="formgroup">
+      <div class="flabel">Antrenman Tecrübesi</div>
+      <div class="segmented stack" id="segExp">
+        ${EXPERIENCE.map(e=>`<button data-id="${e.id}" class="${d.experience===e.id?'on':''}">${e.name}<span class="sm">${e.sm}</span></button>`).join("")}
+      </div>
+    </div>
+
+    <div class="formgroup">
+      <div class="flabel">Aktivite Düzeyi (antrenman dışı)</div>
+      <div class="segmented stack" id="segAct">
+        ${ACTIVITY.map(a=>`<button data-id="${a.id}" class="${d.activity===a.id?'on':''}">${a.name}<span class="sm">${a.sm} · ×${a.f}</span></button>`).join("")}
+      </div>
+    </div>
+
+    <div class="formgroup">
+      <div class="flabel">Haftada Kaç Gün Antrenman</div>
+      <div class="daychips" id="dayChips">
+        ${[2,3,4,5,6].map(n=>`<div class="daychip ${d.days===n?'on':''}" data-d="${n}"><b>${n}</b><span>gün</span></div>`).join("")}
+      </div>
+    </div>
+
+    <div class="formgroup">
+      <div class="flabel">Ekipman / Ortam</div>
+      <div class="segmented stack" id="segEquip">
+        ${EQUIP.map(e=>`<button data-id="${e.id}" class="${d.equipment===e.id?'on':''}">${e.name}<span class="sm">${e.sub}</span></button>`).join("")}
+      </div>
+    </div>
+
+    <div class="formgroup">
+      <div class="flabel">Sağlık Notu / Kısıtlama <span style="color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0">(opsiyonel)</span></div>
+      <textarea class="notes" id="fHealth" placeholder="Örn. sağ diz sakatlığı, bel fıtığı, herhangi bir kısıtlama yok...">${d.health}</textarea>
+    </div>
+
+    <div class="formgroup">
+      <div class="flabel">Sakatlık / Hassasiyet <span style="color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0">(opsiyonel · riskli hareketler programdan çıkarılır)</span></div>
+      <div class="injury-chips" id="injChips">
+        ${INJURY_OPTS.map(o=>`<button type="button" data-id="${o.id}" class="injchip ${(d.injuries||[]).includes(o.id)?'on':''}">${o.name}</button>`).join("")}
+      </div>
+    </div>
+  </div>`;
+
+  const bind=(input,key,num)=>{const e=$(input);e.oninput=()=>{d[key]=num?e.value:e.value;updateBmi();};};
+  bind("#fName","name");bind("#fAge","age",1);bind("#fHeight","height",1);bind("#fWeight","weight",1);
+  $("#fHealth").oninput=e=>d.health=$("#fHealth").value;
+  if(!Array.isArray(d.injuries)) d.injuries=[];
+  $$("#injChips .injchip").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.id; const i=d.injuries.indexOf(id);
+    if(i>=0){ d.injuries.splice(i,1); b.classList.remove("on"); }
+    else { d.injuries.push(id); b.classList.add("on"); }
+  });
+  function seg(container,key){$$(container+" button").forEach(b=>b.onclick=()=>{d[key]=b.dataset.id;$$(container+" button").forEach(x=>x.classList.remove("on"));b.classList.add("on");});}
+  seg("#segExp","experience");seg("#segAct","activity");seg("#segEquip","equipment");
+  $$("#dayChips .daychip").forEach(c=>c.onclick=()=>{d.days=+c.dataset.d;$$("#dayChips .daychip").forEach(x=>x.classList.remove("on"));c.classList.add("on");});
+  function updateBmi(){
+    const h=+d.height,w=+d.weight;
+    if(h>0&&w>0){const b=w/Math.pow(h/100,2);$("#fBmiPrev").value=b.toFixed(1)+" · "+bmiCat(b);}else{$("#fBmiPrev").value="";}
+  }
+  updateBmi();
+}
+
+function runGenerate(){
+  const d=S.data;
+  const age=+d.age,h=+d.height,w=+d.weight;
+  if(!(age>=13&&age<=90)){toast("Lütfen geçerli bir yaş gir (13-90).");$("#fAge")&&$("#fAge").focus();return;}
+  if(!(h>=120&&h<=230)){toast("Lütfen geçerli bir boy gir (120-230 cm).");$("#fHeight")&&$("#fHeight").focus();return;}
+  if(!(w>=35&&w<=250)){toast("Lütfen geçerli bir kilo gir (35-250 kg).");$("#fWeight")&&$("#fWeight").focus();return;}
+  d.body = bodyList()[d.bodyIdx];
+  S.result = computeEngine(d);
+  go("result");
+}
+
+/* ---------------- SVG DONUT (html2canvas uyumlu) — dilim içi eğimli % etiketi ---------------- */
+function _polar(cx,cy,r,deg){ const a=(deg-90)*Math.PI/180; return [cx+r*Math.cos(a), cy+r*Math.sin(a)]; }
+function _arcPath(cx,cy,r,a0,a1){
+  const [x0,y0]=_polar(cx,cy,r,a0), [x1,y1]=_polar(cx,cy,r,a1);
+  const large=Math.abs(a1-a0)>180?1:0, sweep=a1>=a0?1:0;
+  return `M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r.toFixed(2)} ${r.toFixed(2)} 0 ${large} ${sweep} ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+}
+function svgDonut(size, stroke, segs){
+  const r=(size-stroke)/2, cx=size/2, cy=size/2, C=2*Math.PI*r;
+  const fs=Math.max(9, Math.round(stroke*0.52));
+  let off=0, arcs="", defs="", labels="", idc=0;
+  const uid=Math.floor(Math.random()*1e6);
+  segs.forEach(s=>{
+    const len=C*s.pct/100;
+    arcs+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}" stroke-width="${stroke}" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})"/>`;
+    if(s.label && s.pct>=7){
+      const a0=off/C*360, a1=(off+len)/C*360, mid=(a0+a1)/2;
+      const flip=(mid>90 && mid<270);           // alt yarıda ters dönmesin diye yolu tersle
+      const pa0=flip?a1:a0, pa1=flip?a0:a1;
+      const id="dl"+uid+"_"+(idc++);
+      defs+=`<path id="${id}" d="${_arcPath(cx,cy,r,pa0,pa1)}" fill="none"/>`;
+      labels+=`<text font-family="Oswald, Arial, sans-serif" font-size="${fs}" font-weight="700" fill="${s.tc||'#ffffff'}" letter-spacing="0.2"><textPath href="#${id}" startOffset="50%" text-anchor="middle" dominant-baseline="central">${s.label}</textPath></text>`;
+    }
+    off+=len;
+  });
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><defs>${defs}</defs>`
+    +`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#eef2f5" stroke-width="${stroke}"/>${arcs}${labels}</svg>`;
+}
+const MC = {p:"#a81f33", c:"#5f5766", f:"#c0904a"}; // makro (protein kırmızı / karb gri / yağ bronz)
+
+/* ---------------- RESULT ---------------- */
+let curDay=0;
+function scrResult(){
+  const R=S.result, d=S.data;
+  curDay=0; openIdx=-1; swapOpen=false;
+  setNav("");
+  const donut = svgDonut(132,26,[{pct:R.pPct,color:MC.p,label:"%"+R.pPct},{pct:R.cPct,color:MC.c,label:"%"+R.cPct},{pct:R.fPct,color:MC.f,label:"%"+R.fPct}]);
+  app.innerHTML = `
+  <div class="screen result">
+    <div class="rhero">
+      <div class="greet">Program hazır · ${d.days} günlük plan</div>
+      <div class="rname">${d.name?escapeHtml(d.name):"Danışan"}</div>
+      <div class="rgoal">${I.target} ${R.goal.name} — ${R.goal.tag}</div>
+      <div class="rstrategy">${I.bolt} ${R.strategy}</div>
+      <div class="rstats">
+        <div class="rs"><b class="o">${R.bmi}</b><span>BMI · ${R.bmiCat}</span></div>
+        <div class="rs"><b>%${R.bf}</b><span>Tahmini Yağ</span></div>
+        <div class="rs"><b class="g">${R.target}</b><span>Hedef kcal</span></div>
+      </div>
+    </div>
+
+    <!-- ENERJİ -->
+    <div class="rsection">
+      <h3><span class="bar"></span>Enerji Hesaplamaları <span class="ref" onclick="openRef('BMR')">kaynak</span></h3>
+      <div class="kcal-strip">
+        <div><div class="kl">Günlük Hedef Kalori</div><div class="kv">${R.target}<small>kcal</small></div></div>
+        ${I.flame}
+      </div>
+      <div class="card"><div class="energy-rows">
+        <div class="erow"><div class="ei">${I.scale}</div><div class="el"><b>BMR (Mifflin-St Jeor)</b><span>Bazal metabolizma</span></div><div class="ev">${R.bmr}</div></div>
+        <div class="erow"><div class="ei">${I.run}</div><div class="el"><b>Aktivite Katsayısı</b><span>${R.actName}</span></div><div class="ev">×${R.actF}</div></div>
+        <div class="erow"><div class="ei">${I.flame}</div><div class="el"><b>TDEE</b><span>Günlük toplam harcama</span></div><div class="ev">${R.tdee}</div></div>
+        <div class="erow"><div class="ei">${I.target}</div><div class="el"><b>Hedefe Göre Ayar</b><span>${R.goal.name}</span></div><div class="ev">${R.kcalAdjPct>0?"+":""}%${R.kcalAdjPct}</div></div>
+      </div></div>
+    </div>
+
+    <!-- VÜCUT ANALİZİ -->
+    <div class="rsection">
+      <h3><span class="bar"></span>Vücut Analizi</h3>
+      <div class="card"><div class="energy-rows">
+        <div class="erow"><div class="el"><b>Yağsız Kütle (LBM)</b><span>Kas + kemik + organ</span></div><div class="ev">${R.lbm} kg</div></div>
+        <div class="erow"><div class="el"><b>Yağ Kütlesi (FM)</b><span>Tahmini %${R.bf}</span></div><div class="ev">${R.fm} kg</div></div>
+        <div class="erow"><div class="el"><b>FFMI</b><span>Yağsız kütle indeksi</span></div><div class="ev">${R.ffmi}</div></div>
+      </div></div>
+    </div>
+
+    <!-- HAFTALIK VOLÜM -->
+    <div class="rsection">
+      <h3><span class="bar"></span>Haftalık Volüm <span class="vol-h-sub">set / kas grubu</span></h3>
+      <div class="card"><div class="vol-rows">
+        ${R.volume.map(v=>`<div class="vrow">
+          <div class="vn">${v.name}${v.major?"":" <span class='vmin'>·</span>"}</div>
+          <div class="vbar"><i style="width:${v.pct}%;background:${v.color}"></i></div>
+          <div class="vv">${v.sets}<span class="vu"> set</span> <span class="vst" style="color:${v.color}">${v.label}</span></div>
+        </div>`).join("")}
+      </div></div>
+      <div class="vol-note">Hedef bandı kişiye göre (hedef × tecrübe) belirlenir; büyük kaslar için ~${R.volume.find(x=>x.major)?R.volume.find(x=>x.major).lo+"–"+R.volume.find(x=>x.major).hi:"10–20"} set/hafta. Sinerjist kaslar 0.5 set sayılır. Kaynak: Schoenfeld & Krieger doz-yanıt meta-analizleri.</div>
+    </div>
+
+    <!-- MAKRO -->
+    <div class="rsection">
+      <h3><span class="bar"></span>Makro Besin Değerleri <span class="ref" onclick="openRef('Protein')">kaynak</span></h3>
+      <div class="card macro-card">
+        <div class="macro-top">
+          <div class="donut">${donut}<div class="ctr"><b>${R.target}</b><span>kcal</span></div></div>
+          <div class="macro-legend">
+            <div class="mleg"><span class="dot" style="background:${MC.p}"></span><span class="ml-n">Protein</span><span class="ml-v">${R.protein_g}g <small>${R.pKcal} kcal</small></span></div>
+            <div class="mleg"><span class="dot" style="background:${MC.c}"></span><span class="ml-n">Karbonhidrat</span><span class="ml-v">${R.carb_g}g <small>${R.cKcal} kcal</small></span></div>
+            <div class="mleg"><span class="dot" style="background:${MC.f}"></span><span class="ml-n">Yağ</span><span class="ml-v">${R.fat_g}g <small>${R.fKcal} kcal</small></span></div>
+          </div>
+        </div>
+        <div class="micro-grid">
+          <div class="micro"><b>${R.protein_perkg} g/kg</b><span>Protein</span></div>
+          <div class="micro"><b>${R.fiber_g} g</b><span>Lif</span></div>
+          <div class="micro"><b>${R.water_l} L</b><span>Su</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HAFTALIK PROGRAM -->
+    <div class="rsection">
+      <h3><span class="bar"></span>Haftalık Antrenman <span class="ref" onclick="openRef('Hacim')">kaynak</span></h3>
+      <div class="daytabs" id="dayTabs">
+        ${R.program.map((day,i)=>`<div class="daytab ${i===0?'on':''}" data-i="${i}"><b>${i+1}. Gün</b><span>${dayShort(day.title)}</span></div>`).join("")}
+      </div>
+      <div id="dayContent"></div>
+    </div>
+
+    <!-- AĞIRLIK & YOĞUNLUK REHBERİ -->
+    <div class="rsection">
+      <h3><span class="bar"></span>Ağırlık Seçimi & Yoğunluk <span class="ref" onclick="openRef('Yük')">kaynak</span></h3>
+      <div class="card infocard">
+        <div class="ic-h">${I.dumbbell} RPE / RIR nasıl uygulanır?</div>
+        <p style="font-size:12.5px;color:var(--sub);line-height:1.55;margin:0 0 12px">${RPE_TEXT}</p>
+        <div class="loadtable">
+          <div class="lt-head"><span>Tekrar Aralığı</span><span>Yaklaşık Yük</span><span>Ağırlık Hissi</span></div>
+          ${LOAD_ROWS.map(r=>`<div class="lt-row"><span>${r[0]}</span><span>${r[1]}</span><b>${r[2]}</b></div>`).join("")}
+        </div>
+        <div style="font-size:11.5px;color:var(--faint);margin-top:10px;line-height:1.5">Bu programda ana hareketler <b>${R.goal.repC[0]}-${R.goal.repC[1]}</b> (${loadTag(R.goal.repC[0])}), izolasyonlar <b>${R.goal.repI[0]}-${R.goal.repI[1]}</b> (${loadTag(R.goal.repI[0])}) tekrar · hedef RIR ${R.goal.rir} · RPE ${R.goal.rpe}.</div>
+      </div>
+    </div>
+
+    <!-- KARDİYO -->
+    <div class="rsection">
+      <h3><span class="bar"></span>Kardiyo Planı <span class="ref" onclick="openRef('HRmax')">kaynak</span></h3>
+      <div class="card infocard">
+        <div class="cardio-head">
+          <div class="ch-item"><span>Tahmini Maks. Nabız</span><b>${R.cardio.hrmax} bpm</b></div>
+          <div class="ch-item"><span>Günlük Adım</span><b>${R.cardio.steps.replace("günde ","")}</b></div>
+        </div>
+        ${R.cardio.sessions.map(s=>`
+          <div class="cardio-sess">
+            <div class="cs-top"><b>${s.type}</b><span class="cs-freq">${s.freq} · ${s.dur}</span></div>
+            <div class="cs-zone">🎯 Hedef nabız: ${s.zone}</div>
+            <div class="cs-desc">${s.desc}</div>
+          </div>`).join("")}
+        <div class="cardio-note">${I.check2()}<span>${R.cardio.note}</span></div>
+      </div>
+    </div>
+
+    <div class="rsection">
+      <h3><span class="bar"></span>Beslenme Önerileri <span class="ref" onclick="openRef('Besin')">kaynak</span></h3>
+      <div class="card infocard">
+        <div class="ic-h">${I.food} Uygulama Notları</div>
+        <ul class="tips">${nutritionTips(R,d).map(t=>`<li>${I.check2()}${t}</li>`).join("")}</ul>
+      </div>
+    </div>
+
+    <div class="rsection">
+      <h3><span class="bar"></span>Antrenör Notları</h3>
+      <div class="card infocard navy">
+        <div class="ic-h">${I.clip} Uygulama & İlerleme</div>
+        <ul class="tips">${coachNotes(R,d).map(t=>`<li>${I.check2()}${t}</li>`).join("")}</ul>
+      </div>
+    </div>
+
+    <div class="rsection">
+      <h3><span class="bar"></span>İlerleme Takibi <span class="vol-h-sub">opsiyonel · haftalık ölçüm</span></h3>
+      <div class="card"><div id="trackPanel">${trackPanelHTML()}</div></div>
+      <div class="tk-note">Haftalık ölçümleri gir; veriler danışanla birlikte kaydedilir ve PDF rapordaki takip çizelgesine işlenir. Son sütunda Hafta 1'e göre değişim görünür.</div>
+    </div>
+
+    <div class="result-actions">
+      <button class="big-save" id="saveClientBtn" onclick="handleSaveClient()">${I.save} ${S.currentClientId?"Danışanı Güncelle":"Danışanı Kaydet"}</button>
+      <button class="big-pdf" onclick="downloadPDF()">${I.pdf} PDF Raporunu İndir</button>
+      <div class="mini-actions">
+        <button onclick="go('metrics')">${I.edit} Düzenle</button>
+        <button onclick="openRef()">${I.book} Kaynaklar</button>
+        <button onclick="go('clients')">${I.users} Danışanlar</button>
+      </div>
+    </div>
+    <p class="disclaimer">Bu program bilimsel prensiplere dayalı bir başlangıç noktasıdır ve antrenör tarafından danışana göre uyarlanmalıdır. Sağlık sorunu olan bireyler için hekim onayı önerilir.</p>
+  </div>`;
+
+  $$("#dayTabs .daytab").forEach(t=>t.onclick=()=>{curDay=+t.dataset.i;openIdx=-1;swapOpen=false;$$("#dayTabs .daytab").forEach(x=>x.classList.remove("on"));t.classList.add("on");renderDay();});
+  renderDay();
+}
+I.check2=()=>'<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+I.swap=()=>'<svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;flex:0 0 auto;vertical-align:-1px;margin-right:3px"><path d="M4 8h13l-3-3M20 16H7l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* alternatif hareket seçimi & değiştirme */
+const EQ_TR={barbell:"Barbell",dumbbell:"Dumbbell",machine:"Makine",cable:"Kablo",bw:"Vücut ağırlığı",band:"Band"};
+function eqLabel(eqArr){ return (eqArr||[]).map(q=>EQ_TR[q]||q).join("/"); }
+function escAttr(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+function altCandidates(ex, dayExercises){
+  const allow=EQUIP.find(e=>e.id===S.data.equipment).allow;
+  const used=new Set(dayExercises.map(x=>x.n));
+  let c=EXDB.filter(e=> e.p===ex.p && (!!e.c===!!ex.c) && e.eq.every(q=>allow.includes(q)));
+  c=c.filter(e=> e.n===ex.n || !used.has(e.n)); // gündeki diğer hareketleri hariç tut (kendisi hariç)
+  // önerileni (orijinal) her zaman listede tut
+  const orig=ex._origName||ex.n;
+  if(!c.some(e=>e.n===orig)){ const oe=EXDB.find(e=>e.n===orig); if(oe && oe.eq.every(q=>allow.includes(q)) && !used.has(oe.n)) c.push(oe); }
+  return c;
+}
+const CHEV_D='<svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CHEV_U='<svg viewBox="0 0 24 24" fill="none"><path d="M6 15l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function swapPanelHTML(ex, cands, i){
+  const orig=ex._origName||ex.n;
+  const rows=cands.map(c=>{
+    const isCur=c.n===ex.n, isOrig=c.n===orig;
+    return `<button class="swapopt${isCur?' cur':''}" data-choose="${escAttr(c.n)}" data-di="${i}" ${isCur?"disabled":""}>
+       <span class="so-n">${escapeHtml(c.n)}${isOrig?'<span class="so-rec">önerilen</span>':''}${isCur?'<span class="so-cur-badge">seçili</span>':''}</span>
+       <span class="so-m">${c.m} · ${eqLabel(c.eq)}${c.c?" · bileşik":" · izolasyon"}</span>
+    </button>`;
+  }).join("");
+  return `<div class="swappanel">
+    <div class="sp-h">${I.swap()} Aynı kas grubundan alternatif seç<span class="sp-x" data-spx="1">✕</span></div>
+    <div class="sp-list">${rows}</div>
+    <div class="sp-note">Aynı hareket paternini ve kas grubunu çalıştıran, ekipmanına uygun hareketler listelenir. Seçince PDF ve danışan kaydı otomatik güncellenir; “önerilen” etiketli hareketi seçerek her zaman ilk plana dönebilirsin.</div>
+  </div>`;
+}
+function doSwap(dayIdx, exIdx, newName){
+  const R=S.result, day=R.program[dayIdx], ex=day.exercises[exIdx];
+  const dbEntry=EXDB.find(e=>e.n===newName); if(!dbEntry) return;
+  const rebuilt=exFromDB(dbEntry, ex.role, ex.opt, R.goal, R.exp);
+  rebuilt._origName = ex._origName || ex.n;
+  day.exercises[exIdx]=rebuilt;
+  applyTechnique(day.exercises, {tech:day.tech});
+  S._dirty=true;
+  swapOpen=false;
+  renderDay();
+  toast(newName===rebuilt._origName ? "Önerilen harekete dönüldü" : "Hareket değiştirildi");
+}
+let openIdx=-1, swapOpen=false;
+function renderDay(){
+  const day=S.result.program[curDay];
+  const method = day.method || "";
+  $("#dayContent").innerHTML = `
+    <div class="dayfocus">
+      <div class="df-t"><b>${day.title.split("—")[1]?day.title.split("—")[1].trim():day.title}</b><span>Odak: ${day.focus}</span></div>
+      <div class="rpe">RPE ${day.rpe}<br>RIR ${day.rir}</div>
+    </div>
+    ${method?`<div class="daymethod">${I.bolt}<span><b>Yöntem:</b> ${method}</span></div>`:""}
+    <div class="exlist">
+      ${day.exercises.map((ex,i)=>{
+        const cands=altCandidates(ex, day.exercises);
+        const canSwap=cands.length>1;
+        const isOpen=(i===openIdx);
+        return `
+      <div class="exitem${isOpen?' open':''}">
+        <div class="exrow${ex.opt?' exopt':''}" data-tap="${i}">
+          <div class="exn">${ex.opt?'★':i+1}</div>
+          <div class="exinfo">
+            <b>${escapeHtml(ex.n)}${ex.opt?'<span class="optbadge">Opsiyonel</span>':''}${ex.tech?`<span class="techbadge">${ex.tech}</span>`:''}</b>
+            <span class="exmeta">${ex.m}${ex.c?" · Bileşik":" · İzolasyon"}${ex.opt?" · enerjin kaldıysa yap":""}</span>
+            ${ex.desc?`<span class="exdesc">${ex.desc}</span>`:""}
+            ${ex.alt?`<span class="exalt">${I.swap()}Riskliyse alternatif: ${ex.alt}</span>`:""}
+          </div>
+          <div class="exsets">
+            <div class="ss"><b>${ex.sets}</b><span>Set</span></div>
+            <div class="ss"><b>${ex.rep}</b><span>Tekrar</span>${ex.load?`<span class="loadtag">${ex.load}</span>`:""}</div>
+            <div class="ss"><b style="font-size:12px">${ex.rest}</b><span>Set arası</span></div>
+          </div>
+          <div class="exchev">${isOpen?CHEV_U:CHEV_D}</div>
+        </div>
+        ${isOpen?`
+          <div class="exopts">
+            <button class="opt-swap" data-swap="${i}" ${canSwap?"":"disabled"}>${I.swap()} Alternatif hareketle değiştir${canSwap?"":" · uygun alternatif yok"}</button>
+            ${(swapOpen&&canSwap)?swapPanelHTML(ex,cands,i):""}
+          </div>`:""}
+      </div>`;}).join("")}
+    </div>
+    <div class="restnote">${I.clock}<span><b>Dinlenme = setler arası</b> (bir sonraki sete geçmeden). Süperset varsa aynı harf etiketli hareketleri aralıksız yap, dinlenmeyi çiftin sonunda kullan.</span></div>`;
+
+  $$("#dayContent [data-tap]").forEach(r=>r.onclick=()=>{const i=+r.dataset.tap; if(openIdx===i){openIdx=-1;swapOpen=false;}else{openIdx=i;swapOpen=false;} renderDay();});
+  $$("#dayContent .opt-swap").forEach(b=>{ if(b.disabled) return; b.onclick=(ev)=>{ev.stopPropagation(); swapOpen=!swapOpen; renderDay();};});
+  $$("#dayContent .sp-x").forEach(x=>x.onclick=(ev)=>{ev.stopPropagation(); swapOpen=false; renderDay();});
+  $$("#dayContent .swapopt[data-choose]").forEach(b=>{ if(b.disabled) return; b.onclick=(ev)=>{ev.stopPropagation(); doSwap(curDay, +b.dataset.di, b.dataset.choose);};});
+}
+function dayShort(t){const p=t.split("—")[1]||t;return p.replace(/\(.*\)/,"").trim().split(" ").slice(0,2).join(" ");}
+function escapeHtml(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function resetAll(){S.data={sex:null,muscular:false,bodyIdx:2,goal:null,name:"",age:"",height:"",weight:"",activity:"mod",experience:"beg",days:3,equipment:"gym",health:"",injuries:[],tracking:{}};S.result=null;go("welcome");}
+
+/* ---------------- REFERENCES DRAWER ---------------- */
+const drawer=$("#drawer"), overlay=$("#overlay");
+function openRef(tagFilter){
+  const body=$("#drawerBody");
+  body.innerHTML = `<div class="refnote">Bu uygulamadaki her karar (kalori, makro, hacim, tekrar, dinlenme) aşağıdaki bilimsel kaynaklara dayanır. Bilim geliştikçe kural tabanı güncellenebilir — mimari değişmez.</div>`
+    + CITATIONS.map(c=>{
+        const hl = tagFilter && c.tag.toLowerCase().includes(tagFilter.toLowerCase());
+        return `<div class="refitem" style="${hl?'border-color:var(--orange);box-shadow:0 4px 14px rgba(239,125,0,.14)':''}">
+          <span class="rtag">${c.tag}</span>
+          <div class="rcite">${c.cite}</div>
+          <div class="rfind">📌 ${c.use}</div>
+        </div>`;
+      }).join("");
+  overlay.classList.add("show"); drawer.classList.add("show");
+  if(tagFilter){const hit=$(".refitem[style]",body);if(hit)setTimeout(()=>hit.scrollIntoView({behavior:"smooth",block:"center"}),200);}
+}
+function closeRef(){overlay.classList.remove("show");drawer.classList.remove("show");}
+$("#sciBtn").onclick=()=>openRef();
+$("#drawerClose").onclick=closeRef;
+overlay.onclick=closeRef;
+$("#homeBtn").onclick=()=>{if(S.step!=="welcome"&&confirm("Ana ekrana dön? Girilen bilgiler silinecek."))resetAll();};
+
+/* tema geçişi (oturum içi; koyu/açık) */
+let darkMode=false;
+const SUN='<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.9"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M17 17l1.6 1.6M18.4 5.6L16.8 7.2M7.2 16.8L5.6 18.4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>';
+const MOON='<path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>';
+function applyTheme(){
+  document.body.setAttribute("data-theme", darkMode?"dark":"light");
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", darkMode?"#1c1822":"#2a2431");
+  const ic=$("#themeIcon"); if(ic) ic.innerHTML = darkMode?SUN:MOON;
+  const tb=$("#themeBtn"); if(tb) tb.title = darkMode?"Açık temaya geç":"Koyu temaya geç";
+}
+$("#themeBtn").onclick=()=>{darkMode=!darkMode;applyTheme();};
+applyTheme();
+
+/* ============================================================
+   PDF RAPORU (infografik tarzı) — html2canvas + jsPDF
+   ============================================================ */
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=()=>rej(new Error("load fail "+src));document.head.appendChild(s);});}
+async function ensureLibs(){
+  if(!window.html2canvas) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
+  if(!(window.jspdf&&window.jspdf.jsPDF)) await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+}
+
+/* ---------------- PAYLAŞILAN: AĞIRLIK REHBERİ & KARDİYO ---------------- */
+const LOAD_ROWS=[
+  ["3-5 tekrar","≈ %80-87 1RM","Ağır"],
+  ["6-8 tekrar","≈ %75-80 1RM","Orta-ağır"],
+  ["9-12 tekrar","≈ %67-75 1RM","Orta"],
+  ["13-15 tekrar","≈ %63-67 1RM","Orta-hafif"],
+  ["16-20 tekrar","≈ %55-63 1RM","Hafif-orta"],
+];
+const RPE_TEXT="RIR = sette bıraktığın yedek tekrar sayısı (RIR 2 → 2 tekrar daha yapabilirdin). RPE = 10 − RIR (RPE 8 ≈ RIR 2). Tekrar sayısı + RIR birlikte ağırlığı belirler: az tekrar = ağır yük, çok tekrar = daha hafif yük. Kural: verilen tekrarı listelenen RIR kadar yedek kalacak şekilde yapabildiğin ağırlığı seç. Üst sınırı kolayca aşıyorsan yükü artır; alt sınıra ulaşamıyorsan azalt.";
+
+/* ---------------- HAREKET (KAS GRUBU) İKONLARI ---------------- */
+const EX_GROUP={squat:"legs",lunge:"legs",quad_iso:"legs",calf:"legs",hinge:"poster",ham_iso:"poster",glute_iso:"poster",push_h:"chest",incline:"chest",chest_iso:"chest",push_v:"delt",delt_side:"delt",delt_rear:"delt",pull_v:"back",pull_h:"back",triceps:"arms",biceps:"arms",core:"core"};
+const GROUP_ICON={
+ legs:'<svg viewBox="0 0 24 24" fill="none"><path d="M8.5 3h7M9 3c-1 5-1 9 1 18M15 3c1 5 1 9-1 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ poster:'<svg viewBox="0 0 24 24" fill="none"><circle cx="7" cy="5" r="1.8" stroke="currentColor" stroke-width="1.6"/><path d="M7 7l4 5h8M11 12l-1 8M7 16h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ chest:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 7C8.5 7 6 8.5 6 11.5c0 2.5 2.6 3.6 4.4 2 .9-.8.9-2.5 1.6-2.5s.7 1.7 1.6 2.5c1.8 1.6 4.4.5 4.4-2C18 8.5 15.5 7 12 7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+ delt:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5.5" r="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 4h10M8.5 4V2.6M15.5 4V2.6M12 7.5v6M9.5 13.5L8 20M14.5 13.5L16 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ back:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 4v15M12 6C9.5 8 6.5 9 4.5 8M12 6c2.5 2 5.5 3 7.5 2M12 12c-1.5 1-3.5 2-4.5 6M12 12c1.5 1 3.5 2 4.5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ arms:'<svg viewBox="0 0 24 24" fill="none"><path d="M6 20v-7a2.5 2.5 0 0 1 2.5-2.5H11M11 10.5a4.2 4.2 0 0 1 4.2 4.2M8 13.5a3.6 3.2 0 0 0 7.2 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ core:'<svg viewBox="0 0 24 24" fill="none"><rect x="8" y="4" width="8" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M12 5v14M8.6 9.5h6.8M8.6 13.5h6.8" stroke="currentColor" stroke-width="1.3"/></svg>',
+};
+function exIcon(p){ return GROUP_ICON[EX_GROUP[p]||"core"]||GROUP_ICON.core; }
+const BRAND_SVG = '<img class="brandimg" src="images/logo.png" alt="NyxFit">';
+
+/* ===== #2 İLERLEME TAKİBİ (haftalık ölçüm; danışanla kaydedilir) ===== */
+const TRACK_METRICS = [
+  {id:"kilo",  label:"Kilo (kg)"},
+  {id:"bel",   label:"Bel Çevresi (cm)"},
+  {id:"gogus", label:"Göğüs (cm)"},
+  {id:"kalca", label:"Kalça (cm)"},
+  {id:"yag",   label:"Yağ Oranı (%)"},
+  {id:"enerji",label:"Enerji (1-10)"},
+  {id:"uyku",  label:"Uyku (1-10)"},
+  {id:"perf",  label:"Performans (1-10)"},
+];
+const TRACK_WEEKS = 12;
+function trackData(){ if(!S.data.tracking) S.data.tracking={}; return S.data.tracking; }
+function setTrack(week, id, val){ const t=trackData(); if(!t[week]) t[week]={}; if(val===""||val==null) delete t[week][id]; else t[week][id]=val; S._dirty=true; refreshTrackChange(); }
+function latestTrackWeek(){ const t=trackData(); let mx=0; Object.keys(t).forEach(w=>{ if(t[w]&&Object.keys(t[w]).length) mx=Math.max(mx,+w); }); return mx; }
+function trackDelta(id){
+  const t=trackData(), last=latestTrackWeek();
+  const a=t["1"]&&t["1"][id]!==undefined?parseFloat(t["1"][id]):null;
+  const b=last>1&&t[last]&&t[last][id]!==undefined?parseFloat(t[last][id]):null;
+  if(a===null||b===null||isNaN(a)||isNaN(b)) return null;
+  return { from:a, to:b, diff:Math.round((b-a)*10)/10, week:last };
+}
+function trackChangeHTML(){
+  const last=latestTrackWeek();
+  if(last<2) return `<div class="tc-empty">En az 2 farklı hafta doldurulduğunda H1 → güncel hafta değişimi burada özetlenir.</div>`;
+  const rows=TRACK_METRICS.map(m=>{
+    const d=trackDelta(m.id); if(!d) return "";
+    const zero=d.diff===0, up=d.diff>0;
+    const col= zero?"var(--faint)":(up?"#3b8f4e":"#c0392b");
+    return `<div class="tc-row"><span class="tc-n">${m.label}</span><span class="tc-d">${d.from} → ${d.to} <b style="color:${col}">(${up?"+":""}${d.diff})</b></span></div>`;
+  }).filter(Boolean).join("");
+  return `<div class="tc-title">H1 → H${last} Değişim</div>${rows||'<div class="tc-empty">Karşılaştırma için Hafta 1 verilerini de gir.</div>'}`;
+}
+function refreshTrackChange(){ const el=$("#trackChange"); if(el) el.innerHTML=trackChangeHTML(); }
+function trackPanelHTML(){
+  const wk=S._trackWeek||1, t=trackData(), wd=t[wk]||{};
+  const opts=Array.from({length:TRACK_WEEKS},(_,i)=>i+1).map(w=>{
+    const filled=t[w]&&Object.keys(t[w]).length?" ●":"";
+    return `<option value="${w}" ${w===wk?"selected":""}>Hafta ${w}${filled}</option>`;
+  }).join("");
+  const inputs=TRACK_METRICS.map(m=>`
+    <div class="tk-field"><label>${m.label}</label>
+      <input type="number" inputmode="decimal" step="0.1" value="${wd[m.id]!==undefined?wd[m.id]:""}" oninput="setTrack(${wk},'${m.id}',this.value)" placeholder="—"></div>`).join("");
+  return `
+    <div class="tk-top">
+      <select class="tk-week" onchange="S._trackWeek=+this.value;refreshTrackPanel()">${opts}</select>
+      <button class="tk-save" onclick="saveTrackWeek(this)">${I.save} Kaydet</button>
+    </div>
+    <div class="tk-grid">${inputs}</div>
+    <div class="tc-box" id="trackChange">${trackChangeHTML()}</div>`;
+}
+function refreshTrackPanel(){ const el=$("#trackPanel"); if(el) el.innerHTML=trackPanelHTML(); }
+function saveTrackWeek(btn){
+  const ok=saveCurrentClient();
+  if(ok){ btn.classList.add("saved"); btn.innerHTML=`${I.check2()} Kaydedildi`; setTimeout(()=>{ if(btn){ btn.classList.remove("saved"); btn.innerHTML=`${I.save} Kaydet`; } },1500); }
+}
+
+function buildReportHTML(){
+  const R=S.result, d=S.data;
+  const today=new Date().toLocaleDateString("tr-TR");
+  const donut = svgDonut(96,18,[{pct:R.pPct,color:MC.p,label:"%"+R.pPct},{pct:R.cPct,color:MC.c,label:"%"+R.cPct},{pct:R.fPct,color:MC.f,label:"%"+R.fPct}]);
+  const bodyList2 = d.sex==="male"?BODY.male:BODY.female;
+  const bodyN = bodyList2.length;
+  const bodyPos = bodyList2.findIndex(x=>x.img===d.body.img)+1 || d.body.level;
+  const lvlStrip=Array.from({length:bodyN},(_,k)=>k+1).map(lv=>`<div class="lb ${lv===bodyPos?'cur':''}"><div class="bar"></div>${lv}</div>`).join("");
+  const sexTxt=d.sex==="male"?"Erkek":"Kadın";
+
+  const days=R.program;
+  const totalPages=3;
+  const dayCard=(day,i)=>`
+    <div class="daycol">
+      <div class="dc-h">${i+1}. GÜN — ${(day.title.split("—")[1]||"").trim()}</div>
+      <table class="extbl">
+        <tr><th>Hareket</th><th class="c">Set</th><th class="c">Tekrar</th><th class="c">Set Arası</th></tr>
+        ${day.exercises.map((ex,j)=>`<tr class="${ex.opt?'exoptrow':''}"><td class="exc"><div class="exname"><span class="exi">${ex.opt?'★':j+1}</span><b>${ex.n}</b>${ex.tech?`<span class="rtech">${ex.tech}</span>`:''}${ex.opt?'<span class="roptbadge">opsiyonel</span>':''}</div>${ex.desc?`<div class="exd">${ex.desc}</div>`:""}${ex.alt?`<div class="exa">↺ riskliyse alternatif: ${ex.alt}</div>`:""}</td><td class="c">${ex.sets}</td><td class="c">${ex.rep}${ex.load?`<div class="ld">${ex.load}</div>`:""}</td><td class="c">${ex.rest}</td></tr>`).join("")}
+      </table>
+      <div class="dc-f"><div class="dcf-row"><span>Odak: ${day.focus}</span><b>RPE ${day.rpe} · RIR ${day.rir}</b></div>${day.method?`<div class="dcf-method">${day.method}</div>`:""}<div class="dcf-style">Set arası dinlenme = bir sonraki sete geçmeden bekle · ★ opsiyonel = enerji kaldıysa yap</div></div>
+    </div>`;
+
+  const nutri=nutritionTips(R,d), notes=coachNotes(R,d);
+  const weeks=Array.from({length:12},(_,i)=>i+1);
+  const trackRows=["Kilo (kg)","Bel Çevresi (cm)","Göğüs (cm)","Kalça (cm)","Yağ Oranı (%)","Enerji (1-10)","Uyku (1-10)","Performans (1-10)"];
+
+  const page1=`
+  <div class="pg">
+    <div class="r-head">
+      <div class="r-brand">${BRAND_SVG}<div class="r-brand-tx"><b>NyxFit</b><span>Kişisel Koçunuz</span></div></div>
+      <h1>Kişiye Özel Antrenman &amp; Beslenme Programı</h1>
+      <div class="prep"><b>Tarih</b><span>${today}</span></div>
+    </div>
+
+    <div class="row3">
+      <div class="box">
+        <div class="box-h">Danışan Bilgileri</div>
+        <div class="kv-line"><span class="k">Ad Soyad</span><span class="v">${d.name?escapeHtml(d.name):"—"}</span></div>
+        <div class="kv-line"><span class="k">Yaş</span><span class="v">${d.age} yıl</span></div>
+        <div class="kv-line"><span class="k">Cinsiyet</span><span class="v">${sexTxt}</span></div>
+        <div class="kv-line"><span class="k">Boy</span><span class="v">${d.height} cm</span></div>
+        <div class="kv-line"><span class="k">Kilo</span><span class="v">${d.weight} kg</span></div>
+        <div class="kv-line"><span class="k">Vücut Tipi</span><span class="v">${d.body.name} <small>(Seviye ${bodyPos}/${bodyN})</small></span></div>
+        <div class="kv-line"><span class="k">Aktivite</span><span class="v">${R.actName}</span></div>
+        <div class="kv-line"><span class="k">Tecrübe</span><span class="v">${R.exp.name}</span></div>
+        <div class="kv-line"><span class="k">Hedef</span><span class="v">${R.goal.name}</span></div>
+        <div class="kv-line"><span class="k">Antrenman</span><span class="v">Haftada ${d.days} gün</span></div>
+        <div class="kv-line"><span class="k">Ekipman</span><span class="v">${EQUIP.find(e=>e.id===d.equipment).name}</span></div>
+        <div class="kv-line"><span class="k">Sağlık Notu</span><span class="v" style="font-weight:500">${d.health?escapeHtml(d.health):"Belirtilmedi"}</span></div>
+      </div>
+
+      <div class="box analysis">
+        <div class="box-h">Vücut Analizi</div>
+        <div class="an-item"><div class="al"><b>BMI</b><span>Vücut kütle indeksi</span></div><div class="av">${R.bmi}</div></div>
+        <div class="an-item"><div class="al"><b>Kategori</b><span>WHO sınıflaması</span></div><div class="av" style="font-size:12px">${R.bmiCat}</div></div>
+        <div class="an-item"><div class="al"><b>Tahmini Yağ Oranı</b><span>Vücut tipine göre</span></div><div class="av">%${R.bf}</div></div>
+        <div class="an-item"><div class="al"><b>Yağ Kütlesi (FM)</b></div><div class="av">${R.fm} kg</div></div>
+        <div class="an-item"><div class="al"><b>Yağsız Kütle (LBM)</b></div><div class="av">${R.lbm} kg</div></div>
+        <div class="an-item"><div class="al"><b>FFMI</b><span>Yağsız kütle indeksi</span></div><div class="av">${R.ffmi}</div></div>
+        <div class="lvlstrip">${lvlStrip}</div>
+        <div style="text-align:center;font-size:8.5px;color:#8a99a8;margin-top:5px">Vücut Seviyesi: ${bodyPos}/${bodyN} — ${d.body.note}</div>
+      </div>
+
+      <div class="box energy">
+        <div class="box-h">Enerji Hesaplamaları</div>
+        <div class="en-item"><div class="el"><b>BMR</b><span>Mifflin-St Jeor</span></div><div class="ev">${R.bmr}</div></div>
+        <div class="en-item"><div class="el"><b>Aktivite Katsayısı</b><span>${R.actName}</span></div><div class="ev">×${R.actF}</div></div>
+        <div class="en-item"><div class="el"><b>TDEE</b><span>Günlük harcama</span></div><div class="ev">${R.tdee}</div></div>
+        <div class="en-item"><div class="el"><b>Hedefe Göre Ayar</b><span>${R.goal.name}</span></div><div class="ev">${R.kcalAdjPct>0?"+":""}%${R.kcalAdjPct}</div></div>
+        <div class="kcal-final"><div class="kf-l">Günlük Hedef Kalori</div><div class="kf-v">${R.target} kcal</div></div>
+        <div class="strat-line"><b>Strateji:</b> ${R.strategy}</div>
+        <div class="box-h" style="margin-top:14px">Makro Besin Değerleri</div>
+        <div class="macrobox">
+          <div class="r-donut-wrap">${donut}</div>
+          <div class="mleg2">
+            <div class="ml2"><span class="d" style="background:${MC.p}"></span><span class="nm">Protein</span><span class="vv">${R.protein_g}g<small>${R.pKcal} kcal</small></span></div>
+            <div class="ml2"><span class="d" style="background:${MC.c}"></span><span class="nm">Karbonhidrat</span><span class="vv">${R.carb_g}g<small>${R.cKcal} kcal</small></span></div>
+            <div class="ml2"><span class="d" style="background:${MC.f}"></span><span class="nm">Yağ</span><span class="vv">${R.fat_g}g<small>${R.fKcal} kcal</small></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="macro-notes">
+      <div class="mn"><b>PROTEİN</b><span class="val">${R.protein_perkg} g/kg</span><span>%${R.pPct} · kas için yüksek</span></div>
+      <div class="mn"><b>YAĞ</b><span class="val">${R.fat_perkg} g/kg</span><span>%${R.fPct} · hormonal sağlık</span></div>
+      <div class="mn"><b>KARBONHİDRAT</b><span class="val">${R.carb_g} g</span><span>%${R.cPct} · kalan kaloriden</span></div>
+      <div class="mn"><b>LİF</b><span class="val">${R.fiber_g} g</span><span>günlük hedef</span></div>
+      <div class="mn"><b>SU</b><span class="val">${R.water_l} L</span><span>günlük</span></div>
+      <div class="mn"><b>ADIM</b><span class="val" style="font-size:11px">${R.steps}</span><span>günlük hedef</span></div>
+    </div>
+
+    <div class="three-col">
+      <div class="box">
+        <div class="box-h">Beslenme Önerileri</div>
+        <ul class="rtips">${nutri.slice(0,6).map(t=>`<li>${t}</li>`).join("")}</ul>
+      </div>
+      <div class="box">
+        <div class="box-h">Antrenör Notları</div>
+        <ul class="rtips">${notes.slice(0,6).map(t=>`<li>${t}</li>`).join("")}</ul>
+      </div>
+      <div class="box">
+        <div class="box-h">Ağırlık &amp; Yoğunluk (RPE/RIR)</div>
+        <div class="rpe-mini">${RPE_TEXT}</div>
+        <table class="loadmini">${LOAD_ROWS.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}</table>
+      </div>
+    </div>
+
+    <div class="r-foot">
+      <div class="motto">NyxFit · Kişisel Koçunuz</div>
+      <div class="sig"><b>${d.name?escapeHtml(d.name):"Danışan"}</b>${R.goal.name} · ${d.days} gün / hafta</div>
+    </div>
+    <div class="pageno">NyxFit · Sayfa 1/${totalPages} — Profil &amp; Beslenme</div>
+  </div>`;
+
+  const cardioBlock=`
+    <div class="box cardio-box">
+      <div class="box-h">Kardiyo Planı</div>
+      <div class="cardio-meta">
+        <span><b>Maks. Nabız</b> ${R.cardio.hrmax} bpm</span>
+        <span><b>Günlük Adım</b> ${R.cardio.steps.replace("günde ","")}</span>
+        <span><b>Haftalık</b> ${R.cardio.weekly}</span>
+      </div>
+      ${R.cardio.sessions.map(s=>`<div class="rcardio-sess"><div class="rcs-t"><b>${s.type}</b> — ${s.freq} · ${s.dur}</div><div class="rcs-d">Hedef nabız: ${s.zone}. ${s.desc}</div></div>`).join("")}
+      <div class="rcardio-note">${R.cardio.note}</div>
+    </div>`;
+
+  const szClass = days.length<=2 ? "sz-lg" : (days.length<=4 ? "sz-md" : "sz-sm");
+  const trainingPage = `<div class="pg pg-train">
+      <div class="r-head" style="padding:9px 20px">
+        <h1 style="font-size:19px">Kardiyo &amp; Antrenman Programı</h1>
+        <div class="prep"><b>${R.goal.name}</b><span>Haftada ${d.days} gün · ${EQUIP.find(e=>e.id===d.equipment).name}</span></div>
+      </div>
+      ${cardioBlock}
+      <div class="days-grid ${szClass}">${days.map((day,i)=>dayCard(day,i)).join("")}</div>
+      <div class="pageno">NyxFit · Sayfa 2/${totalPages} — Kardiyo &amp; Antrenman</div>
+    </div>`;
+
+  const trk = d.tracking||{};
+  const lastW = (function(){ let mx=0; Object.keys(trk).forEach(w=>{ if(trk[w]&&Object.keys(trk[w]).length) mx=Math.max(mx,+w); }); return mx; })();
+  const trackTable = `
+    <table class="track">
+      <tr><th class="mh">ÖLÇÜM</th>${weeks.map(w=>`<th>${w}. HF</th>`).join("")}<th class="ch">DEĞİŞİM</th></tr>
+      ${TRACK_METRICS.map(m=>{
+        const cells=weeks.map(w=>{
+          const v=trk[w]&&trk[w][m.id]!==undefined?trk[w][m.id]:null;
+          return `<td>${v!==null?`<span class="tv">${v}</span>`:`<span class="gl"></span>`}</td>`;
+        }).join("");
+        let ch='<span class="gl"></span>';
+        const a=trk["1"]&&trk["1"][m.id]!==undefined?parseFloat(trk["1"][m.id]):null;
+        const b=lastW>1&&trk[lastW]&&trk[lastW][m.id]!==undefined?parseFloat(trk[lastW][m.id]):null;
+        if(a!==null&&b!==null&&!isNaN(a)&&!isNaN(b)){ const df=Math.round((b-a)*10)/10; const col=df>0?"#2e7d46":(df<0?"#a81f33":"#5f5766"); ch=`<b style="color:${col}">${df>0?"+":""}${df}</b>`; }
+        return `<tr><td class="rl">${m.label}</td>${cells}<td class="ch">${ch}</td></tr>`;
+      }).join("")}
+    </table>`;
+  const trackPage = `<div class="pg pg-land">
+      <div class="r-head r-head-red">
+        <h1>TAKİP &amp; İLERLEME</h1>
+        <div class="prep"><span>12 Haftalık İlerleme Takibi</span></div>
+      </div>
+      <div class="track-wrap">${trackTable}</div>
+      <div class="r-foot track-foot">
+        <div class="sig"><b>Hedef Tarih</b>____ / ____ / ________</div>
+      </div>
+      <div class="r-evidence"><b>Bilimsel dayanak:</b> Mifflin-St Jeor (1990) &amp; ACSM (2018); protein Morton ve ark. (2018), Helms (2014); rekomp Barakat ve ark. (2020); hacim/sıklık Schoenfeld (2016, 2017); yük-tekrar ACSM/Ratamess (2009); dinlenme Grgic (2018); HRmax Tanaka (2001); kardiyo ACSM/Garber (2011). Bu program düzenlenebilir bir başlangıç şablonudur; bireye göre uyarlanmalı, gerekiyorsa hekim onayı alınmalıdır.</div>
+      <div class="pageno">NyxFit · Sayfa ${totalPages}/${totalPages} — Takip</div>
+    </div>`;
+
+  return page1+trainingPage+trackPage;
+}
+
+/* PDF üretimi: report'u doldur -> html2canvas -> jsPDF (A4, çok sayfa) */
+async function downloadPDF(){
+  const loading=$("#pdfLoading"), sub=$("#pdfLoadingSub");
+  loading.classList.add("show"); sub.textContent="Rapor derleniyor…";
+  const report=$("#report");
+  report.innerHTML=buildReportHTML();
+  // fontların yüklendiğinden emin ol
+  try{ if(document.fonts&&document.fonts.ready) await document.fonts.ready; }catch(e){}
+  await new Promise(r=>setTimeout(r,120));
+
+  try{
+    sub.textContent="Kütüphaneler yükleniyor…";
+    await ensureLibs();
+    sub.textContent="Sayfalar oluşturuluyor…";
+    const pages=$$("#report .pg");
+    const { jsPDF }=window.jspdf;
+    const pdf=new jsPDF("p","mm","a4");
+    for(let i=0;i<pages.length;i++){
+      const land=pages[i].classList.contains("pg-land");
+      const canvas=await html2canvas(pages[i],{scale:2,backgroundColor:"#ffffff",useCORS:true,logging:false,windowWidth:land?1123:794});
+      const img=canvas.toDataURL("image/jpeg",0.95);
+      if(i>0) pdf.addPage("a4", land?"l":"p");
+      const PW=land?297:210, PH=land?210:297;
+      // her mantıksal sayfayı tek A4'e sığdır (contain) — içerik asla kesilmez
+      const scale=Math.min(PW/canvas.width, PH/canvas.height);
+      const w=canvas.width*scale, h=canvas.height*scale;
+      const x=(PW-w)/2, y=Math.max(0,(PH-h)/2);
+      pdf.addImage(img,"JPEG",x,y,w,h);
+    }
+    const fname="NyxFit_Program_"+(d0name())+".pdf";
+    pdf.save(fname);
+    loading.classList.remove("show");
+    toast("PDF indirildi: "+fname);
+  }catch(err){
+    loading.classList.remove("show");
+    console.error(err);
+    // fallback: yazdır penceresi
+    printFallback();
+  }
+}
+function d0name(){const n=(S.data.name||"Danisan").replace(/[^a-zA-Z0-9ğüşöçıİĞÜŞÖÇ]/g,"_").replace(/_+/g,"_");return n.slice(0,24);}
+
+function printFallback(){
+  const html=`<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>NyxFit Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>${document.querySelector("style").textContent}
+  body{background:#fff;display:block;padding:0}#report{margin:0 auto}@media print{@page{size:A4;margin:0}#report .pg{page-break-after:always}}</style></head>
+  <body><div id="report">${buildReportHTML()}</div>
+  <script>window.onload=function(){setTimeout(function(){window.print();},600);}<\/script></body></html>`;
+  const w=window.open("","_blank");
+  if(!w){toast("Açılır pencere engellendi. Lütfen izin verin.");return;}
+  w.document.write(html); w.document.close();
+  toast("Yazdırma penceresi açıldı — 'PDF olarak kaydet' seçin.");
+}
+
+/* PWA service worker (yalnızca http/https'te) */
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(function(){});});
+}
+
+/* ---------------- BAŞLAT ---------------- */
+render();
+</script>
+</body>
+</html>
