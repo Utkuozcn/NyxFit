@@ -1,5 +1,5 @@
 // NyxFit service worker — offline cache
-const CACHE = "nyxfit-v5.4";
+const CACHE = "nyxfit-v5.5";
 
 // Çekirdek dosyalar (mutlaka var olmalı — addAll atomiktir)
 const CORE = [
